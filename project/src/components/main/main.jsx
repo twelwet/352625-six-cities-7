@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Item from '../item/item.jsx';
 
-function Main() {
+function Main({placesCount}) {
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -74,7 +75,7 @@ function Main() {
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{`${placesCount} places to stay in Amsterdam`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -103,5 +104,9 @@ function Main() {
     </div>
   );
 }
+
+Main.propTypes = {
+  placesCount: PropTypes.number,
+};
 
 export default Main;
