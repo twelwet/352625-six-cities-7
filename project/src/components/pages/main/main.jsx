@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../item/item.jsx';
+import Item from '../../item/item.jsx';
 
 function Main({placesCount}) {
   return (

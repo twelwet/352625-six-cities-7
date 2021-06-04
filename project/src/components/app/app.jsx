@@ -1,5 +1,5 @@
 import React from 'react';
-import Main from '../main/main.jsx';
+import Main from '../pages/main/main.jsx';
 import PropTypes from 'prop-types';
 
 function App({placesCount}) {
