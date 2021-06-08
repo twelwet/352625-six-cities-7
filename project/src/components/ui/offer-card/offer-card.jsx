@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import offerPropTypes from '../../../prop-types/offer.prop.js';
 
 function OfferCard({data}) {
   const {
@@ -51,15 +51,7 @@ function OfferCard({data}) {
 }
 
 OfferCard.propTypes = {
-  data: PropTypes.shape({
-    description: PropTypes.string,
-    type: PropTypes.string,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    rating: PropTypes.number,
-    isPremium: PropTypes.bool,
-    isBookmark: PropTypes.bool,
-  }),
+  data: offerPropTypes,
 };
 
 export default OfferCard;

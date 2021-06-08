@@ -1,6 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
 import OfferCard from '../../ui/offer-card/offer-card.jsx';
+
+import offersPropTypes from '../../../prop-types/offers.prop.js';
 
 function Main({offers}) {
   const placesCount = offers.length;
@@ -108,16 +110,7 @@ function Main({offers}) {
 }
 
 Main.propTypes = {
-  offers: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string,
-    description: PropTypes.string,
-    type: PropTypes.string,
-    price: PropTypes.number,
-    image: PropTypes.string,
-    rating: PropTypes.number,
-    isPremium: PropTypes.boolean,
-    isBookmark: PropTypes.boolean,
-  })),
+  offers: offersPropTypes,
 };
 
 export default Main;
