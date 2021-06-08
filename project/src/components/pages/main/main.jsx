@@ -2,7 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import OfferCard from '../../ui/offer-card/offer-card.jsx';
 
-function Main({placesCount}) {
+function Main({offers}) {
+  const placesCount = offers.length;
+
   return (
     <div className="page page--gray page--main">
       <header className="header">
@@ -92,7 +94,7 @@ function Main({placesCount}) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {['first', 'second', 'third', 'forth', 'fifth'].map((item) => <OfferCard key={item}/>)}
+                {offers.map((offer) => <OfferCard key={offer.id} data={offer}/>)}
               </div>
             </section>
             <div className="cities__right-section">
@@ -106,7 +108,16 @@ function Main({placesCount}) {
 }
 
 Main.propTypes = {
-  placesCount: PropTypes.number,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    description: PropTypes.string,
+    type: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    rating: PropTypes.number,
+    isPremium: PropTypes.boolean,
+    isBookmark: PropTypes.boolean,
+  })),
 };
 
 export default Main;

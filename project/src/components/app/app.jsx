@@ -8,12 +8,12 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 
-function App({placesCount}) {
+function App({offers}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main placesCount={placesCount}/>
+          <Main offers={offers}/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -37,7 +37,16 @@ function App({placesCount}) {
 }
 
 App.propTypes = {
-  placesCount: PropTypes.number,
+  offers: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string,
+    description: PropTypes.string,
+    type: PropTypes.string,
+    price: PropTypes.number,
+    image: PropTypes.string,
+    rating: PropTypes.number,
+    isPremium: PropTypes.boolean,
+    isBookmark: PropTypes.boolean,
+  })),
 };
 
 
