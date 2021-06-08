@@ -1,6 +1,6 @@
 import React from 'react';
 
-import OfferCard from '../../ui/offer-card/offer-card.jsx';
+import OffersList from '../../ui/offers-list/offers-list.jsx';
 
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 
@@ -95,9 +95,7 @@ function Main({offers}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <div className="cities__places-list places__list tabs__content">
-                {offers.map((offer) => <OfferCard key={offer.id} data={offer}/>)}
-              </div>
+              <OffersList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>
