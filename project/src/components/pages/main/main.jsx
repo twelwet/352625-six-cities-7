@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Item from '../../item/item.jsx';
+import OfferCard from '../../item/offer-card.jsx';
 
 function Main({placesCount}) {
   return (
@@ -92,7 +92,7 @@ function Main({placesCount}) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {['first', 'second', 'third', 'forth', 'fifth'].map((item) => <Item key={item}/>)}
+                {['first', 'second', 'third', 'forth', 'fifth'].map((item) => <OfferCard key={item}/>)}
               </div>
             </section>
             <div className="cities__right-section">
