@@ -7,14 +7,12 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 
-import offersPropTypes from '../../prop-types/offers.prop.js';
-
-function App({offers}) {
+function App(props) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main offers={offers}/>
+          <Main {...props}/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -36,10 +34,5 @@ function App({offers}) {
     </BrowserRouter>
   );
 }
-
-App.propTypes = {
-  offers: offersPropTypes,
-};
-
 
 export default App;
