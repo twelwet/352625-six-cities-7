@@ -43,7 +43,7 @@ const offers = [
     rating: 100,
     city: Cities.AMSTERDAM,
     isPremium: true,
-    isBookmark: false,
+    isBookmark: true,
   },
   {
     id: 'offer005',

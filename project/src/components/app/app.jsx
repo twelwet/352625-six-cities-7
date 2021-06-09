@@ -20,7 +20,7 @@ function App(props) {
         </Route>
 
         <Route path={'/favourites'} exact>
-          <Favourites/>
+          <Favourites {...props}/>
         </Route>
 
         <Route path={'/offer/:id?'} exact>
