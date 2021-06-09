@@ -1,4 +1,4 @@
-import {OfferTypes} from './constants.js';
+import {OfferTypes, Cities} from './constants.js';
 
 const offers = [
   {
@@ -8,6 +8,7 @@ const offers = [
     price: 120,
     image: 'img/apartment-01.jpg',
     rating: 100,
+    city: Cities.AMSTERDAM,
     isPremium: true,
     isBookmark: false,
   },
@@ -18,6 +19,7 @@ const offers = [
     price: 80,
     image: 'img/room.jpg',
     rating: 50,
+    city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: true,
   },
@@ -28,6 +30,7 @@ const offers = [
     price: 132,
     image: 'img/apartment-02.jpg',
     rating: 80,
+    city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: false,
   },
@@ -38,6 +41,7 @@ const offers = [
     price: 180,
     image: 'img/apartment-03.jpg',
     rating: 100,
+    city: Cities.AMSTERDAM,
     isPremium: true,
     isBookmark: false,
   },
@@ -48,6 +52,7 @@ const offers = [
     price: 80,
     image: 'img/room.jpg',
     rating: 80,
+    city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: false,
   },

@@ -3,4 +3,13 @@ const OfferTypes = {
   PRIVATE_ROOM: 'Private room',
 };
 
-export {OfferTypes};
+const Cities = {
+  PARIS: 'Paris',
+  COLOGNE: 'Cologne',
+  BRUSSELS: 'Brussels',
+  AMSTERDAM: 'Amsterdam',
+  HAMBURG: 'Hamburg',
+  DUSSELDORF: 'Dusseldorf',
+};
+
+export {OfferTypes, Cities};
