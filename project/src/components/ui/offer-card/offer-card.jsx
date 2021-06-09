@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
+import {Link} from 'react-router-dom';
 
 function OfferCard({data, onOfferHover, onOfferLeave}) {
   const {
+    id,
     description,
     type,
     price,
@@ -23,9 +25,9 @@ function OfferCard({data, onOfferHover, onOfferLeave}) {
         <span>Premium</span>
       </div>
       <div className="cities__image-wrapper place-card__image-wrapper">
-        <a href={'/'}>
+        <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={image} width="260" height="200" alt="Some place"/>
-        </a>
+        </Link>
       </div>
       <div className="place-card__info">
         <div className="place-card__price-wrapper">
@@ -47,7 +49,7 @@ function OfferCard({data, onOfferHover, onOfferLeave}) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href={'/'}>{description}</a>
+          <Link to={`/offer/${id}`}>{description}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
