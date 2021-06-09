@@ -1,7 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 
-function OfferCard({data}) {
+function OfferCard({data, onOfferHover, onOfferLeave}) {
   const {
     description,
     type,
@@ -13,7 +14,11 @@ function OfferCard({data}) {
   } = data;
 
   return (
-    <article className="cities__place-card place-card">
+    <article
+      className="cities__place-card place-card"
+      onMouseEnter={onOfferHover}
+      onMouseLeave={onOfferLeave}
+    >
       <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
         <span>Premium</span>
       </div>
@@ -52,6 +57,8 @@ function OfferCard({data}) {
 
 OfferCard.propTypes = {
   data: offerPropTypes,
+  onOfferHover: PropTypes.func,
+  onOfferLeave: PropTypes.func,
 };
 
 export default OfferCard;
