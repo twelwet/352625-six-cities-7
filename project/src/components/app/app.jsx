@@ -23,7 +23,7 @@ function App(props) {
           <Favourites {...props}/>
         </Route>
 
-        <Route path={'/offer/:id'} exact component={Room}/>
+        <Route path={'/offer/:id'} exact render={(localProps) => <Room id={localProps.match.params.id} {...props}/>} />
 
         <Route>
           <NotFound/>
