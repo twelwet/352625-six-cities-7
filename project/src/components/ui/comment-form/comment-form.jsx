@@ -10,7 +10,11 @@ function CommentForm() {
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    setComment({...comment, [name]: value});
+    if (evt.target.tagName === 'input') {
+      setComment({...comment, [name]: parseInt(value, 10)});
+    } else {
+      setComment({...comment, [name]: value});
+    }
   };
 
   return (
@@ -21,7 +25,7 @@ function CommentForm() {
       onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <RatingStarsList changeHandler={handleFieldChange}/>
+      <RatingStarsList changeHandler={handleFieldChange} activeStar={parseInt(comment.rating, 10)}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"

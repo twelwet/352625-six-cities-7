@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import RatingStar from '../rating-star/rating-star.jsx';
 import starsList from '../../../utils/gets-stars-list.js';
 
-function RatingStarsList({changeHandler}) {
+function RatingStarsList({changeHandler, activeStar}) {
   return (
     <div className="reviews__rating-form form__rating">
       {
@@ -13,6 +13,7 @@ function RatingStarsList({changeHandler}) {
               key={`${star}-stars`}
               weight={star}
               changeHandler={changeHandler}
+              active={activeStar === star}
             />
           ),
         )
@@ -23,6 +24,7 @@ function RatingStarsList({changeHandler}) {
 
 RatingStarsList.propTypes = {
   changeHandler: PropTypes.func,
+  activeStar: PropTypes.number,
 };
 
 export default RatingStarsList;
