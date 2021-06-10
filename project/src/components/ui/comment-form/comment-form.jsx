@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import RatingStar from '../rating-star/rating-star.jsx';
+import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 
 function CommentForm() {
   const [comment, setComment] = useState({rating: null, review: null});
@@ -21,19 +21,7 @@ function CommentForm() {
       onSubmit={handleSubmit}
     >
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <div className="reviews__rating-form form__rating">
-        {
-          [5, 4, 3, 2, 1].map(
-            (star) => (
-              <RatingStar
-                key={`${star}-stars`}
-                weight={star}
-                changeHandler={handleFieldChange}
-              />
-            ),
-          )
-        }
-      </div>
+      <RatingStarsList changeHandler={handleFieldChange}/>
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
