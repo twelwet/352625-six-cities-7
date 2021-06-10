@@ -31,7 +31,7 @@ function Main({offers}) {
                 </a>
               </li>
               <li className="locations__item">
-                <a href className="locations__item-link tabs__item tabs__item--active">
+                <a href={'/'} className="locations__item-link tabs__item tabs__item--active">
                   <span>Amsterdam</span>
                 </a>
               </li>
