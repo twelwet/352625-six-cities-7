@@ -10,11 +10,7 @@ function CommentForm() {
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    if (evt.target.tagName === 'input') {
-      setComment({...comment, [name]: parseInt(value, 10)});
-    } else {
-      setComment({...comment, [name]: value});
-    }
+    setComment({...comment, [name]: value});
   };
 
   return (

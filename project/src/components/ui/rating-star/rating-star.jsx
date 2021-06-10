@@ -11,7 +11,6 @@ function RatingStar({weight, changeHandler, active}) {
         id={`${weight}-stars`}
         type="radio"
         onChange={changeHandler}
-        defaultChecked={false}
         checked={active}
       />
       <label htmlFor={`${weight}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
