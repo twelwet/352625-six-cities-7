@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RatingStar from '../rating-star/rating-star.jsx';
+import starsList from '../../../utils/gets-stars-list.js';
 
 function RatingStarsList({changeHandler}) {
   return (
     <div className="reviews__rating-form form__rating">
       {
-        [5, 4, 3, 2, 1].map(
+        starsList.map(
           (star) => (
             <RatingStar
               key={`${star}-stars`}
