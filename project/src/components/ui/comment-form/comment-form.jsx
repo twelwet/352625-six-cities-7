@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 
 function CommentForm() {
-  const [comment, setComment] = useState({rating: null, review: null});
+  const [comment, setComment] = useState({rating: null, review: ''});
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -28,6 +28,7 @@ function CommentForm() {
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleFieldChange}
+        value={comment.review}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
