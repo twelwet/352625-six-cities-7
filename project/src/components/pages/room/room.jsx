@@ -3,9 +3,15 @@ import PropTypes from 'prop-types';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import CommentForm from '../../ui/comment-form/comment-form.jsx';
 import Header from '../../ui/header/header.jsx';
+import NotFound from '../../pages/not-found/not-found.jsx';
 
 function Room({id, offers}) {
-  const [offer] = offers.filter((item) => item.id === id);
+  const offer = offers.find((item) => item.id === id);
+
+  if (!offer) {
+    return <NotFound/>;
+  }
+
   const {
     description,
     type,
