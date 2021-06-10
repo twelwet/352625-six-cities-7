@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Link} from 'react-router-dom';
 
-function OfferCard({data, onOfferHover, onOfferLeave}) {
+function OfferCard({cardType, data, onOfferHover, onOfferLeave}) {
   const {
     id,
     description,
@@ -17,19 +17,25 @@ function OfferCard({data, onOfferHover, onOfferLeave}) {
 
   return (
     <article
-      className="cities__place-card place-card"
-      onMouseEnter={onOfferHover}
-      onMouseLeave={onOfferLeave}
+      className={cardType === 'original' ? 'cities__place-card place-card' : 'favorites__card place-card'}
+      onMouseEnter={cardType === 'original' ? onOfferHover : () => {}}
+      onMouseLeave={cardType === 'original' ? onOfferLeave : () => {}}
     >
-      <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
-        <span>Premium</span>
-      </div>
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      {cardType === 'original' ? (
+        <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
+          <span>Premium</span>
+        </div>
+      ) : ''}
+      <div
+        className={cardType === 'original' ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}
+      >
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={image} width="260" height="200" alt="Some place"/>
+          <img className="place-card__image" src={image} width={cardType === 'original' ? '260' : '150'} height={cardType === 'original' ? '200' : '110'} alt="Some place"/>
         </Link>
       </div>
-      <div className="place-card__info">
+      <div
+        className={cardType === 'original' ? 'place-card__info' : 'favorites__card-info place-card__info'}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{price}</b>
@@ -58,6 +64,7 @@ function OfferCard({data, onOfferHover, onOfferLeave}) {
 }
 
 OfferCard.propTypes = {
+  cardType: PropTypes.string,
   data: offerPropTypes,
   onOfferHover: PropTypes.func,
   onOfferLeave: PropTypes.func,

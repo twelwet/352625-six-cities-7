@@ -13,6 +13,7 @@ function OffersList ({offers}) {
             (
               <OfferCard
                 key={offer.id}
+                cardType={'original'}
                 data={offer}
                 onOfferHover={() => setActiveOfferId({...activeOffer, activeOfferId: offer.id})}
                 onOfferLeave={() => setActiveOfferId({...activeOffer, activeOfferId: null})}

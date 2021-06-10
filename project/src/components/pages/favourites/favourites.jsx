@@ -1,6 +1,6 @@
 import React from 'react';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
-import OfferCardFavourites from '../../ui/offer-card-favourites/offer-card-favourites.jsx';
+import OfferCard from '../../ui/offer-card/offer-card.jsx';
 import Header from '../../ui/header/header.jsx';
 
 function Favourites({offers}) {
@@ -28,8 +28,9 @@ function Favourites({offers}) {
                       .map(
                         (offer) =>
                           (
-                            <OfferCardFavourites
+                            <OfferCard
                               key={offer.id}
+                              cardType={'favourites'}
                               data={offer}
                             />
                           ),
