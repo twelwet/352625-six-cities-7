@@ -1,12 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import mocks from './mocks.js';
-
-const {placesCount} = mocks;
+import offers from './mocks/offers.js';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App placesCount={placesCount} />
+    <App offers={offers} />
   </React.StrictMode>,
   document.getElementById('root'));

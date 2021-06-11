@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
 
 import Main from '../pages/main/main.jsx';
@@ -8,12 +7,12 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 
-function App({placesCount}) {
+function App(props) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main placesCount={placesCount}/>
+          <Main {...props}/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -21,12 +20,10 @@ function App({placesCount}) {
         </Route>
 
         <Route path={'/favourites'} exact>
-          <Favourites/>
+          <Favourites {...props}/>
         </Route>
 
-        <Route path={'/offer/:id?'} exact>
-          <Room/>
-        </Route>
+        <Route path={'/offer/:id'} exact render={(localProps) => <Room id={localProps.match.params.id} {...props}/>} />
 
         <Route>
           <NotFound/>
@@ -35,10 +32,5 @@ function App({placesCount}) {
     </BrowserRouter>
   );
 }
-
-App.propTypes = {
-  placesCount: PropTypes.number,
-};
-
 
 export default App;
