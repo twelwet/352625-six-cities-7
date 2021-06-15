@@ -1,17 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
+import offerPropTypes from '../../../prop-types/offer.prop.js';
 import CommentForm from '../../ui/comment-form/comment-form.jsx';
 import Header from '../../ui/header/header.jsx';
-import NotFound from '../../pages/not-found/not-found.jsx';
 
-function Room({id, offers}) {
-  const offer = offers.find((item) => item.id === id);
-
-  if (!offer) {
-    return <NotFound/>;
-  }
-
+function Room({offer}) {
   const {
     description,
     type,
@@ -273,8 +265,7 @@ function Room({id, offers}) {
 }
 
 Room.propTypes = {
-  id: PropTypes.string,
-  offers: offersPropTypes,
+  offer: offerPropTypes,
 };
 
 export default Room;
