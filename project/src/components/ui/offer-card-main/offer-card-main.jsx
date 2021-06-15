@@ -4,7 +4,7 @@ import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 
-function OfferCardOriginal(props) {
+function OfferCardMain(props) {
   const {viewData, ...restProps} = props;
 
   return (
@@ -23,11 +23,11 @@ function OfferCardOriginal(props) {
   );
 }
 
-OfferCardOriginal.propTypes = {
+OfferCardMain.propTypes = {
   viewData: offerViewDataTypes,
   data: offerPropTypes,
   onOfferHover: PropTypes.func,
   onOfferLeave: PropTypes.func,
 };
 
-export default OfferCardOriginal;
+export default OfferCardMain;

@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import OfferCardOriginal from '../offer-card-original/offer-card-original.jsx';
+import OfferCardMain from '../offer-card-main/offer-card-main.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop';
 
 function OffersList ({offers}) {
@@ -11,7 +11,7 @@ function OffersList ({offers}) {
         offers.map(
           (offer) =>
             (
-              <OfferCardOriginal
+              <OfferCardMain
                 key={offer.id}
                 data={offer}
                 onOfferHover={() => setActiveOfferId(offer.id)}
