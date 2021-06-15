@@ -36,7 +36,7 @@ function App(props) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer}/>);
+              return (<Room offer={offer} {...props}/>);
             }
           }
         />
