@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Link} from 'react-router-dom';
+import CardTypes from './constants.js';
 
 function OfferCard({cardType, data, onOfferHover, onOfferLeave}) {
   const {
@@ -17,24 +18,24 @@ function OfferCard({cardType, data, onOfferHover, onOfferLeave}) {
 
   return (
     <article
-      className={cardType === 'original' ? 'cities__place-card place-card' : 'favorites__card place-card'}
-      onMouseEnter={cardType === 'original' ? onOfferHover : () => {}}
-      onMouseLeave={cardType === 'original' ? onOfferLeave : () => {}}
+      className={cardType === CardTypes.ORIGINAL ? 'cities__place-card place-card' : 'favorites__card place-card'}
+      onMouseEnter={cardType === CardTypes.ORIGINAL ? onOfferHover : () => {}}
+      onMouseLeave={cardType === CardTypes.ORIGINAL ? onOfferLeave : () => {}}
     >
-      {cardType === 'original' ? (
+      {cardType === CardTypes.ORIGINAL ? (
         <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
           <span>Premium</span>
         </div>
       ) : ''}
       <div
-        className={cardType === 'original' ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}
+        className={cardType === CardTypes.ORIGINAL ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}
       >
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={image} width={cardType === 'original' ? '260' : '150'} height={cardType === 'original' ? '200' : '110'} alt="Some place"/>
+          <img className="place-card__image" src={image} width={cardType === CardTypes.ORIGINAL ? '260' : '150'} height={cardType === CardTypes.ORIGINAL ? '200' : '110'} alt="Some place"/>
         </Link>
       </div>
       <div
-        className={cardType === 'original' ? 'place-card__info' : 'favorites__card-info place-card__info'}
+        className={cardType === CardTypes.ORIGINAL ? 'place-card__info' : 'favorites__card-info place-card__info'}
       >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
