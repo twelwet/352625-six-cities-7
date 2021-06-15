@@ -3,7 +3,7 @@ import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import CommentForm from '../../ui/comment-form/comment-form.jsx';
 import Header from '../../ui/header/header.jsx';
-import OfferCardNeighborhood from '../../ui/offer-card-neighborhood/offer-card-neighborhood.jsx';
+import CardNeighborhood from '../../ui/offer-card/card-neighborhood/card-neighborhood.jsx';
 
 function Room({offer, offers}) {
   const {
@@ -168,7 +168,7 @@ function Room({offer, offers}) {
                   .map(
                     (item) =>
                       (
-                        <OfferCardNeighborhood
+                        <CardNeighborhood
                           key={item.id}
                           data={item}
                         />
