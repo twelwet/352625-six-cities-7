@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
+import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
 import OfferCard from '../offer-card/offer-card.jsx';
 
 function OfferCardOriginal(props) {
@@ -23,15 +24,7 @@ function OfferCardOriginal(props) {
 }
 
 OfferCardOriginal.propTypes = {
-  viewData: PropTypes.shape({
-    cardWidth: PropTypes.string,
-    cardHeight: PropTypes.string,
-    classNames: PropTypes.shape({
-      mainBlock: PropTypes.string,
-      imageBlock: PropTypes.string,
-      infoBlock: PropTypes.string,
-    }),
-  }),
+  viewData: offerViewDataTypes,
   data: offerPropTypes,
   onOfferHover: PropTypes.func,
   onOfferLeave: PropTypes.func,
