@@ -1,5 +1,5 @@
 import React from 'react';
-import OffersList from '../../ui/offers-list/offers-list.jsx';
+import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 
@@ -68,7 +68,7 @@ function Main({offers}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <OffersList offers={offers}/>
+              <ListMain offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"/>

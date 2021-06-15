@@ -1,6 +1,6 @@
 import React from 'react';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
-import CardFavourites from '../../ui/offer-card/card-favourites/card-favourites.jsx';
+import ListFavourites from '../../ui/offers-list/list-favourites/list-favourites.jsx';
 import Header from '../../ui/header/header.jsx';
 
 function Favourites({offers}) {
@@ -21,22 +21,7 @@ function Favourites({offers}) {
                     </a>
                   </div>
                 </div>
-                <div className="favorites__places">
-                  {
-                    offers
-                      .filter((offer) => offer.isBookmark === true)
-                      .map(
-                        (offer) =>
-                          (
-                            <CardFavourites
-                              key={offer.id}
-                              cardType={'favourites'}
-                              data={offer}
-                            />
-                          ),
-                      )
-                  }
-                </div>
+                <ListFavourites offers={offers}/>
               </li>
 
             </ul>

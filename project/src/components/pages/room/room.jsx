@@ -3,7 +3,7 @@ import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import CommentForm from '../../ui/comment-form/comment-form.jsx';
 import Header from '../../ui/header/header.jsx';
-import CardNeighborhood from '../../ui/offer-card/card-neighborhood/card-neighborhood.jsx';
+import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 
 function Room({offer, offers}) {
   const {
@@ -162,20 +162,7 @@ function Room({offer, offers}) {
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {
-                offers
-                  .map(
-                    (item) =>
-                      (
-                        <CardNeighborhood
-                          key={item.id}
-                          data={item}
-                        />
-                      ),
-                  )
-              }
-            </div>
+            <ListNeighborhood offers={offers}/>
           </section>
         </div>
       </main>

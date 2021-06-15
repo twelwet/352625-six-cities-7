@@ -1,8 +1,8 @@
 import React, {useState} from 'react';
-import CardMain from '../offer-card/card-main/card-main.jsx';
-import offersPropTypes from '../../../prop-types/offers.prop';
+import CardMain from '../../offer-card/card-main/card-main.jsx';
+import offersPropTypes from '../../../../prop-types/offers.prop';
 
-function OffersList ({offers}) {
+function ListMain ({offers}) {
   const [, setActiveOfferId] = useState(null);
 
   return (
@@ -24,9 +24,9 @@ function OffersList ({offers}) {
   );
 }
 
-OffersList.propTypes = {
+ListMain.propTypes = {
   offers: offersPropTypes,
 };
 
 
-export default OffersList;
+export default ListMain;
