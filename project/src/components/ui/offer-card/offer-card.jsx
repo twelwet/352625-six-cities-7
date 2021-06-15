@@ -3,7 +3,19 @@ import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Link} from 'react-router-dom';
 
-function OfferCard({data, onOfferHover = () => {}, onOfferLeave = () => {}, cardWidth, cardHeight}) {
+function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () => {}}) {
+  const {
+    cardWidth,
+    cardHeight,
+    classNames,
+  } = viewData;
+
+  const {
+    mainBlock,
+    imageBlock,
+    infoBlock,
+  } = classNames;
+
   const {
     id,
     description,
@@ -17,7 +29,7 @@ function OfferCard({data, onOfferHover = () => {}, onOfferLeave = () => {}, card
 
   return (
     <article
-      className={'place-card'}
+      className={`${mainBlock} place-card`}
       onMouseEnter={onOfferHover}
       onMouseLeave={onOfferLeave}
     >
@@ -25,14 +37,14 @@ function OfferCard({data, onOfferHover = () => {}, onOfferLeave = () => {}, card
         <span>Premium</span>
       </div>
       <div
-        className={'place-card__image-wrapper'}
+        className={`${imageBlock} place-card__image-wrapper`}
       >
         <Link to={`/offer/${id}`}>
           <img className="place-card__image" src={image} width={cardWidth} height={cardHeight} alt="Some place"/>
         </Link>
       </div>
       <div
-        className={'place-card__info'}
+        className={`${infoBlock} place-card__info`}
       >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
@@ -62,12 +74,18 @@ function OfferCard({data, onOfferHover = () => {}, onOfferLeave = () => {}, card
 }
 
 OfferCard.propTypes = {
-  cardType: PropTypes.string,
+  viewData: PropTypes.shape({
+    cardWidth: PropTypes.string,
+    cardHeight: PropTypes.string,
+    classNames: PropTypes.shape({
+      mainBlock: PropTypes.string,
+      imageBlock: PropTypes.string,
+      infoBlock: PropTypes.string,
+    }),
+  }),
   data: offerPropTypes,
   onOfferHover: PropTypes.func,
   onOfferLeave: PropTypes.func,
-  cardWidth: PropTypes.string,
-  cardHeight: PropTypes.string,
 };
 
 export default OfferCard;
