@@ -22,11 +22,9 @@ function OfferCard({cardType, data, onOfferHover, onOfferLeave}) {
       onMouseEnter={cardType === CardTypes.ORIGINAL ? onOfferHover : () => {}}
       onMouseLeave={cardType === CardTypes.ORIGINAL ? onOfferLeave : () => {}}
     >
-      {cardType === CardTypes.ORIGINAL ? (
-        <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
-          <span>Premium</span>
-        </div>
-      ) : ''}
+      <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
+        <span>Premium</span>
+      </div>
       <div
         className={cardType === CardTypes.ORIGINAL ? 'cities__image-wrapper place-card__image-wrapper' : 'favorites__image-wrapper place-card__image-wrapper'}
       >
