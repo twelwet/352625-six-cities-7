@@ -9,6 +9,7 @@ const MapSettings = {
   Icon: {
     URL: 'img/pin.svg',
     SIZE: [30, 30],
+    ANCHOR: [15, 20],
   },
   DEFAULT_ZOOM: 12,
   LAYER_URL: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
@@ -26,6 +27,7 @@ function initMap() {
   const icon = leaflet.icon({
     iconUrl: MapSettings.Icon.URL,
     iconSize: MapSettings.Icon.SIZE,
+    iconAnchor: MapSettings.Icon.ANCHOR,
   });
 
   map.setView([City.LATITUDE, City.LONGITUDE], MapSettings.DEFAULT_ZOOM);
