@@ -1,6 +1,7 @@
 import React from 'react';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
+import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 
 function Main({offers}) {
@@ -71,7 +72,9 @@ function Main({offers}) {
               <ListMain offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <section className="cities__map map"/>
+              <section className="cities__map map">
+                <Map/>
+              </section>
             </div>
           </div>
         </div>
