@@ -11,8 +11,8 @@ const offers = [
     city: Cities.AMSTERDAM,
     isPremium: true,
     isBookmark: false,
-    latitude: '52.3909553943508,',
-    longitude: '4.85309666406198',
+    latitude: 52.3909553943508,
+    longitude: 4.85309666406198,
   },
   {
     id: 'offer002',
@@ -24,8 +24,8 @@ const offers = [
     city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: true,
-    latitude: '52.369553943508',
-    longitude: '4.85309666406198',
+    latitude: 52.369553943508,
+    longitude: 4.85309666406198,
   },
   {
     id: 'offer003',
@@ -37,8 +37,8 @@ const offers = [
     city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: false,
-    latitude: '52.3909553943508',
-    longitude: '4.929309666406198',
+    latitude: 52.3909553943508,
+    longitude: 4.929309666406198,
   },
   {
     id: 'offer004',
@@ -50,8 +50,8 @@ const offers = [
     city: Cities.AMSTERDAM,
     isPremium: true,
     isBookmark: true,
-    latitude: '52.3809553943508',
-    longitude: '4.939309666406198',
+    latitude: 52.3809553943508,
+    longitude: 4.939309666406198,
   },
   {
     id: 'offer005',
@@ -63,8 +63,8 @@ const offers = [
     city: Cities.AMSTERDAM,
     isPremium: false,
     isBookmark: false,
-    latitude: '52.369553943508',
-    longitude: '4.939309666406198',
+    latitude: 52.369553943508,
+    longitude: 4.939309666406198,
   },
 ];
 

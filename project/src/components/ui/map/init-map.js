@@ -6,6 +6,10 @@ const City = {
 };
 
 const MapSettings = {
+  Icon: {
+    URL: 'img/pin.svg',
+    SIZE: [30, 30],
+  },
   DEFAULT_ZOOM: 12,
   LAYER_URL: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
@@ -19,6 +23,11 @@ function initMap() {
     marker: true,
   });
 
+  const icon = leaflet.icon({
+    iconUrl: MapSettings.Icon.URL,
+    iconSize: MapSettings.Icon.SIZE,
+  });
+
   map.setView([City.LATITUDE, City.LONGITUDE], MapSettings.DEFAULT_ZOOM);
 
   leaflet
@@ -26,6 +35,8 @@ function initMap() {
       attribution: MapSettings.ATTRIBUTION,
     })
     .addTo(map);
+
+  return {map, icon};
 }
 
 export default initMap;
