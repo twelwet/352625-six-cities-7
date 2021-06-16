@@ -1,15 +1,9 @@
 import RATING_STARS from '../settings.js';
 
-const getStarsList = (starsQuantity) => {
-  const result = [];
-  let star = starsQuantity;
+const getStarsList = (starsQuantity) =>
+  (new Array(starsQuantity))
+    .fill(starsQuantity)
+    .map((item, index) => item - index);
 
-  do {
-    result.push(star);
-    star--;
-  } while (star > 0);
-
-  return result;
-};
 
 export default getStarsList(RATING_STARS);
