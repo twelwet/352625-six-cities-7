@@ -7,7 +7,7 @@ function Map() {
   });
 
   return (
-    <div id={'map'} style={{height: '850px'}}/>
+    <div id={'map'} style={{height: '100%'}}/>
   );
 }
 
