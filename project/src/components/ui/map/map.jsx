@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import initMap from './init-map.js';
 import leaflet from 'leaflet';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import 'leaflet/dist/leaflet.css';
 
 function Map({offers}) {
   useEffect(() => {
