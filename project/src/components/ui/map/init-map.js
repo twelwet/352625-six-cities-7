@@ -14,12 +14,12 @@ const MapSettings = {
 function initMap() {
   const map = leaflet.map('map', {
     center: [City.LATITUDE, City.LONGITUDE],
-    zoom: DEFAULT_ZOOM,
+    zoom: MapSettings.DEFAULT_ZOOM,
     zoomControl: false,
     marker: true,
   });
 
-  map.setView([City.LATITUDE, City.LONGITUDE], DEFAULT_ZOOM);
+  map.setView([City.LATITUDE, City.LONGITUDE], MapSettings.DEFAULT_ZOOM);
 
   leaflet
     .tileLayer(MapSettings.LAYER_URL, {
