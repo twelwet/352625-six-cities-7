@@ -3,8 +3,9 @@ import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import cityPropTypes from '../../../prop-types/city.prop.js';
 
-function Main({offers}) {
+function Main({offers, city}) {
   const placesCount = offers.length;
 
   return (
@@ -73,7 +74,7 @@ function Main({offers}) {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers}/>
+                <Map offers={offers} city={city}/>
               </section>
             </div>
           </div>
@@ -85,6 +86,7 @@ function Main({offers}) {
 
 Main.propTypes = {
   offers: offersPropTypes,
+  city: cityPropTypes,
 };
 
 export default Main;

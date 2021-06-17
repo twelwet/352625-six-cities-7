@@ -1,10 +1,5 @@
 import leaflet from 'leaflet';
 
-const City = {
-  LATITUDE: 52.38333,
-  LONGITUDE: 4.9,
-};
-
 const MapSettings = {
   Icon: {
     URL: 'img/pin.svg',
@@ -16,9 +11,9 @@ const MapSettings = {
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 };
 
-function initMap() {
+function initMap(city) {
   const map = leaflet.map('map', {
-    center: [City.LATITUDE, City.LONGITUDE],
+    center: [city.location.latitude, city.location.longitude],
     zoom: MapSettings.DEFAULT_ZOOM,
     zoomControl: false,
     marker: true,
@@ -30,7 +25,7 @@ function initMap() {
     iconAnchor: MapSettings.Icon.ANCHOR,
   });
 
-  map.setView([City.LATITUDE, City.LONGITUDE], MapSettings.DEFAULT_ZOOM);
+  map.setView([city.location.latitude, city.location.longitude], MapSettings.DEFAULT_ZOOM);
 
   leaflet
     .tileLayer(MapSettings.LAYER_URL, {
