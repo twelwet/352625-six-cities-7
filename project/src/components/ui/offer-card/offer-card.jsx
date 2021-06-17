@@ -22,7 +22,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
     description,
     type,
     price,
-    image,
+    previewImage,
     rating,
     isPremium,
     isBookmark,
@@ -41,7 +41,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
         className={`${imageBlock} place-card__image-wrapper`}
       >
         <Link to={`/offer/${id}`}>
-          <img className="place-card__image" src={image} width={cardWidth} height={cardHeight} alt="Some place"/>
+          <img className="place-card__image" src={previewImage} width={cardWidth} height={cardHeight} alt="Some place"/>
         </Link>
       </div>
       <div

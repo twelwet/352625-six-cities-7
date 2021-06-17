@@ -10,7 +10,7 @@ function Room({offer, offers}) {
     description,
     type,
     price,
-    image,
+    previewImage,
     rating,
     isPremium,
     isBookmark,
@@ -25,7 +25,7 @@ function Room({offer, offers}) {
           <div className="property__gallery-container container">
             <div className="property__gallery">
               <div className="property__image-wrapper">
-                <img className="property__image" src={image} alt="studio"/>
+                <img className="property__image" src={previewImage} alt="studio"/>
               </div>
             </div>
           </div>
