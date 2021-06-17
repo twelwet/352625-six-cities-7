@@ -25,6 +25,11 @@ export default PropTypes.shape({
       zoom: PropTypes.number,
     }),
   }).isRequired,
+  location: PropTypes.shape({
+    latitude: PropTypes.number,
+    longitude: PropTypes.number,
+    zoom: PropTypes.number,
+  }),
   isPremium: PropTypes.boolean,
   isBookmark: PropTypes.boolean,
 });
