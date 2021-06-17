@@ -14,10 +14,10 @@ function Map({offers}) {
         .marker([latitude, longitude], {icon})
         .addTo(map);
     });
-  });
+  }, [offers]);
 
   return (
-    <div id={'map'} style={{height: '100%'}}/>
+    <div id={'map'} ref={mapRef} style={{height: '100%'}}/>
   );
 }
 
