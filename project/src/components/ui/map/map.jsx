@@ -9,7 +9,7 @@ function Map({offers}) {
     const {map, icon} = initMap();
 
     offers.forEach((offer) => {
-      const {latitude, longitude} = offer;
+      const {latitude, longitude} = offer.location;
       leaflet
         .marker([latitude, longitude], {icon})
         .addTo(map);

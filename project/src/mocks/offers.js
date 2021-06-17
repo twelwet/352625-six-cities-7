@@ -1,4 +1,4 @@
-import {OfferTypes, Cities, CitiesNames} from './constants.js';
+import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER} from './constants.js';
 
 const offers = [
   {
@@ -11,8 +11,11 @@ const offers = [
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isBookmark: false,
-    latitude: 52.3909553943508,
-    longitude: 4.85309666406198,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.85309666406198,
+      zoom: ZOOM_OFFER,
+    },
   },
   {
     id: 'offer002',
@@ -24,8 +27,11 @@ const offers = [
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isBookmark: true,
-    latitude: 52.369553943508,
-    longitude: 4.85309666406198,
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.85309666406198,
+      zoom: ZOOM_OFFER,
+    },
   },
   {
     id: 'offer003',
@@ -37,8 +43,11 @@ const offers = [
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isBookmark: false,
-    latitude: 52.3909553943508,
-    longitude: 4.929309666406198,
+    location: {
+      latitude: 52.3909553943508,
+      longitude: 4.929309666406198,
+      zoom: ZOOM_OFFER,
+    },
   },
   {
     id: 'offer004',
@@ -50,8 +59,11 @@ const offers = [
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isBookmark: true,
-    latitude: 52.3809553943508,
-    longitude: 4.939309666406198,
+    location: {
+      latitude: 52.3809553943508,
+      longitude: 4.939309666406198,
+      zoom: ZOOM_OFFER,
+    },
   },
   {
     id: 'offer005',
@@ -63,8 +75,11 @@ const offers = [
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isBookmark: false,
-    latitude: 52.369553943508,
-    longitude: 4.939309666406198,
+    location: {
+      latitude: 52.369553943508,
+      longitude: 4.939309666406198,
+      zoom: ZOOM_OFFER,
+    },
   },
 ];
 

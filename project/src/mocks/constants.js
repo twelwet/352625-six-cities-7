@@ -13,6 +13,7 @@ const CitiesNames = {
 };
 
 const ZOOM = 13;
+const ZOOM_OFFER = 16;
 
 const CitiesLocations = {
   [CitiesNames.PARIS]: {
@@ -98,4 +99,4 @@ const Cities = {
   },
 };
 
-export {OfferTypes, Cities, CitiesNames};
+export {OfferTypes, Cities, CitiesNames, ZOOM_OFFER};
