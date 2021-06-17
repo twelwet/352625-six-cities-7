@@ -11,6 +11,7 @@ export default PropTypes.shape({
   rating: PropTypes.number.isRequired,
   bedrooms: PropTypes.number.isRequired,
   maxAdults: PropTypes.number.isRequired,
+  goods: PropTypes.arrayOf(PropTypes.string).isRequired,
   city: PropTypes.shape({
     name: PropTypes.oneOf(
       [

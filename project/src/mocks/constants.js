@@ -99,4 +99,17 @@ const Cities = {
   },
 };
 
-export {OfferTypes, Cities, CitiesNames, ZOOM_OFFER};
+const Goods = {
+  WI_FI: 'Wi-Fi',
+  HEATING: 'Heating',
+  KITCHEN: 'Kitchen',
+  FRIDGE: 'Fridge',
+  WASHING_MACHINE: 'Washing machine',
+  COFFEE_MASHINE: 'Coffee machine',
+  DISHWASHER: 'Dishwasher',
+  TOWELS: 'Towels',
+  BABY_SEAT: 'Baby seat',
+  CABEL_TV: 'Cabel TV',
+};
+
+export {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods};

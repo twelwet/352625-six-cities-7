@@ -1,4 +1,4 @@
-import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER} from './constants.js';
+import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods} from './constants.js';
 
 const offers = [
   {
@@ -14,6 +14,12 @@ const offers = [
     rating: 5,
     bedrooms: 3,
     maxAdults: 6,
+    goods: [
+      Goods.BABY_SEAT,
+      Goods.CABEL_TV,
+      Goods.COFFEE_MASHINE,
+      Goods.DISHWASHER,
+    ],
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isFavourite: false,
@@ -37,6 +43,13 @@ const offers = [
     rating: 2.5,
     bedrooms: 2,
     maxAdults: 7,
+    goods: [
+      Goods.WI_FI,
+      Goods.KITCHEN,
+      Goods.TOWELS,
+      Goods.FRIDGE,
+      Goods.CABEL_TV,
+    ],
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: true,
@@ -60,6 +73,10 @@ const offers = [
     rating: 4,
     bedrooms: 3,
     maxAdults: 5,
+    goods: [
+      Goods.WI_FI,
+      Goods.CABEL_TV,
+    ],
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: false,
@@ -84,6 +101,15 @@ const offers = [
     rating: 3.5,
     bedrooms: 4,
     maxAdults: 5,
+    goods: [
+      Goods.WI_FI,
+      Goods.KITCHEN,
+      Goods.TOWELS,
+      Goods.FRIDGE,
+      Goods.CABEL_TV,
+      Goods.BABY_SEAT,
+      Goods.HEATING,
+    ],
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isFavourite: true,
@@ -109,6 +135,9 @@ const offers = [
     rating: 1.9,
     bedrooms: 1,
     maxAdults: 2,
+    goods: [
+      Goods.COFFEE_MASHINE,
+    ],
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: false,
