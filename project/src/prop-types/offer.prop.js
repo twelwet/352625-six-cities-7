@@ -7,6 +7,7 @@ export default PropTypes.shape({
   type: PropTypes.oneOf(['Apartment', 'Private room']).isRequired,
   price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
+  images: PropTypes.arrayOf(PropTypes.string).isRequired,
   rating: PropTypes.number.isRequired,
   city: PropTypes.shape({
     name: PropTypes.oneOf(

@@ -10,7 +10,7 @@ function Room({offer, offers}) {
     description,
     type,
     price,
-    previewImage,
+    images,
     rating,
     isPremium,
     isBookmark,
@@ -24,9 +24,15 @@ function Room({offer, offers}) {
         <section className="property">
           <div className="property__gallery-container container">
             <div className="property__gallery">
-              <div className="property__image-wrapper">
-                <img className="property__image" src={previewImage} alt="studio"/>
-              </div>
+              {
+                images.map(
+                  (image) => (
+                    <div key={Math.random()} className="property__image-wrapper">
+                      <img className="property__image" src={image} alt="studio"/>
+                    </div>
+                  ),
+                )
+              }
             </div>
           </div>
           <div className="property__container container">
