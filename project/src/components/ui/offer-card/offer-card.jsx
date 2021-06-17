@@ -19,7 +19,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
 
   const {
     id,
-    description,
+    title,
     type,
     price,
     previewImage,
@@ -66,7 +66,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={`/offer/${id}`}>{description}</Link>
+          <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>

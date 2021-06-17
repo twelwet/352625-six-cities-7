@@ -7,7 +7,7 @@ import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighb
 
 function Room({offer, offers}) {
   const {
-    description,
+    title,
     type,
     price,
     images,
@@ -42,7 +42,7 @@ function Room({offer, offers}) {
               </div>
               <div className="property__name-wrapper">
                 <h1 className="property__name">
-                  {description}
+                  {title}
                 </h1>
                 <button className={isBookmark ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">

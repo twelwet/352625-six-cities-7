@@ -3,7 +3,7 @@ import {CitiesNames} from '../mocks/constants';
 
 export default PropTypes.shape({
   id: PropTypes.string.isRequired,
-  description: PropTypes.string.isRequired,
+  title: PropTypes.string.isRequired,
   type: PropTypes.oneOf(['Apartment', 'Private room']).isRequired,
   price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,

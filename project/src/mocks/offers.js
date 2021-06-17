@@ -3,7 +3,7 @@ import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER} from './constants.js';
 const offers = [
   {
     id: 'offer001',
-    description: 'Beautiful & luxurious apartment at great location',
+    title: 'Beautiful & luxurious apartment at great location',
     type: OfferTypes.APARTMENT,
     price: 120,
     previewImage: 'img/apartment-01.jpg',
@@ -23,7 +23,7 @@ const offers = [
   },
   {
     id: 'offer002',
-    description: 'Wood and stone place',
+    title: 'Wood and stone place',
     type: OfferTypes.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
@@ -44,7 +44,7 @@ const offers = [
   },
   {
     id: 'offer003',
-    description: 'Canal View Prinsengracht',
+    title: 'Canal View Prinsengracht',
     type: OfferTypes.APARTMENT,
     price: 132,
     previewImage: 'img/apartment-02.jpg',
@@ -65,7 +65,7 @@ const offers = [
   },
   {
     id: 'offer004',
-    description: 'Nice, cozy, warm big bed apartment',
+    title: 'Nice, cozy, warm big bed apartment',
     type: OfferTypes.APARTMENT,
     price: 180,
     previewImage: 'img/apartment-03.jpg',
@@ -87,7 +87,7 @@ const offers = [
   },
   {
     id: 'offer005',
-    description: 'Wood and stone place',
+    title: 'Wood and stone place',
     type: OfferTypes.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
