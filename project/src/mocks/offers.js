@@ -14,7 +14,7 @@ const offers = [
     rating: 5,
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
-    isBookmark: false,
+    isFavourite: false,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.85309666406198,
@@ -35,7 +35,7 @@ const offers = [
     rating: 2.5,
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
-    isBookmark: true,
+    isFavourite: true,
     location: {
       latitude: 52.369553943508,
       longitude: 4.85309666406198,
@@ -56,7 +56,7 @@ const offers = [
     rating: 4,
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
-    isBookmark: false,
+    isFavourite: false,
     location: {
       latitude: 52.3909553943508,
       longitude: 4.929309666406198,
@@ -78,7 +78,7 @@ const offers = [
     rating: 3.5,
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
-    isBookmark: true,
+    isFavourite: true,
     location: {
       latitude: 52.3809553943508,
       longitude: 4.939309666406198,
@@ -101,7 +101,7 @@ const offers = [
     rating: 1.9,
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
-    isBookmark: false,
+    isFavourite: false,
     location: {
       latitude: 52.369553943508,
       longitude: 4.939309666406198,

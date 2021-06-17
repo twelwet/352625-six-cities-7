@@ -32,5 +32,5 @@ export default PropTypes.shape({
     zoom: PropTypes.number,
   }),
   isPremium: PropTypes.boolean,
-  isBookmark: PropTypes.boolean,
+  isFavourite: PropTypes.boolean,
 });

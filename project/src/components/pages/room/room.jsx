@@ -13,7 +13,7 @@ function Room({offer, offers}) {
     images,
     rating,
     isPremium,
-    isBookmark,
+    isFavourite,
   } = offer;
 
   return (
@@ -44,7 +44,7 @@ function Room({offer, offers}) {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={isBookmark ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button">
+                <button className={isFavourite ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button">
                   <svg className="property__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"/>
                   </svg>

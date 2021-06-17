@@ -7,7 +7,7 @@ function ListFavourites ({offers}) {
     <div className="favorites__places">
       {
         offers
-          .filter((offer) => offer.isBookmark === true)
+          .filter((offer) => offer.isFavourite === true)
           .map(
             (offer) =>
               (

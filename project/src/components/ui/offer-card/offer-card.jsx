@@ -25,7 +25,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
     previewImage,
     rating,
     isPremium,
-    isBookmark,
+    isFavourite,
   } = data;
 
   return (
@@ -52,7 +52,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isBookmark ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
+          <button className={isFavourite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"/>
             </svg>
