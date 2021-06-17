@@ -4,6 +4,7 @@ const offers = [
   {
     id: 'offer001',
     title: 'Beautiful & luxurious apartment at great location',
+    description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
     type: OfferTypes.APARTMENT,
     price: 120,
     previewImage: 'img/apartment-01.jpg',
@@ -32,6 +33,7 @@ const offers = [
   {
     id: 'offer002',
     title: 'Wood and stone place',
+    description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
     type: OfferTypes.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
@@ -62,6 +64,7 @@ const offers = [
   {
     id: 'offer003',
     title: 'Canal View Prinsengracht',
+    description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
     type: OfferTypes.APARTMENT,
     price: 132,
     previewImage: 'img/apartment-02.jpg',
@@ -89,6 +92,7 @@ const offers = [
   {
     id: 'offer004',
     title: 'Nice, cozy, warm big bed apartment',
+    description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
     type: OfferTypes.APARTMENT,
     price: 180,
     previewImage: 'img/apartment-03.jpg',
@@ -122,6 +126,7 @@ const offers = [
   {
     id: 'offer005',
     title: 'Wood and stone place',
+    description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
     type: OfferTypes.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
