@@ -61,7 +61,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
-            <span style={{width: `${rating}%`}}/>
+            <span style={{width: `${100 * rating / 5}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
