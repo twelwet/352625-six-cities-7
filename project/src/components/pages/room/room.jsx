@@ -12,6 +12,8 @@ function Room({offer, offers}) {
     price,
     images,
     rating,
+    bedrooms,
+    maxAdults,
     isPremium,
     isFavourite,
   } = offer;
@@ -63,10 +65,10 @@ function Room({offer, offers}) {
                   {type}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
-                  3 Bedrooms
+                  {bedrooms} Bedrooms
                 </li>
                 <li className="property__feature property__feature--adults">
-                  Max 4 adults
+                  Max {maxAdults} adults
                 </li>
               </ul>
               <div className="property__price">

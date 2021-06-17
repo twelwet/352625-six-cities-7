@@ -9,6 +9,8 @@ export default PropTypes.shape({
   previewImage: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
   rating: PropTypes.number.isRequired,
+  bedrooms: PropTypes.number.isRequired,
+  maxAdults: PropTypes.number.isRequired,
   city: PropTypes.shape({
     name: PropTypes.oneOf(
       [
