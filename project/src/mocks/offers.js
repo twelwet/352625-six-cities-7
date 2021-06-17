@@ -1,4 +1,4 @@
-import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods} from './constants.js';
+import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods, HostNames} from './constants.js';
 
 const offers = [
   {
@@ -21,6 +21,12 @@ const offers = [
       Goods.COFFEE_MASHINE,
       Goods.DISHWASHER,
     ],
+    host: {
+      id: 25,
+      name: HostNames.ANGELINA,
+      isPro: true,
+      avatarUrl: 'img/avatar-angelina.jpg',
+    },
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isFavourite: false,
@@ -52,6 +58,12 @@ const offers = [
       Goods.FRIDGE,
       Goods.CABEL_TV,
     ],
+    host: {
+      id: 24,
+      name: HostNames.MAX,
+      isPro: false,
+      avatarUrl: 'img/avatar-max.jpg',
+    },
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: true,
@@ -80,6 +92,12 @@ const offers = [
       Goods.WI_FI,
       Goods.CABEL_TV,
     ],
+    host: {
+      id: 25,
+      name: HostNames.ANGELINA,
+      isPro: true,
+      avatarUrl: 'img/avatar-angelina.jpg',
+    },
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: false,
@@ -114,6 +132,12 @@ const offers = [
       Goods.BABY_SEAT,
       Goods.HEATING,
     ],
+    host: {
+      id: 25,
+      name: HostNames.ANGELINA,
+      isPro: true,
+      avatarUrl: 'img/avatar-angelina.jpg',
+    },
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: true,
     isFavourite: true,
@@ -143,6 +167,12 @@ const offers = [
     goods: [
       Goods.COFFEE_MASHINE,
     ],
+    host: {
+      id: 23,
+      name: HostNames.JAMES,
+      isPro: false,
+      avatarUrl: '',
+    },
     city: Cities[CitiesNames.AMSTERDAM],
     isPremium: false,
     isFavourite: false,

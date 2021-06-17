@@ -13,6 +13,12 @@ export default PropTypes.shape({
   bedrooms: PropTypes.number.isRequired,
   maxAdults: PropTypes.number.isRequired,
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  host: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    isPro: PropTypes.boolean,
+    avatarUrl: PropTypes.string,
+  }).isRequired,
   city: PropTypes.shape({
     name: PropTypes.oneOf(
       [

@@ -112,4 +112,10 @@ const Goods = {
   CABEL_TV: 'Cabel TV',
 };
 
-export {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods};
+const HostNames = {
+  ANGELINA: 'Angelina',
+  MAX: 'Max',
+  JAMES: 'James',
+};
+
+export {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods, HostNames};
