@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import RatingStar from '../rating-star/rating-star.jsx';
-import starsList from '../../../utils/gets-stars-list.js';
+import starsList from '../../../utils/get-stars-list.js';
 
 function RatingStarsList({changeHandler, activeStar}) {
   return (
