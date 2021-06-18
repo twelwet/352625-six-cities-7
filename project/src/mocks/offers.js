@@ -1,11 +1,11 @@
-import {OfferTypes, Cities, CitiesNames, ZOOM_OFFER, Goods, HostNames} from './constants.js';
+import {OfferType, City, CityName, ZOOM_OFFER, Good, HostName} from './constants.js';
 
 const offers = [
   {
     id: 'offer001',
     title: 'Beautiful & luxurious apartment at great location',
     description: 'A new spacious villa, one floor. All commodities, jacuzzi and beautiful scenery. Ideal for families or friends.',
-    type: OfferTypes.APARTMENT,
+    type: OfferType.APARTMENT,
     price: 120,
     previewImage: 'img/apartment-01.jpg',
     images: [
@@ -16,18 +16,18 @@ const offers = [
     bedrooms: 3,
     maxAdults: 6,
     goods: [
-      Goods.BABY_SEAT,
-      Goods.CABEL_TV,
-      Goods.COFFEE_MASHINE,
-      Goods.DISHWASHER,
+      Good.BABY_SEAT,
+      Good.CABEL_TV,
+      Good.COFFEE_MASHINE,
+      Good.DISHWASHER,
     ],
     host: {
       id: 25,
-      name: HostNames.ANGELINA,
+      name: HostName.ANGELINA,
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg',
     },
-    city: Cities[CitiesNames.AMSTERDAM],
+    city: City[CityName.AMSTERDAM],
     isPremium: true,
     isFavourite: false,
     location: {
@@ -40,7 +40,7 @@ const offers = [
     id: 'offer002',
     title: 'Wood and stone place',
     description: 'Relax, rejuvenate and unplug in this ultimate rustic getaway experience in the country. In our beautiful screened Pondhouse, you can gaze at the stars and listen to the sounds of nature from your cozy warm bed.',
-    type: OfferTypes.PRIVATE_ROOM,
+    type: OfferType.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
     images: [
@@ -52,19 +52,19 @@ const offers = [
     bedrooms: 2,
     maxAdults: 7,
     goods: [
-      Goods.WI_FI,
-      Goods.KITCHEN,
-      Goods.TOWELS,
-      Goods.FRIDGE,
-      Goods.CABEL_TV,
+      Good.WI_FI,
+      Good.KITCHEN,
+      Good.TOWELS,
+      Good.FRIDGE,
+      Good.CABEL_TV,
     ],
     host: {
       id: 24,
-      name: HostNames.MAX,
+      name: HostName.MAX,
       isPro: false,
       avatarUrl: 'img/avatar-max.jpg',
     },
-    city: Cities[CitiesNames.AMSTERDAM],
+    city: City[CityName.AMSTERDAM],
     isPremium: false,
     isFavourite: true,
     location: {
@@ -77,7 +77,7 @@ const offers = [
     id: 'offer003',
     title: 'Canal View Prinsengracht',
     description: 'I am happy to welcome you to my apartment in the city center! Three words: location, cosy and chic!',
-    type: OfferTypes.APARTMENT,
+    type: OfferType.APARTMENT,
     price: 132,
     previewImage: 'img/apartment-02.jpg',
     images: [
@@ -89,16 +89,16 @@ const offers = [
     bedrooms: 3,
     maxAdults: 5,
     goods: [
-      Goods.WI_FI,
-      Goods.CABEL_TV,
+      Good.WI_FI,
+      Good.CABEL_TV,
     ],
     host: {
       id: 25,
-      name: HostNames.ANGELINA,
+      name: HostName.ANGELINA,
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg',
     },
-    city: Cities[CitiesNames.AMSTERDAM],
+    city: City[CityName.AMSTERDAM],
     isPremium: false,
     isFavourite: false,
     location: {
@@ -111,7 +111,7 @@ const offers = [
     id: 'offer004',
     title: 'Nice, cozy, warm big bed apartment',
     description: 'Peaceful studio in the most wanted area in town. Quiet house Near of everything. Completely renovated. Lovely neighbourhood, lot of trendy shops, restaurants and bars in a walking distance.',
-    type: OfferTypes.APARTMENT,
+    type: OfferType.APARTMENT,
     price: 180,
     previewImage: 'img/apartment-03.jpg',
     images: [
@@ -124,21 +124,21 @@ const offers = [
     bedrooms: 4,
     maxAdults: 5,
     goods: [
-      Goods.WI_FI,
-      Goods.KITCHEN,
-      Goods.TOWELS,
-      Goods.FRIDGE,
-      Goods.CABEL_TV,
-      Goods.BABY_SEAT,
-      Goods.HEATING,
+      Good.WI_FI,
+      Good.KITCHEN,
+      Good.TOWELS,
+      Good.FRIDGE,
+      Good.CABEL_TV,
+      Good.BABY_SEAT,
+      Good.HEATING,
     ],
     host: {
       id: 25,
-      name: HostNames.ANGELINA,
+      name: HostName.ANGELINA,
       isPro: true,
       avatarUrl: 'img/avatar-angelina.jpg',
     },
-    city: Cities[CitiesNames.AMSTERDAM],
+    city: City[CityName.AMSTERDAM],
     isPremium: true,
     isFavourite: true,
     location: {
@@ -151,7 +151,7 @@ const offers = [
     id: 'offer005',
     title: 'Wood and stone place',
     description: 'Discover daily local life in city center, friendly neighborhood, clandestine casino, karaoke, old-style artisans, art gallery and artist studio downstairs.',
-    type: OfferTypes.PRIVATE_ROOM,
+    type: OfferType.PRIVATE_ROOM,
     price: 80,
     previewImage: 'img/room.jpg',
     images: [
@@ -165,15 +165,15 @@ const offers = [
     bedrooms: 1,
     maxAdults: 2,
     goods: [
-      Goods.COFFEE_MASHINE,
+      Good.COFFEE_MASHINE,
     ],
     host: {
       id: 23,
-      name: HostNames.JAMES,
+      name: HostName.JAMES,
       isPro: false,
       avatarUrl: '',
     },
-    city: Cities[CitiesNames.AMSTERDAM],
+    city: City[CityName.AMSTERDAM],
     isPremium: false,
     isFavourite: false,
     location: {

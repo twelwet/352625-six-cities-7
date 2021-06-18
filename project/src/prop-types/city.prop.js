@@ -1,15 +1,15 @@
 import PropTypes from 'prop-types';
-import {CitiesNames} from '../mocks/constants';
+import {CityName} from '../mocks/constants';
 
 export default PropTypes.shape({
   name: PropTypes.oneOf(
     [
-      CitiesNames.PARIS,
-      CitiesNames.COLOGNE,
-      CitiesNames.BRUSSELS,
-      CitiesNames.AMSTERDAM,
-      CitiesNames.HAMBURG,
-      CitiesNames.DUSSELDORF,
+      CityName.PARIS,
+      CityName.COLOGNE,
+      CityName.BRUSSELS,
+      CityName.AMSTERDAM,
+      CityName.HAMBURG,
+      CityName.DUSSELDORF,
     ],
   ),
   location: PropTypes.shape({

@@ -1,5 +1,5 @@
-import {Cities, CitiesNames} from './constants.js';
+import {City, CityName} from './constants.js';
 
-const city = Cities[CitiesNames.AMSTERDAM];
+const city = City[CityName.AMSTERDAM];
 
 export default city;
