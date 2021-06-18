@@ -4,16 +4,23 @@ import 'leaflet/dist/leaflet.css';
 import useMap from './useMap.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop';
-import {Icon} from './constants.js';
+import PropTypes from 'prop-types';
+import {Icons} from './constants.js';
 
-function Map({offers, city}) {
+function Map({offers, city, activeOfferId}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
   const icon = leaflet.icon({
-    iconUrl: Icon.URL,
-    iconSize: Icon.SIZE,
-    iconAnchor: Icon.ANCHOR,
+    iconUrl: Icons.REGULAR.URL,
+    iconSize: Icons.REGULAR.SIZE,
+    iconAnchor: Icons.REGULAR.ANCHOR,
+  });
+
+  const iconActive = leaflet.icon({
+    iconUrl: Icons.ACTIVE.URL,
+    iconSize: Icons.ACTIVE.SIZE,
+    iconAnchor: Icons.ACTIVE.ANCHOR,
   });
 
   useEffect(() => {
@@ -21,11 +28,11 @@ function Map({offers, city}) {
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
         leaflet
-          .marker([latitude, longitude], {icon})
+          .marker([latitude, longitude], {icon: (offer.id === activeOfferId) ? iconActive : icon})
           .addTo(map);
       });
     }
-  }, [map, offers, icon]);
+  }, [map, offers, icon, iconActive, activeOfferId]);
 
   return (
     <div id={'map'} ref={mapRef} style={{height: '100%'}}/>
@@ -35,6 +42,7 @@ function Map({offers, city}) {
 Map.propTypes = {
   offers: offersPropTypes,
   city: cityPropTypes,
+  activeOfferId: PropTypes.string,
 };
 
 export default Map;

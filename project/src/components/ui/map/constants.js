@@ -3,10 +3,24 @@ const MapSettings = {
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 };
 
+const ICON_SIZE = [30, 30];
+const ICON_ANCHOR = [15, 20];
+
 const Icon = {
   URL: 'img/pin.svg',
-  SIZE: [30, 30],
-  ANCHOR: [15, 20],
+  SIZE: ICON_SIZE,
+  ANCHOR: ICON_ANCHOR,
 };
 
-export  {MapSettings, Icon};
+const IconActive = {
+  URL: 'img/pin-active.svg',
+  SIZE: ICON_SIZE,
+  ANCHOR: ICON_ANCHOR,
+};
+
+const Icons = {
+  REGULAR: Icon,
+  ACTIVE: IconActive,
+};
+
+export  {MapSettings, Icons};

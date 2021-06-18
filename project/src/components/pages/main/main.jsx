@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import Map from '../../ui/map/map.jsx';
@@ -7,6 +7,7 @@ import cityPropTypes from '../../../prop-types/city.prop.js';
 
 function Main({offers, city}) {
   const placesCount = offers.length;
+  const [activeOfferId, setActiveOfferId] = useState(null);
 
   return (
     <div className="page page--gray page--main">
@@ -70,11 +71,11 @@ function Main({offers, city}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <ListMain offers={offers}/>
+              <ListMain offers={offers} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} city={city}/>
+                <Map offers={offers} city={city} activeOfferId={activeOfferId}/>
               </section>
             </div>
           </div>
