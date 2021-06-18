@@ -26,7 +26,7 @@ function ListMain ({offers, setActiveOfferId}) {
 
 ListMain.propTypes = {
   offers: offersPropTypes,
-  setActiveOfferId: PropTypes.func,
+  setActiveOfferId: PropTypes.func.isRequired,
 };
 
 

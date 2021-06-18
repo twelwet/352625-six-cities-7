@@ -11,10 +11,10 @@ export default PropTypes.shape({
       CityName.HAMBURG,
       CityName.DUSSELDORF,
     ],
-  ),
+  ).isRequired,
   location: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-    zoom: PropTypes.number,
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired,
   }),
 });

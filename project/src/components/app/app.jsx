@@ -7,13 +7,14 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
+import cityPropTypes from '../../prop-types/city.prop.js';
 
 function App(props) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main {...props}/>
+          <Main offers={props.offers} city={props.city}/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -51,6 +52,7 @@ function App(props) {
 
 App.propTypes = {
   offers: offersPropTypes,
+  city: cityPropTypes,
 };
 
 

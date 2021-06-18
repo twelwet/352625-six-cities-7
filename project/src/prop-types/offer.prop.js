@@ -14,17 +14,17 @@ export default PropTypes.shape({
   maxAdults: PropTypes.number.isRequired,
   goods: PropTypes.arrayOf(PropTypes.string).isRequired,
   host: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
+    id: PropTypes.number.isRequired,
+    name: PropTypes.string.isRequired,
     isPro: PropTypes.boolean,
-    avatarUrl: PropTypes.string,
+    avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
   city: cityPropTypes,
   location: PropTypes.shape({
-    latitude: PropTypes.number,
-    longitude: PropTypes.number,
-    zoom: PropTypes.number,
-  }),
+    latitude: PropTypes.number.isRequired,
+    longitude: PropTypes.number.isRequired,
+    zoom: PropTypes.number.isRequired,
+  }).isRequired,
   isPremium: PropTypes.boolean,
   isFavourite: PropTypes.boolean,
-});
+}).isRequired;
