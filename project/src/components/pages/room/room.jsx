@@ -32,7 +32,7 @@ function Room({offer, offers}) {
               {
                 images.map(
                   (image) => (
-                    <div key={Math.random()} className="property__image-wrapper">
+                    <div key={image} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="studio"/>
                     </div>
                   ),
@@ -84,7 +84,7 @@ function Room({offer, offers}) {
                   {
                     goods.map(
                       (item) => (
-                        <li key={Math.random()} className="property__inside-item">
+                        <li key={item} className="property__inside-item">
                           {item}
                         </li>
                       ),

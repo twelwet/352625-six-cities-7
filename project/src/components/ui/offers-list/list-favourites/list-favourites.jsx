@@ -10,7 +10,7 @@ function ListFavourites ({offers}) {
   return (
     offersByCities.map(
       (item) => (
-        <li key={Math.random()} className="favorites__locations-items">
+        <li key={item.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href={'/'}>
