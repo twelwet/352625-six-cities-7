@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {CityName} from '../mocks/constants';
+import cityPropTypes from './city.prop.js';
 
 export default PropTypes.shape({
   id: PropTypes.string.isRequired,
@@ -19,23 +19,7 @@ export default PropTypes.shape({
     isPro: PropTypes.boolean,
     avatarUrl: PropTypes.string,
   }).isRequired,
-  city: PropTypes.shape({
-    name: PropTypes.oneOf(
-      [
-        CityName.PARIS,
-        CityName.COLOGNE,
-        CityName.BRUSSELS,
-        CityName.AMSTERDAM,
-        CityName.HAMBURG,
-        CityName.DUSSELDORF,
-      ],
-    ),
-    location: PropTypes.shape({
-      latitude: PropTypes.number,
-      longitude: PropTypes.number,
-      zoom: PropTypes.number,
-    }),
-  }).isRequired,
+  city: cityPropTypes,
   location: PropTypes.shape({
     latitude: PropTypes.number,
     longitude: PropTypes.number,
