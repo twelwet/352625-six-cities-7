@@ -1,9 +1,9 @@
-import React, {useState} from 'react';
-import OfferCard from '../offer-card/offer-card';
-import offersPropTypes from '../../../prop-types/offers.prop';
+import React from 'react';
+import PropTypes from 'prop-types';
+import CardMain from '../../offer-card/card-main/card-main.jsx';
+import offersPropTypes from '../../../../prop-types/offers.prop';
 
-function OffersList ({offers}) {
-  const [, setActiveOfferId] = useState(null);
+function ListMain ({offers, setActiveOfferId}) {
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -11,9 +11,8 @@ function OffersList ({offers}) {
         offers.map(
           (offer) =>
             (
-              <OfferCard
+              <CardMain
                 key={offer.id}
-                cardType={'original'}
                 data={offer}
                 onOfferHover={() => setActiveOfferId(offer.id)}
                 onOfferLeave={() => setActiveOfferId(null)}
@@ -25,9 +24,10 @@ function OffersList ({offers}) {
   );
 }
 
-OffersList.propTypes = {
+ListMain.propTypes = {
   offers: offersPropTypes,
+  setActiveOfferId: PropTypes.func,
 };
 
 
-export default OffersList;
+export default ListMain;

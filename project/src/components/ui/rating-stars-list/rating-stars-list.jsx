@@ -23,8 +23,8 @@ function RatingStarsList({changeHandler, activeStar}) {
 }
 
 RatingStarsList.propTypes = {
-  changeHandler: PropTypes.func,
-  activeStar: PropTypes.number,
+  changeHandler: PropTypes.func.isRequired,
+  activeStar: PropTypes.number.isRequired,
 };
 
 export default RatingStarsList;

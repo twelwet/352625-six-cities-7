@@ -23,9 +23,9 @@ function RatingStar({weight, changeHandler, active}) {
 }
 
 RatingStar.propTypes = {
-  weight: PropTypes.number,
-  changeHandler: PropTypes.func,
-  active: PropTypes.bool,
+  weight: PropTypes.number.isRequired,
+  changeHandler: PropTypes.func.isRequired,
+  active: PropTypes.bool.isRequired,
 };
 
 export default RatingStar;

@@ -6,6 +6,7 @@ import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
+import offersPropTypes from '../../prop-types/offers.prop.js';
 
 function App(props) {
   return (
@@ -23,7 +24,22 @@ function App(props) {
           <Favourites {...props}/>
         </Route>
 
-        <Route path={'/offer/:id'} exact render={(localProps) => <Room id={localProps.match.params.id} {...props}/>} />
+        <Route
+          path={'/offer/:id'}
+          exact
+          render={
+            (localProps) => {
+              const id = localProps.match.params.id;
+              const offer = props.offers.find((item) => item.id === id);
+
+              if (!offer) {
+                return <NotFound/>;
+              }
+
+              return (<Room offer={offer} {...props}/>);
+            }
+          }
+        />
 
         <Route>
           <NotFound/>
@@ -32,5 +48,10 @@ function App(props) {
     </BrowserRouter>
   );
 }
+
+App.propTypes = {
+  offers: offersPropTypes,
+};
+
 
 export default App;
