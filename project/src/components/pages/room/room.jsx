@@ -4,8 +4,9 @@ import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Header from '../../ui/header/header.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
+import reviewsPropTypes from '../../../prop-types/reviews.prop';
 
-function Room({offer, offers}) {
+function Room({offer, offers, reviews}) {
   const {
     title,
     description,
@@ -115,7 +116,7 @@ function Room({offer, offers}) {
                   </p>
                 </div>
               </div>
-              <Reviews/>
+              <Reviews offerId={offer.id} reviews={reviews}/>
             </div>
           </div>
           <section className="property__map map"/>
@@ -134,6 +135,7 @@ function Room({offer, offers}) {
 Room.propTypes = {
   offer: offerPropTypes,
   offers: offersPropTypes,
+  reviews: reviewsPropTypes,
 };
 
 export default Room;
