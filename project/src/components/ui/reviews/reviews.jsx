@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewsList from './review-list/reviews-list.jsx';
+import ReviewsList from './reviews-list/reviews-list.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
 
 function Reviews() {
