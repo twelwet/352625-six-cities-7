@@ -1,12 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Header from '../../ui/header/header.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
+import Map from '../../ui/map/map';
 
 function Room({offer, offers, reviews}) {
+  const [activeOfferId, setActiveOfferId] = useState(null);
+
   const {
     title,
     description,
@@ -119,12 +122,14 @@ function Room({offer, offers, reviews}) {
               <Reviews offerId={offer.id} reviews={reviews}/>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map offers={offers} city={offer.city} activeOfferId={activeOfferId}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListNeighborhood offers={offers}/>
+            <ListNeighborhood offers={offers} setActiveOfferId={setActiveOfferId}/>
           </section>
         </div>
       </main>
