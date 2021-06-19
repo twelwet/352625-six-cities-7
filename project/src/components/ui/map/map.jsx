@@ -5,10 +5,11 @@ import useMap from './useMap.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop';
 import PropTypes from 'prop-types';
+import {icon, iconActive} from './utils.js';
 
 function Map({offers, city, activeOfferId}) {
   const mapRef = useRef(null);
-  const {map, icon, iconActive} = useMap(mapRef, city);
+  const map = useMap(mapRef, city);
 
   useEffect(() => {
     if (map) {
