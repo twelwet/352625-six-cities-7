@@ -14,8 +14,7 @@ function ListMain ({offers, setActiveOfferId}) {
               <CardMain
                 key={offer.id}
                 data={offer}
-                onOfferHover={() => setActiveOfferId(offer.id)}
-                onOfferLeave={() => setActiveOfferId(null)}
+                setActiveOfferId={setActiveOfferId}
               />
             ),
         )

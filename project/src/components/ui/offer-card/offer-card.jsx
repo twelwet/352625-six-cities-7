@@ -4,7 +4,7 @@ import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
 import {Link} from 'react-router-dom';
 
-function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () => {}}) {
+function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
   const {
     cardWidth,
     cardHeight,
@@ -31,8 +31,8 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
   return (
     <article
       className={`${mainBlock} place-card`}
-      onMouseEnter={onOfferHover}
-      onMouseLeave={onOfferLeave}
+      onMouseEnter={() => setActiveOfferId(id)}
+      onMouseLeave={() => setActiveOfferId(null)}
     >
       <div className={isPremium ? 'place-card__mark' : 'visually-hidden'}>
         <span>Premium</span>
@@ -77,8 +77,7 @@ function OfferCard({viewData, data, onOfferHover = () => {}, onOfferLeave = () =
 OfferCard.propTypes = {
   viewData: offerViewDataTypes,
   data: offerPropTypes,
-  onOfferHover: PropTypes.func,
-  onOfferLeave: PropTypes.func,
+  setActiveOfferId: PropTypes.func,
 };
 
 export default OfferCard;

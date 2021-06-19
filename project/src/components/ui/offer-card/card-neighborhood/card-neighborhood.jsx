@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import offerPropTypes from '../../../../prop-types/offer.prop.js';
 import OfferCard from '../offer-card.jsx';
 
@@ -22,8 +21,6 @@ function CardNeighborhood(props) {
 
 CardNeighborhood.propTypes = {
   data: offerPropTypes,
-  onOfferHover: PropTypes.func,
-  onOfferLeave: PropTypes.func,
 };
 
 export default CardNeighborhood;

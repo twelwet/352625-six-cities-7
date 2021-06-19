@@ -22,8 +22,7 @@ function CardMain(props) {
 
 CardMain.propTypes = {
   data: offerPropTypes,
-  onOfferHover: PropTypes.func,
-  onOfferLeave: PropTypes.func,
+  setActiveOfferId: PropTypes.func.isRequired,
 };
 
 export default CardMain;
