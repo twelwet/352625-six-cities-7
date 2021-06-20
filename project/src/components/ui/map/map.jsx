@@ -12,21 +12,16 @@ function Map({offers, city, activeOfferId}) {
   const map = useMap(mapRef, city);
 
   useEffect(() => {
+    const pins = [];
     if (map) {
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
-        leaflet
+        pins.push(leaflet
           .marker([latitude, longitude], {icon: (offer.id === activeOfferId) ? iconActive : icon})
-          .addTo(map);
+          .addTo(map));
       });
     }
-    return () => {
-      map.eachLayer((layer) => {
-        if (layer instanceof leaflet.Marker) {
-          map.removeLayer(layer);
-        }
-      });
-    };
+    return () => pins.forEach((pin) => map.removeLayer(pin));
   }, [map, offers, activeOfferId]);
 
   return (
