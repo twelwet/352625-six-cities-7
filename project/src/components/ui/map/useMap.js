@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {MapSettings} from './constants.js';
+import {MapSetting} from './constants.js';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
@@ -18,8 +18,8 @@ function useMap(mapRef, city) {
       });
 
       leaflet
-        .tileLayer(MapSettings.LAYER_URL, {
-          attribution: MapSettings.ATTRIBUTION,
+        .tileLayer(MapSetting.LAYER_URL, {
+          attribution: MapSetting.ATTRIBUTION,
         })
         .addTo(instance);
 

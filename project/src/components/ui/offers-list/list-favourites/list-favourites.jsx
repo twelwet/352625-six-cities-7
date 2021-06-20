@@ -1,4 +1,5 @@
 import React from 'react';
+import {Link} from 'react-router-dom';
 import CardFavourites from '../../offer-card/card-favourites/card-favourites.jsx';
 import offersPropTypes from '../../../../prop-types/offers.prop';
 import getOffersByAllCities from '../../../../utils/get-offers-by-all-cities.js';
@@ -10,12 +11,12 @@ function ListFavourites ({offers}) {
   return (
     offersByCities.map(
       (item) => (
-        <li key={Math.random()} className="favorites__locations-items">
+        <li key={item.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href={'/'}>
+              <Link className="locations__item-link" to={'/'}>
                 <span>{item.city}</span>
-              </a>
+              </Link>
             </div>
           </div>
           <div className="favorites__places">

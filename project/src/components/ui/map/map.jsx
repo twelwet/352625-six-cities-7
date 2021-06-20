@@ -5,34 +5,24 @@ import useMap from './useMap.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop';
 import PropTypes from 'prop-types';
-import {Icons} from './constants.js';
+import {icon, iconActive} from './utils.js';
 
 function Map({offers, city, activeOfferId}) {
   const mapRef = useRef(null);
   const map = useMap(mapRef, city);
 
-  const icon = leaflet.icon({
-    iconUrl: Icons.REGULAR.URL,
-    iconSize: Icons.REGULAR.SIZE,
-    iconAnchor: Icons.REGULAR.ANCHOR,
-  });
-
-  const iconActive = leaflet.icon({
-    iconUrl: Icons.ACTIVE.URL,
-    iconSize: Icons.ACTIVE.SIZE,
-    iconAnchor: Icons.ACTIVE.ANCHOR,
-  });
-
   useEffect(() => {
+    const pins = [];
     if (map) {
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
-        leaflet
+        pins.push(leaflet
           .marker([latitude, longitude], {icon: (offer.id === activeOfferId) ? iconActive : icon})
-          .addTo(map);
+          .addTo(map));
       });
     }
-  }, [map, offers, icon, iconActive, activeOfferId]);
+    return () => pins.forEach((pin) => map.removeLayer(pin));
+  }, [map, offers, activeOfferId]);
 
   return (
     <div id={'map'} ref={mapRef} style={{height: '100%'}}/>

@@ -14,8 +14,7 @@ function ListMain ({offers, setActiveOfferId}) {
               <CardMain
                 key={offer.id}
                 data={offer}
-                onOfferHover={() => setActiveOfferId(offer.id)}
-                onOfferLeave={() => setActiveOfferId(null)}
+                setActiveOfferId={setActiveOfferId}
               />
             ),
         )
@@ -26,7 +25,7 @@ function ListMain ({offers, setActiveOfferId}) {
 
 ListMain.propTypes = {
   offers: offersPropTypes,
-  setActiveOfferId: PropTypes.func,
+  setActiveOfferId: PropTypes.func.isRequired,
 };
 
 

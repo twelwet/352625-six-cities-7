@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import CardNeighborhood from '../../offer-card/card-neighborhood/card-neighborhood.jsx';
 import offersPropTypes from '../../../../prop-types/offers.prop';
 
-function ListNeighborhood ({offers}) {
+function ListNeighborhood ({offers, setActiveOfferId}) {
   return (
     <div className="near-places__list places__list">
       {
@@ -13,6 +14,7 @@ function ListNeighborhood ({offers}) {
                 <CardNeighborhood
                   key={offer.id}
                   data={offer}
+                  setActiveOfferId={setActiveOfferId}
                 />
               ),
           )
@@ -23,6 +25,7 @@ function ListNeighborhood ({offers}) {
 
 ListNeighborhood.propTypes = {
   offers: offersPropTypes,
+  setActiveOfferId: PropTypes.func.isRequired,
 };
 
 

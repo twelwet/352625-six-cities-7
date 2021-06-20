@@ -1,4 +1,4 @@
-const MapSettings = {
+const MapSetting = {
   LAYER_URL: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
   ATTRIBUTION: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
 };
@@ -6,7 +6,7 @@ const MapSettings = {
 const ICON_SIZE = [30, 30];
 const ICON_ANCHOR = [15, 20];
 
-const Icon = {
+const IconRegular = {
   URL: 'img/pin.svg',
   SIZE: ICON_SIZE,
   ANCHOR: ICON_ANCHOR,
@@ -18,9 +18,9 @@ const IconActive = {
   ANCHOR: ICON_ANCHOR,
 };
 
-const Icons = {
-  REGULAR: Icon,
+const Icon = {
+  REGULAR: IconRegular,
   ACTIVE: IconActive,
 };
 
-export  {MapSettings, Icons};
+export  {MapSetting, Icon};

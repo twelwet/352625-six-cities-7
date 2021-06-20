@@ -1,11 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
-import CommentForm from '../../ui/comment-form/comment-form.jsx';
 import Header from '../../ui/header/header.jsx';
+import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
+import reviewsPropTypes from '../../../prop-types/reviews.prop';
+import Map from '../../ui/map/map';
 
-function Room({offer, offers}) {
+function Room({offer, offers, reviews}) {
+  const [activeOfferId, setActiveOfferId] = useState(null);
+
   const {
     title,
     description,
@@ -32,7 +36,7 @@ function Room({offer, offers}) {
               {
                 images.map(
                   (image) => (
-                    <div key={Math.random()} className="property__image-wrapper">
+                    <div key={image} className="property__image-wrapper">
                       <img className="property__image" src={image} alt="studio"/>
                     </div>
                   ),
@@ -84,7 +88,7 @@ function Room({offer, offers}) {
                   {
                     goods.map(
                       (item) => (
-                        <li key={Math.random()} className="property__inside-item">
+                        <li key={item} className="property__inside-item">
                           {item}
                         </li>
                       ),
@@ -115,43 +119,17 @@ function Room({offer, offers}) {
                   </p>
                 </div>
               </div>
-              <section className="property__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src={'img/avatar-max.jpg'} width="54" height="54" alt="Reviews avatar"/>
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: '80%'}}/>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam.
-                        The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
-                <CommentForm/>
-              </section>
+              <Reviews offerId={offer.id} reviews={reviews}/>
             </div>
           </div>
-          <section className="property__map map"/>
+          <section className="property__map map">
+            <Map offers={offers} city={offer.city} activeOfferId={activeOfferId}/>
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListNeighborhood offers={offers}/>
+            <ListNeighborhood offers={offers} setActiveOfferId={setActiveOfferId}/>
           </section>
         </div>
       </main>
@@ -162,6 +140,7 @@ function Room({offer, offers}) {
 Room.propTypes = {
   offer: offerPropTypes,
   offers: offersPropTypes,
+  reviews: reviewsPropTypes,
 };
 
 export default Room;
