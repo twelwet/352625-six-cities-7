@@ -13,12 +13,6 @@ function Map({offers, city, activeOfferId}) {
 
   useEffect(() => {
     if (map) {
-      map.eachLayer((layer) => {
-        if (layer instanceof leaflet.Marker) {
-          map.removeLayer(layer);
-        }
-      });
-
       offers.forEach((offer) => {
         const {latitude, longitude} = offer.location;
         leaflet
@@ -26,6 +20,13 @@ function Map({offers, city, activeOfferId}) {
           .addTo(map);
       });
     }
+    return () => {
+      map.eachLayer((layer) => {
+        if (layer instanceof leaflet.Marker) {
+          map.removeLayer(layer);
+        }
+      });
+    };
   }, [map, offers, activeOfferId]);
 
   return (
