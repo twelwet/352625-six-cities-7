@@ -26,7 +26,7 @@ function Map({offers, city, activeOfferId}) {
           .addTo(map);
       });
     }
-  }, [map, offers, icon, iconActive, activeOfferId]);
+  }, [map, offers, activeOfferId]);
 
   return (
     <div id={'map'} ref={mapRef} style={{height: '100%'}}/>
