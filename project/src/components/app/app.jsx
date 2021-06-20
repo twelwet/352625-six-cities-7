@@ -1,6 +1,6 @@
 import React from 'react';
 import {BrowserRouter, Switch, Route} from 'react-router-dom';
-
+import {connect} from 'react-redux';
 import Main from '../pages/main/main.jsx';
 import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
@@ -57,5 +57,11 @@ App.propTypes = {
   reviews: reviewsPropTypes,
 };
 
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+  reviews: state.reviews,
+});
 
-export default App;
+export {App};
+export default connect(mapStateToProps, null)(App);

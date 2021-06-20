@@ -1,10 +1,12 @@
 import city from '../mocks/city.js';
 import offers from '../mocks/offers.js';
+import reviews from '../mocks/reviews.js';
 import {ActionType} from './action.js';
 
 const initialState = {
-  city: city.name,
+  city: city,
   offers: offers.filter((offer) => offer.city.name === city.name),
+  reviews,
 };
 
 const reducer = (state = initialState, action) => {
