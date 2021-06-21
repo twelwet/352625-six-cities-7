@@ -1,4 +1,4 @@
-import city from '../mocks/city.js';
+import {DEFAULT_CITY} from '../settings.js';
 import offers from '../mocks/offers.js';
 import reviews from '../mocks/reviews.js';
 import {City} from '../mocks/constants.js';
@@ -6,8 +6,8 @@ import {ActionType} from './action.js';
 
 const initialState = {
   cities: Object.keys(City),
-  city: city,
-  cityOffers: offers.filter((offer) => offer.city.name === city.name),
+  city: DEFAULT_CITY,
+  cityOffers: offers.filter((offer) => offer.city.name === DEFAULT_CITY),
   offers,
   reviews,
 };

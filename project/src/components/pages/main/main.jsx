@@ -46,7 +46,7 @@ function Main({offers, city, cities}) {
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} city={city} activeOfferId={activeOfferId}/>
+                <Map offers={offers} activeOfferId={activeOfferId}/>
               </section>
             </div>
           </div>

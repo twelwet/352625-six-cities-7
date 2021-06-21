@@ -1,9 +1,10 @@
 import React, {useState} from 'react';
 import {Link} from 'react-router-dom';
+import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
 function CitiesList({city, cities}) {
-  const [activeCity, setActiveCity] = useState(city.name);
+  const [activeCity, setActiveCity] = useState(city);
   return (
     <ul className="locations__list tabs__list">
       {
@@ -25,6 +26,9 @@ function CitiesList({city, cities}) {
   );
 }
 
-CitiesList.propTypes = citiesPropTypes;
+CitiesList.propTypes = {
+  city: cityPropTypes,
+  cities: citiesPropTypes,
+};
 
 export default CitiesList;
