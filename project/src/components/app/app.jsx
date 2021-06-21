@@ -39,7 +39,7 @@ function App(props) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer} {...props}/>);
+              return (<Room offer={offer} offers={props.cityOffers} reviews={props.reviews}/>);
             }
           }
         />
