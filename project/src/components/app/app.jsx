@@ -9,6 +9,7 @@ import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import cityPropTypes from '../../prop-types/city.prop.js';
 import reviewsPropTypes from '../../prop-types/reviews.prop.js';
+import citiesPropTypes from '../../prop-types/cities.prop.js';
 
 function App(props) {
   return (
@@ -55,12 +56,14 @@ App.propTypes = {
   offers: offersPropTypes,
   city: cityPropTypes,
   reviews: reviewsPropTypes,
+  cities: citiesPropTypes,
 };
 
 const mapStateToProps = (state) => ({
   city: state.city,
   offers: state.offers,
   reviews: state.reviews,
+  cities: state.cities,
 });
 
 export {App};
