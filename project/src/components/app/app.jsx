@@ -24,7 +24,7 @@ function App(props) {
         </Route>
 
         <Route path={'/favourites'} exact>
-          <Favourites {...props}/>
+          <Favourites offers={props.offers}/>
         </Route>
 
         <Route
