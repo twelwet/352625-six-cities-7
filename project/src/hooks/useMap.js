@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {MapSetting} from './constants.js';
+import {MapSetting} from '../components/ui/map/constants.js';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
