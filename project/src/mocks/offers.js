@@ -217,7 +217,7 @@ const offers = [
     },
     city: City[CityName.HAMBURG],
     isPremium: false,
-    isFavourite: false,
+    isFavourite: true,
     location: {
       latitude: 53.554,
       longitude: 9.998,
@@ -294,7 +294,7 @@ const offers = [
     },
     city: City[CityName.PARIS],
     isPremium: false,
-    isFavourite: false,
+    isFavourite: true,
     location: {
       latitude: 48.864716,
       longitude: 2.349014,
@@ -367,8 +367,8 @@ const offers = [
       avatarUrl: '',
     },
     city: City[CityName.PARIS],
-    isPremium: false,
-    isFavourite: false,
+    isPremium: true,
+    isFavourite: true,
     location: {
       latitude: 48.864,
       longitude: 2.33,
@@ -542,8 +542,8 @@ const offers = [
       avatarUrl: '',
     },
     city: City[CityName.DUSSELDORF],
-    isPremium: false,
-    isFavourite: false,
+    isPremium: true,
+    isFavourite: true,
     location: {
       latitude: 51.233334,
       longitude: 6.783333,
