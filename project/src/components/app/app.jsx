@@ -16,7 +16,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main offers={props.offers} city={props.city} cities={props.cities}/>
+          <Main offers={props.cityOffers} city={props.city} cities={props.cities}/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -53,17 +53,19 @@ function App(props) {
 }
 
 App.propTypes = {
-  offers: offersPropTypes,
-  city: cityPropTypes,
-  reviews: reviewsPropTypes,
   cities: citiesPropTypes,
+  city: cityPropTypes,
+  cityOffers: offersPropTypes,
+  offers: offersPropTypes,
+  reviews: reviewsPropTypes,
 };
 
 const mapStateToProps = (state) => ({
+  cities: state.cities,
   city: state.city,
+  cityOffers: state.cityOffers,
   offers: state.offers,
   reviews: state.reviews,
-  cities: state.cities,
 });
 
 export {App};

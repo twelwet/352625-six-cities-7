@@ -7,7 +7,8 @@ import {ActionType} from './action.js';
 const initialState = {
   cities: Object.keys(City),
   city: city,
-  offers: offers.filter((offer) => offer.city.name === city.name),
+  cityOffers: offers.filter((offer) => offer.city.name === city.name),
+  offers,
   reviews,
 };
 
