@@ -1,11 +1,13 @@
 import React, {useState} from 'react';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
+import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
+import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
-function Main({offers, city}) {
+function Main({offers, city, cities}) {
   const placesCount = offers.length;
   const [activeOfferId, setActiveOfferId] = useState(null);
 
@@ -17,38 +19,7 @@ function Main({offers, city}) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a href={'/'} className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList city={city} cities={cities}/>
           </section>
         </div>
         <div className="cities">
@@ -88,6 +59,7 @@ function Main({offers, city}) {
 Main.propTypes = {
   offers: offersPropTypes,
   city: cityPropTypes,
+  cities: citiesPropTypes,
 };
 
 export default Main;

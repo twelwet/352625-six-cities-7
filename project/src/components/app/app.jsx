@@ -16,7 +16,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main offers={props.offers} city={props.city}/>
+          <Main offers={props.offers} city={props.city} cities={props.cities}/>
         </Route>
 
         <Route path={'/login'} exact>
