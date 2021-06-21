@@ -7,8 +7,8 @@ import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
-function Main({offers, city, cities}) {
-  const placesCount = offers.length;
+function Main({cities, city, cityOffers, offers}) {
+  const placesCount = cityOffers.length;
   const [activeOfferId, setActiveOfferId] = useState(null);
 
   return (
@@ -19,7 +19,7 @@ function Main({offers, city, cities}) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList city={city} cities={cities}/>
+            <CitiesList city={city} cities={cities} offers={offers}/>
           </section>
         </div>
         <div className="cities">
@@ -42,11 +42,11 @@ function Main({offers, city, cities}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <ListMain offers={offers} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={cityOffers} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} activeOfferId={activeOfferId}/>
+                <Map offers={cityOffers} activeOfferId={activeOfferId}/>
               </section>
             </div>
           </div>
@@ -57,6 +57,7 @@ function Main({offers, city, cities}) {
 }
 
 Main.propTypes = {
+  cityOffers: offersPropTypes,
   offers: offersPropTypes,
   city: cityPropTypes,
   cities: citiesPropTypes,

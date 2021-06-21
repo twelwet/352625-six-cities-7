@@ -22,7 +22,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.GET_OFFERS_BY_CITY:
       return {
         ...state,
-        offers: offers.filter((offer) => offer.city.name === action.payload),
+        cityOffers: action.payload,
       };
     default:
       return state;

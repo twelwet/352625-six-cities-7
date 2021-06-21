@@ -1,10 +1,13 @@
-import React, {useState} from 'react';
+import React from 'react';
+import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
+import offersPropTypes from '../../../prop-types/offers.prop.js';
+import {connect} from 'react-redux';
+import {ActionCreator} from '../../../store/action.js';
 
-function CitiesList({city, cities}) {
-  const [activeCity, setActiveCity] = useState(city);
+function CitiesList({cities, city, offers, onCityClick}) {
   return (
     <ul className="locations__list tabs__list">
       {
@@ -12,8 +15,11 @@ function CitiesList({city, cities}) {
           (cityName) => (
             <li key={cityName} className="locations__item">
               <Link
-                className={(cityName === activeCity) ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
-                onClick={() => setActiveCity(cityName)}
+                className={(cityName === city) ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
+                onClick={(evt) => {
+                  evt.preventDefault();
+                  onCityClick(offers, cityName);
+                }}
                 to={'/'}
               >
                 <span>{cityName}</span>
@@ -29,6 +35,16 @@ function CitiesList({city, cities}) {
 CitiesList.propTypes = {
   city: cityPropTypes,
   cities: citiesPropTypes,
+  offers: offersPropTypes,
+  onCityClick: PropTypes.func,
 };
 
-export default CitiesList;
+const mapDispatchToProps = (dispatch) => ({
+  onCityClick: (offers, city) => {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.getOffersByCity(offers, city));
+  },
+});
+
+export {CitiesList};
+export default connect(null, mapDispatchToProps)(CitiesList);
