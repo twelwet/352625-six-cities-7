@@ -28,6 +28,12 @@ function useMap(mapRef, city) {
 
   }, [mapRef, map, city]);
 
+  useEffect(() => {
+    if (map !== null) {
+      map.setView(new leaflet.LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
+    }
+  }, [city]);
+
   return map;
 }
 
