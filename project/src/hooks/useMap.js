@@ -29,8 +29,9 @@ function useMap(mapRef, city) {
   }, [mapRef, map, city]);
 
   useEffect(() => {
+    const {latitude, longitude, zoom} = city.location;
     if (map !== null) {
-      map.setView(new leaflet.LatLng(city.location.latitude, city.location.longitude), city.location.zoom);
+      map.setView(new leaflet.LatLng(latitude, longitude), zoom);
     }
   }, [city]);
 
