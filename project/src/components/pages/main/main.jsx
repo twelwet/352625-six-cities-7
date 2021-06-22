@@ -7,7 +7,7 @@ import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
-function Main({cities, city, cityOffers, offers}) {
+function Main({cities, city, cityOffers}) {
   const placesCount = cityOffers.length;
   const [activeOfferId, setActiveOfferId] = useState(null);
 
@@ -58,7 +58,6 @@ function Main({cities, city, cityOffers, offers}) {
 
 Main.propTypes = {
   cityOffers: offersPropTypes,
-  offers: offersPropTypes,
   city: cityPropTypes,
   cities: citiesPropTypes,
 };

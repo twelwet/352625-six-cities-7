@@ -20,7 +20,6 @@ function App({cities, city, offers, reviews}) {
           <Main
             cities={cities}
             city={city}
-            offers={offers}
             cityOffers={cityOffers}
           />
         </Route>
