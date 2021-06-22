@@ -11,16 +11,17 @@ import cityPropTypes from '../../prop-types/city.prop.js';
 import reviewsPropTypes from '../../prop-types/reviews.prop.js';
 import citiesPropTypes from '../../prop-types/cities.prop.js';
 
-function App(props) {
+function App({cities, city, offers, reviews}) {
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
           <Main
-            cities={props.cities}
-            city={props.city}
-            cityOffers={props.cityOffers}
-            offers={props.offers}
+            cities={cities}
+            city={city}
+            offers={offers}
+            cityOffers={cityOffers}
           />
         </Route>
 
@@ -29,7 +30,7 @@ function App(props) {
         </Route>
 
         <Route path={'/favourites'} exact>
-          <Favourites offers={props.offers}/>
+          <Favourites offers={offers}/>
         </Route>
 
         <Route
@@ -38,13 +39,13 @@ function App(props) {
           render={
             (localProps) => {
               const id = localProps.match.params.id;
-              const offer = props.offers.find((item) => item.id === id);
+              const offer = offers.find((item) => item.id === id);
 
               if (!offer) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer} offers={props.cityOffers} reviews={props.reviews}/>);
+              return (<Room offer={offer} offers={cityOffers} reviews={reviews}/>);
             }
           }
         />
@@ -60,7 +61,6 @@ function App(props) {
 App.propTypes = {
   cities: citiesPropTypes,
   city: cityPropTypes,
-  cityOffers: offersPropTypes,
   offers: offersPropTypes,
   reviews: reviewsPropTypes,
 };
@@ -68,7 +68,6 @@ App.propTypes = {
 const mapStateToProps = (state) => ({
   cities: state.cities,
   city: state.city,
-  cityOffers: state.cityOffers,
   offers: state.offers,
   reviews: state.reviews,
 });

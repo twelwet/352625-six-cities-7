@@ -7,7 +7,6 @@ import {ActionType} from './action.js';
 const initialState = {
   cities: Object.keys(City),
   city: DEFAULT_CITY,
-  cityOffers: offers.filter((offer) => offer.city.name === DEFAULT_CITY),
   offers,
   reviews,
 };
@@ -19,10 +18,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
-    case ActionType.GET_OFFERS_BY_CITY:
+    case ActionType.GET_OFFERS:
       return {
         ...state,
-        cityOffers: action.payload,
+        offers: action.payload,
       };
     default:
       return state;

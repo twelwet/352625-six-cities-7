@@ -18,7 +18,7 @@ function CitiesList({cities, city, offers, onCityClick}) {
                 className={(cityName === city) ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
                 onClick={(evt) => {
                   evt.preventDefault();
-                  onCityClick(offers, cityName);
+                  onCityClick(cityName);
                 }}
                 to={'/'}
               >
@@ -40,9 +40,8 @@ CitiesList.propTypes = {
 };
 
 const mapDispatchToProps = (dispatch) => ({
-  onCityClick: (offers, city) => {
+  onCityClick: (city) => {
     dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.getOffersByCity(offers, city));
   },
 });
 
