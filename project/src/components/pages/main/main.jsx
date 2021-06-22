@@ -19,7 +19,7 @@ function Main({cities, city, cityOffers, offers}) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <CitiesList city={city} cities={cities} offers={offers}/>
+            <CitiesList city={city} cities={cities}/>
           </section>
         </div>
         <div className="cities">

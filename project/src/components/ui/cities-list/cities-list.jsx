@@ -3,11 +3,10 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/action.js';
 
-function CitiesList({cities, city, offers, onCityClick}) {
+function CitiesList({cities, city, onCityClick}) {
   return (
     <ul className="locations__list tabs__list">
       {
@@ -35,7 +34,6 @@ function CitiesList({cities, city, offers, onCityClick}) {
 CitiesList.propTypes = {
   city: cityPropTypes,
   cities: citiesPropTypes,
-  offers: offersPropTypes,
   onCityClick: PropTypes.func,
 };
 
