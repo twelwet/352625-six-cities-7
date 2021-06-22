@@ -1,5 +1,4 @@
 import {DEFAULT_CITY} from '../settings.js';
-import reviews from '../mocks/reviews.js';
 import {City} from '../mocks/constants.js';
 import {ActionType} from './action.js';
 
@@ -7,7 +6,7 @@ const initialState = {
   cities: Object.keys(City),
   city: DEFAULT_CITY,
   offers: [],
-  reviews,
+  reviews: [],
 };
 
 const reducer = (state = initialState, action) => {
