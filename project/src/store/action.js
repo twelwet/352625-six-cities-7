@@ -1,6 +1,6 @@
 export const ActionType = {
   CHANGE_CITY: 'main/change-city',
-  GET_OFFERS: 'main/get-offers-by-city',
+  GET_OFFERS: 'app/get-offers',
 };
 
 export const ActionCreator = {
