@@ -9,10 +9,10 @@ import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import cityPropTypes from '../../prop-types/city.prop.js';
 import reviewsPropTypes from '../../prop-types/reviews.prop.js';
-import citiesPropTypes from '../../prop-types/cities.prop.js';
 
-function App({cities, city, offers, reviews}) {
+function App({city, offers, reviews}) {
   const cityOffers = offers.filter((offer) => offer.city.name === city);
+  const cities = [...new Set(offers.map((offer) => offer.city.name))];
   return (
     <BrowserRouter>
       <Switch>
@@ -58,14 +58,12 @@ function App({cities, city, offers, reviews}) {
 }
 
 App.propTypes = {
-  cities: citiesPropTypes,
   city: cityPropTypes,
   offers: offersPropTypes,
   reviews: reviewsPropTypes,
 };
 
 const mapStateToProps = (state) => ({
-  cities: state.cities,
   city: state.city,
   offers: state.offers,
   reviews: state.reviews,

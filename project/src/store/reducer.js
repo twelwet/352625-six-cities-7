@@ -1,9 +1,7 @@
 import {DEFAULT_CITY} from '../settings.js';
-import {City} from '../mocks/constants.js';
 import {ActionType} from './action.js';
 
 const initialState = {
-  cities: Object.keys(City),
   city: DEFAULT_CITY,
   offers: [],
   reviews: [],
