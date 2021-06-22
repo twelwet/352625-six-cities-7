@@ -33,7 +33,7 @@ function useMap(mapRef, city) {
     if (map !== null) {
       map.setView(new leaflet.LatLng(latitude, longitude), zoom);
     }
-  }, [city]);
+  }, [map, city]);
 
   return map;
 }
