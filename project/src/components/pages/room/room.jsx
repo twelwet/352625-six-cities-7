@@ -9,7 +9,9 @@ import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 
 function Room({offer, offers, reviews}) {
-  const neighborOffers = offers.filter((item) => item.city.name === offer.city.name);
+  const neighborOffers = offers
+    .filter((item) => item.city.name === offer.city.name && item.id !== offer.id)
+    .slice(0, 3);
   const {
     id,
     title,
@@ -124,7 +126,7 @@ function Room({offer, offers, reviews}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighborOffers} city={offer.city} activeOfferId={id}/>
+            <Map offers={neighborOffers.concat(offer)} city={offer.city} activeOfferId={id}/>
           </section>
         </section>
         <div className="container">
