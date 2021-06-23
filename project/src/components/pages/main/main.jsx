@@ -1,14 +1,17 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
-import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
-function Main({cities, city, cityOffers}) {
+function Main({city, offers}) {
+  const cities = [...new Set(offers.map((offer) => offer.city.name))];
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
   const placesCount = cityOffers.length;
+
   const [activeOfferId, setActiveOfferId] = useState(null);
 
   return (
@@ -57,9 +60,14 @@ function Main({cities, city, cityOffers}) {
 }
 
 Main.propTypes = {
-  cityOffers: offersPropTypes,
   city: cityPropTypes,
-  cities: citiesPropTypes,
+  offers: offersPropTypes,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+});
+
+export {Main};
+export default connect(mapStateToProps, null)(Main);

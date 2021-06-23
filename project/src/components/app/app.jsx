@@ -12,14 +12,11 @@ import reviewsPropTypes from '../../prop-types/reviews.prop.js';
 
 function App({city, offers, reviews}) {
   const cityOffers = offers.filter((offer) => offer.city.name === city);
-  const cities = [...new Set(offers.map((offer) => offer.city.name))];
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
           <Main
-            cities={cities}
-            city={city}
             cityOffers={cityOffers}
           />
         </Route>
