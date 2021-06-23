@@ -1,6 +1,5 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Link} from 'react-router-dom';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
 import {connect} from 'react-redux';
@@ -13,16 +12,16 @@ function CitiesList({cities, city, onCityClick}) {
         cities.map(
           (cityName) => (
             <li key={cityName} className="locations__item">
-              <Link
+              <a
                 className={(cityName === city) ? 'locations__item-link tabs__item tabs__item--active' : 'locations__item-link tabs__item'}
                 onClick={(evt) => {
                   evt.preventDefault();
                   onCityClick(cityName);
                 }}
-                to={'/'}
+                href={'/'}
               >
                 <span>{cityName}</span>
-              </Link>
+              </a>
             </li>
           ),
         )
