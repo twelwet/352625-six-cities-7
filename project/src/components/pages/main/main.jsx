@@ -1,15 +1,21 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
-import citiesPropTypes from '../../../prop-types/cities.prop.js';
+import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 
-function Main({cities, city, cityOffers}) {
+function Main({city, offers}) {
+  const cities = [...new Set(offers.map((offer) => offer.city.name))];
+  const cityOffers = offers.filter((offer) => offer.city.name === city);
   const placesCount = cityOffers.length;
+
   const [activeOfferId, setActiveOfferId] = useState(null);
+  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const [activeSort, setActiveSort] = useState(SortType.POPULAR);
 
   return (
     <div className="page page--gray page--main">
@@ -29,20 +35,38 @@ function Main({cities, city, cityOffers}) {
               <b className="places__found">{`${placesCount} places to stay in ${city}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
-                <span className="places__sorting-type" tabIndex="0">
-                    Popular
+                <span
+                  onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
+                  className="places__sorting-type" tabIndex="0"
+                >
+                  {activeSort}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"/>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
+                <ul className={isSortMenuOpen ? 'places__options places__options--custom places__options--opened' : 'places__options places__options--custom'}>
+                  {
+                    sorts.map(
+                      (sortType) => (
+                        <li
+                          key={sortType}
+                          className={sortType === activeSort ? 'places__option places places__option--active' : 'places__option places'}
+                          tabIndex="0"
+                          onClick={
+                            () => {
+                              setActiveSort(sortType);
+                              setIsSortMenuOpen(false);
+                            }
+                          }
+                        >
+                          {sortType}
+                        </li>
+                      ),
+                    )
+                  }
                 </ul>
               </form>
-              <ListMain offers={cityOffers} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={sortOffers(cityOffers, activeSort)} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -57,9 +81,14 @@ function Main({cities, city, cityOffers}) {
 }
 
 Main.propTypes = {
-  cityOffers: offersPropTypes,
   city: cityPropTypes,
-  cities: citiesPropTypes,
+  offers: offersPropTypes,
 };
 
-export default Main;
+const mapStateToProps = (state) => ({
+  city: state.city,
+  offers: state.offers,
+});
+
+export {Main};
+export default connect(mapStateToProps, null)(Main);
