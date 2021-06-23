@@ -7,6 +7,20 @@ import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 
+const SortType = {
+  POPULAR: 'Popular',
+  PRICE_LOW_TO_HIGH: 'Price: low to high',
+  PRICE_HIGH_TO_LOW: 'Price: high to low',
+  TOP_RATED: 'Top rated first',
+};
+
+const sorts = [
+  SortType.POPULAR,
+  SortType.PRICE_LOW_TO_HIGH,
+  SortType.PRICE_HIGH_TO_LOW,
+  SortType.TOP_RATED,
+];
+
 function Main({city, offers}) {
   const cities = [...new Set(offers.map((offer) => offer.city.name))];
   const cityOffers = offers.filter((offer) => offer.city.name === city);
@@ -14,6 +28,7 @@ function Main({city, offers}) {
 
   const [activeOfferId, setActiveOfferId] = useState(null);
   const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
+  const [activeSort, setActiveSort] = useState(SortType.POPULAR);
 
   return (
     <div className="page page--gray page--main">
@@ -37,16 +52,31 @@ function Main({city, offers}) {
                   onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
                   className="places__sorting-type" tabIndex="0"
                 >
-                    Popular
+                  {activeSort}
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"/>
                   </svg>
                 </span>
                 <ul className={isSortMenuOpen ? 'places__options places__options--custom places__options--opened' : 'places__options places__options--custom'}>
-                  <li className="places__option places__option--active" tabIndex="0">Popular</li>
-                  <li className="places__option" tabIndex="0">Price: low to high</li>
-                  <li className="places__option" tabIndex="0">Price: high to low</li>
-                  <li className="places__option" tabIndex="0">Top rated first</li>
+                  {
+                    sorts.map(
+                      (sortType) => (
+                        <li
+                          key={sortType}
+                          className={sortType === activeSort ? 'places__option places places__option--active' : 'places__option places'}
+                          tabIndex="0"
+                          onClick={
+                            () => {
+                              setActiveSort(sortType);
+                              setIsSortMenuOpen(false);
+                            }
+                          }
+                        >
+                          {sortType}
+                        </li>
+                      ),
+                    )
+                  }
                 </ul>
               </form>
               <ListMain offers={cityOffers} setActiveOfferId={setActiveOfferId}/>
