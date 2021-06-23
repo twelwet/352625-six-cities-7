@@ -4,6 +4,7 @@ import {ActionType} from './action.js';
 const initialState = {
   city: DEFAULT_CITY,
   offers: [],
+  realOffers: [],
   reviews: [],
 };
 
@@ -19,6 +20,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
       };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        realOffers: action.payload,
+      };
+
     default:
       return state;
   }
