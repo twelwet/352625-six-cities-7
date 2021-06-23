@@ -33,7 +33,7 @@ function CitiesList({cities, city, onCityClick}) {
 CitiesList.propTypes = {
   city: cityPropTypes,
   cities: citiesPropTypes,
-  onCityClick: PropTypes.func,
+  onCityClick: PropTypes.func.isRequired,
 };
 
 const mapDispatchToProps = (dispatch) => ({
