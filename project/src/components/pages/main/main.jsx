@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
+import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
+import citiesPropTypes from '../../../prop-types/cities.prop.js';
 
-function Main({offers, city}) {
-  const placesCount = offers.length;
+function Main({cities, city, cityOffers}) {
+  const placesCount = cityOffers.length;
   const [activeOfferId, setActiveOfferId] = useState(null);
 
   return (
@@ -17,45 +19,14 @@ function Main({offers, city}) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a href={'/'} className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href={'/'}>
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
+            <CitiesList city={city} cities={cities}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{`${placesCount} places to stay in Amsterdam`}</b>
+              <b className="places__found">{`${placesCount} places to stay in ${city}`}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -71,11 +42,11 @@ function Main({offers, city}) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <ListMain offers={offers} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={cityOffers} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
-                <Map offers={offers} city={city} activeOfferId={activeOfferId}/>
+                <Map offers={cityOffers} activeOfferId={activeOfferId}/>
               </section>
             </div>
           </div>
@@ -86,8 +57,9 @@ function Main({offers, city}) {
 }
 
 Main.propTypes = {
-  offers: offersPropTypes,
+  cityOffers: offersPropTypes,
   city: cityPropTypes,
+  cities: citiesPropTypes,
 };
 
 export default Main;

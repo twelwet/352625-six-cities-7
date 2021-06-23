@@ -19,7 +19,14 @@ export default PropTypes.shape({
     isPro: PropTypes.boolean,
     avatarUrl: PropTypes.string.isRequired,
   }).isRequired,
-  city: cityPropTypes,
+  city: PropTypes.shape({
+    name: cityPropTypes,
+    location: PropTypes.shape({
+      latitude: PropTypes.number.isRequired,
+      longitude: PropTypes.number.isRequired,
+      zoom: PropTypes.number.isRequired,
+    }),
+  }).isRequired,
   location: PropTypes.shape({
     latitude: PropTypes.number.isRequired,
     longitude: PropTypes.number.isRequired,

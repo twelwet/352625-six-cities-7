@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import {MapSetting} from './constants.js';
+import {MapSetting} from '../components/ui/map/constants.js';
 
 function useMap(mapRef, city) {
   const [map, setMap] = useState(null);
@@ -27,6 +27,13 @@ function useMap(mapRef, city) {
     }
 
   }, [mapRef, map, city]);
+
+  useEffect(() => {
+    const {latitude, longitude, zoom} = city.location;
+    if (map !== null) {
+      map.setView(new leaflet.LatLng(latitude, longitude), zoom);
+    }
+  }, [map, city]);
 
   return map;
 }

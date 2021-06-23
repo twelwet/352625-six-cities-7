@@ -1,4 +1,4 @@
-import RATING_STARS from '../settings.js';
+import {RATING_STARS} from '../settings.js';
 
 const getStarsList = (starsQuantity) =>
   (new Array(starsQuantity))

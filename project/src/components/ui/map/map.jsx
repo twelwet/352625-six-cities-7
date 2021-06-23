@@ -1,15 +1,15 @@
 import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import useMap from './useMap.js';
+import useMap from '../../../hooks/useMap.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
-import cityPropTypes from '../../../prop-types/city.prop';
 import PropTypes from 'prop-types';
 import {icon, iconActive} from './utils.js';
 
-function Map({offers, city, activeOfferId}) {
+function Map({offers, activeOfferId}) {
   const mapRef = useRef(null);
-  const map = useMap(mapRef, city);
+  const cityData = offers[0].city;
+  const map = useMap(mapRef, cityData);
 
   useEffect(() => {
     const pins = [];
@@ -31,7 +31,6 @@ function Map({offers, city, activeOfferId}) {
 
 Map.propTypes = {
   offers: offersPropTypes,
-  city: cityPropTypes,
   activeOfferId: PropTypes.string,
 };
 
