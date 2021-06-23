@@ -14,9 +14,9 @@ const sorts = [
 
 const SortFunction = {
   [SortType.POPULAR] : (offers) => offers,
-  [SortType.PRICE_LOW_TO_HIGH]: (offers) => offers.sort((a, b) => a.price - b.price),
-  [SortType.PRICE_HIGH_TO_LOW]: (offers) => offers.sort((a, b) => b.price - a.price),
-  [SortType.TOP_RATED]: (offers) => offers.sort((a, b) => b.rating - a.rating),
+  [SortType.PRICE_LOW_TO_HIGH]: (offers) => offers.slice().sort((a, b) => a.price - b.price),
+  [SortType.PRICE_HIGH_TO_LOW]: (offers) => offers.slice().sort((a, b) => b.price - a.price),
+  [SortType.TOP_RATED]: (offers) => offers.slice().sort((a, b) => b.rating - a.rating),
 };
 
 const sortOffers = (offers, sortName) => SortFunction[sortName](offers);
