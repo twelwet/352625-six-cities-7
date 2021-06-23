@@ -7,8 +7,6 @@ import {Provider} from 'react-redux';
 import {composeWithDevTools} from 'redux-devtools-extension';
 import App from './components/app/app';
 import {reducer} from './store/reducer';
-import {ActionCreator} from './store/action.js';
-import offers from './mocks/offers.js';
 import {fetchOffersList} from './store/api-actions.js';
 
 const api = createAPI();
@@ -20,7 +18,6 @@ const store = createStore(
   ),
 );
 
-store.dispatch(ActionCreator.getOffers(offers));
 store.dispatch(fetchOffersList());
 
 ReactDOM.render(

@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types';
-import {CityName} from '../mocks/constants';
+import {CityName} from '../constants.js';
 
 export default PropTypes.arrayOf(
   PropTypes.oneOf(

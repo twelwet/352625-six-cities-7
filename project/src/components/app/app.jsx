@@ -9,6 +9,10 @@ import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 
 function App({offers}) {
+  if (offers.length === 0) {
+    return (<p>Loading...</p>);
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -29,7 +33,7 @@ function App({offers}) {
           exact
           render={
             (localProps) => {
-              const id = localProps.match.params.id;
+              const id = parseInt(localProps.match.params.id, 10);
               const offer = offers.find((item) => item.id === id);
 
               if (!offer) {
