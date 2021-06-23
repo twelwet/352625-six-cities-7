@@ -1,4 +1,5 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Header from '../../ui/header/header.jsx';
@@ -8,6 +9,7 @@ import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 
 function Room({offer, offers, reviews}) {
+  const neighborOffers = offers.filter((item) => item.city.name === offer.city.name);
   const {
     id,
     title,
@@ -122,13 +124,13 @@ function Room({offer, offers, reviews}) {
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={offers} city={offer.city} activeOfferId={id}/>
+            <Map offers={neighborOffers} city={offer.city} activeOfferId={id}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListNeighborhood offers={offers} />
+            <ListNeighborhood offers={neighborOffers} />
           </section>
         </div>
       </main>
@@ -142,4 +144,10 @@ Room.propTypes = {
   reviews: reviewsPropTypes,
 };
 
-export default Room;
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  reviews: state.reviews,
+});
+
+export {Room};
+export default connect(mapStateToProps, null)(Room);

@@ -7,18 +7,13 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
-import cityPropTypes from '../../prop-types/city.prop.js';
-import reviewsPropTypes from '../../prop-types/reviews.prop.js';
 
-function App({city, offers, reviews}) {
-  const cityOffers = offers.filter((offer) => offer.city.name === city);
+function App({offers}) {
   return (
     <BrowserRouter>
       <Switch>
         <Route path={'/'} exact>
-          <Main
-            cityOffers={cityOffers}
-          />
+          <Main/>
         </Route>
 
         <Route path={'/login'} exact>
@@ -41,7 +36,7 @@ function App({city, offers, reviews}) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer} offers={cityOffers} reviews={reviews}/>);
+              return (<Room offer={offer}/>);
             }
           }
         />
@@ -55,15 +50,11 @@ function App({city, offers, reviews}) {
 }
 
 App.propTypes = {
-  city: cityPropTypes,
   offers: offersPropTypes,
-  reviews: reviewsPropTypes,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
   offers: state.offers,
-  reviews: state.reviews,
 });
 
 export {App};
