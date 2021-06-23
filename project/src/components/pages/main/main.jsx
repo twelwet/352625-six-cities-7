@@ -21,6 +21,15 @@ const sorts = [
   SortType.TOP_RATED,
 ];
 
+const SortFunction = {
+  [SortType.POPULAR] : (offers) => offers,
+  [SortType.PRICE_LOW_TO_HIGH]: (offers) => offers.sort((a, b) => a.price - b.price),
+  [SortType.PRICE_HIGH_TO_LOW]: (offers) => offers.sort((a, b) => b.price - a.price),
+  [SortType.TOP_RATED]: (offers) => offers.sort((a, b) => b.rating - a.rating),
+};
+
+const sortOffers = (offers, sortName) => SortFunction[sortName](offers);
+
 function Main({city, offers}) {
   const cities = [...new Set(offers.map((offer) => offer.city.name))];
   const cityOffers = offers.filter((offer) => offer.city.name === city);
@@ -79,7 +88,7 @@ function Main({city, offers}) {
                   }
                 </ul>
               </form>
-              <ListMain offers={cityOffers} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={sortOffers(cityOffers, activeSort)} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
