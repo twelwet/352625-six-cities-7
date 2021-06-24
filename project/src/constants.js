@@ -7,4 +7,11 @@ const CityName = {
   DUSSELDORF: 'Dusseldorf',
 };
 
-export {CityName};
+const StayType = {
+  APARTMENT: 'apartment',
+  ROOM: 'room',
+  HOTEL: 'hotel',
+  HOUSE: 'house',
+};
+
+export {CityName, StayType};

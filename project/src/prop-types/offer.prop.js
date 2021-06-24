@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import cityPropTypes from './city.prop.js';
+import {StayType} from '../constants.js';
 
 export default PropTypes.shape({
   id: PropTypes.number.isRequired,
   title: PropTypes.string.isRequired,
   description: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(['apartment', 'room', 'hotel', 'house']).isRequired,
+  type: PropTypes.oneOf([StayType.APARTMENT, StayType.ROOM, StayType.HOTEL, StayType.HOUSE]).isRequired,
   price: PropTypes.number.isRequired,
   previewImage: PropTypes.string.isRequired,
   images: PropTypes.arrayOf(PropTypes.string).isRequired,
