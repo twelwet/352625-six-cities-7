@@ -7,8 +7,13 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
+import Spinner from '../ui/spinner/spinner.jsx';
 
 function App({offers}) {
+  if (offers.length === 0) {
+    return <Spinner/>;
+  }
+
   return (
     <BrowserRouter>
       <Switch>
@@ -29,7 +34,7 @@ function App({offers}) {
           exact
           render={
             (localProps) => {
-              const id = localProps.match.params.id;
+              const id = parseInt(localProps.match.params.id, 10);
               const offer = offers.find((item) => item.id === id);
 
               if (!offer) {

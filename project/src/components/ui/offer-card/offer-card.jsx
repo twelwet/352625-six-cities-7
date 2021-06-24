@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
 import {Link} from 'react-router-dom';
+import ucFirstChar from '../../../utils/upper-case-first-char.js';
 
 function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
   const {
@@ -68,7 +69,7 @@ function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
         <h2 className="place-card__name">
           <Link to={`/offer/${id}`}>{title}</Link>
         </h2>
-        <p className="place-card__type">{type}</p>
+        <p className="place-card__type">{ucFirstChar(type)}</p>
       </div>
     </article>
   );

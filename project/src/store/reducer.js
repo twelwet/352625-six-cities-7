@@ -14,7 +14,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
-    case ActionType.GET_OFFERS:
+    case ActionType.LOAD_OFFERS:
       return {
         ...state,
         offers: action.payload,

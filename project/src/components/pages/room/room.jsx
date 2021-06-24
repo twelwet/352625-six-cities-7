@@ -7,6 +7,7 @@ import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
+import ucFirstChar from '../../../utils/upper-case-first-char.js';
 
 function Room({offer, offers, reviews}) {
   const neighborOffers = offers
@@ -72,7 +73,7 @@ function Room({offer, offers, reviews}) {
               </div>
               <ul className="property__features">
                 <li className="property__feature property__feature--entire">
-                  {type}
+                  {ucFirstChar(type)}
                 </li>
                 <li className="property__feature property__feature--bedrooms">
                   {bedrooms} Bedrooms
