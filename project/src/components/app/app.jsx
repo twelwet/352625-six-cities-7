@@ -7,10 +7,11 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
+import Spinner from '../ui/spinner/spinner.jsx';
 
 function App({offers}) {
   if (offers.length === 0) {
-    return (<p>Loading...</p>);
+    return <Spinner/>;
   }
 
   return (
