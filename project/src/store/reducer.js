@@ -6,6 +6,7 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: [],
   reviews: [],
+  userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
@@ -25,6 +26,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
+      };
+    case ActionType.SAVE_AUTH_EMAIL:
+      return {
+        ...state,
+        userEmail: action.payload,
       };
     default:
       return state;

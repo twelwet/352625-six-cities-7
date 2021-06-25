@@ -14,8 +14,20 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(AppRoute.LOGIN)
-    .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
+    .then(({data}) => {
+      dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
+      dispatch(ActionCreator.saveAuthEmail(data.email));
+    })
     .catch(() => {})
 );
 
-export {fetchOffersList, checkAuth};
+const login = ({email, password}) => (dispatch, _getState, api) => (
+  api.post(AppRoute.LOGIN, {email, password})
+    .then(({data}) => {
+      localStorage.setItem('token', data.token);
+      dispatch(ActionCreator.saveAuthEmail(data.email));
+    })
+    .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
+);
+
+export {fetchOffersList, checkAuth, login};

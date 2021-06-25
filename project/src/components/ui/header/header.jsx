@@ -4,7 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../../constants.js';
 
-function Header({authorizationStatus}) {
+function Header({authorizationStatus, userEmail}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
   return (
     <header className="header">
@@ -21,7 +21,7 @@ function Header({authorizationStatus}) {
                 <Link className="header__nav-link header__nav-link--profile" to={isAuth ? '/favourites' : '/login'}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">{isAuth ? 'Oliver.conner@gmail.com' : 'Sign in'}</span>
+                  <span className="header__user-name user__name">{isAuth ? userEmail : 'Sign in'}</span>
                 </Link>
               </li>
               {
@@ -43,10 +43,12 @@ function Header({authorizationStatus}) {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
+  userEmail: PropTypes.string,
 };
 
 const mapStateToProps = (state) => ({
   authorizationStatus: state.authorizationStatus,
+  userEmail: state.userEmail,
 });
 
 export {Header};
