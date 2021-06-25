@@ -1,7 +1,7 @@
 export const ActionType = {
   CHANGE_CITY: 'main/change-city',
   LOAD_OFFERS: 'api/load-offers',
-  REQUIRE_AUTH: 'user/require-auth'
+  REQUIRE_AUTH: 'user/require-auth',
 };
 
 export const ActionCreator = {
