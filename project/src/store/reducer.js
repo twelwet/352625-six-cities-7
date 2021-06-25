@@ -21,6 +21,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: action.payload,
       };
+    case ActionType.REQUIRE_AUTH:
+      return {
+        ...state,
+        authorizationStatus: action.payload,
+      };
     default:
       return state;
   }
