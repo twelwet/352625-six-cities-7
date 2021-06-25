@@ -2,7 +2,7 @@ import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 
-export const fetchOffersList = () => (dispatch, _getState, api) => (
+const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
       const adoptedData = data.map(
@@ -12,8 +12,10 @@ export const fetchOffersList = () => (dispatch, _getState, api) => (
     })
 );
 
-export const checkAuth = () => (dispatch, _getState, api) => (
+const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
     .catch(() => {})
 );
+
+export {fetchOffersList, checkAuth};

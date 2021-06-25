@@ -3,7 +3,7 @@ import {BACKEND_URL, REQUEST_TIMEOUT, HttpCode} from '../constants.js';
 
 const token = localStorage.getItem('token') ?? '';
 
-export const createAPI = (onUnauthorized) => {
+const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
@@ -28,3 +28,5 @@ export const createAPI = (onUnauthorized) => {
 
   return api;
 };
+
+export default createAPI;
