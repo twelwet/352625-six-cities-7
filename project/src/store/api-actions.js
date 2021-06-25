@@ -1,7 +1,6 @@
 import {ActionCreator} from './action.js';
-import {APIRoute} from '../services/api.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
-import {AuthorizationStatus} from '../constants.js';
+import {AuthorizationStatus, APIRoute} from '../constants.js';
 
 export const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)

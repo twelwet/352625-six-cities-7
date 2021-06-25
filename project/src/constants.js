@@ -20,4 +20,17 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
-export {CityName, StayType, AuthorizationStatus};
+const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
+const REQUEST_TIMEOUT = 5000;
+
+const APIRoute = {
+  HOTELS: '/hotels',
+  LOGIN: '/login',
+};
+
+const HttpCode = {
+  UNAUTHORIZED: 401,
+};
+
+
+export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, HttpCode};

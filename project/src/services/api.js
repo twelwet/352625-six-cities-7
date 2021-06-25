@@ -1,16 +1,5 @@
 import axios from 'axios';
-
-const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
-const REQUEST_TIMEOUT = 5000;
-
-export const APIRoute = {
-  HOTELS: '/hotels',
-  LOGIN: '/login',
-};
-
-const HttpCode = {
-  UNAUTHORIZED: 401,
-};
+import {BACKEND_URL, REQUEST_TIMEOUT, HttpCode} from '../constants.js';
 
 const token = localStorage.getItem('token') ?? '';
 
