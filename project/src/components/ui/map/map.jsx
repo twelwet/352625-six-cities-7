@@ -31,7 +31,7 @@ function Map({offers, activeOfferId}) {
 
 Map.propTypes = {
   offers: offersPropTypes,
-  activeOfferId: PropTypes.string,
+  activeOfferId: PropTypes.number,
 };
 
 export default Map;

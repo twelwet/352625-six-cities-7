@@ -16,7 +16,7 @@ function Reviews({offerId, reviews}) {
 }
 
 Reviews.propTypes = {
-  offerId: PropTypes.string.isRequired,
+  offerId: PropTypes.number.isRequired,
   reviews: reviewsPropTypes,
 };
 
