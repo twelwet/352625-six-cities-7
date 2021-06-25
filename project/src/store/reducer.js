@@ -1,10 +1,12 @@
 import {DEFAULT_CITY} from '../settings.js';
 import {ActionType} from './action.js';
+import {AuthorizationStatus} from '../constants.js';
 
 const initialState = {
   city: DEFAULT_CITY,
   offers: [],
   reviews: [],
+  authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
 
 const reducer = (state = initialState, action) => {

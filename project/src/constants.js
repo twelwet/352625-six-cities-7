@@ -14,4 +14,10 @@ const StayType = {
   HOUSE: 'house',
 };
 
-export {CityName, StayType};
+const AuthorizationStatus = {
+  AUTH: 'AUTH',
+  NO_AUTH: 'NO_AUTH',
+  UNKNOWN: 'UNKNOWN',
+};
+
+export {CityName, StayType, AuthorizationStatus};
