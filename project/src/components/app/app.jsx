@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import Main from '../pages/main/main.jsx';
 import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
+import PrivateRoute from '../ui/private-route/private-route.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
@@ -27,9 +28,9 @@ function App({offers, authorizationStatus}) {
           <SignIn/>
         </Route>
 
-        <Route path={'/favourites'} exact>
+        <PrivateRoute path={'/favourites'} exact>
           <Favourites offers={offers}/>
-        </Route>
+        </PrivateRoute>
 
         <Route
           path={'/offer/:id'}
