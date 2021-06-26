@@ -33,7 +33,7 @@ const AppRoute = {
   MAIN: '/',
   FAVOURITES: '/favourites',
   LOGIN: '/login',
-  OFFER: '/offer'
+  OFFER: '/offer',
 };
 
 const HttpCode = {
