@@ -28,9 +28,11 @@ function App({offers, authorizationStatus}) {
           <SignIn/>
         </Route>
 
-        <PrivateRoute path={AppRoute.FAVOURITES} exact>
-          <Favourites offers={offers}/>
-        </PrivateRoute>
+        <PrivateRoute
+          path={AppRoute.FAVOURITES}
+          exact
+          render={() => <Favourites offers={offers}/>}
+        />
 
         <Route
           path={`${AppRoute.OFFER}/:id`}
