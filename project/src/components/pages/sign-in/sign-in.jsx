@@ -16,6 +16,9 @@ function SignIn({onSubmit}) {
       email: loginRef.current.value,
       password: passwordRef.current.value,
     });
+
+    loginRef.current.value = '';
+    passwordRef.current.value = '';
   };
 
   return (
