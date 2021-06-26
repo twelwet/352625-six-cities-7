@@ -1,5 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Header from '../../ui/header/header.jsx';
@@ -9,7 +10,7 @@ import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
 
-function Room({offer, offers, reviews}) {
+function Room({offer, offers, reviews, authorizationStatus}) {
   const neighborOffers = offers
     .filter((item) => item.city.name === offer.city.name && item.id !== offer.id)
     .slice(0, 3);
@@ -123,7 +124,7 @@ function Room({offer, offers, reviews}) {
                   </p>
                 </div>
               </div>
-              <Reviews offerId={offer.id} reviews={reviews}/>
+              <Reviews offerId={offer.id} reviews={reviews} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
           <section className="property__map map">
@@ -145,11 +146,13 @@ Room.propTypes = {
   offer: offerPropTypes,
   offers: offersPropTypes,
   reviews: reviewsPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
   reviews: state.reviews,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export {Room};
