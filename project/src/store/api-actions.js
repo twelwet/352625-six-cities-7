@@ -1,9 +1,9 @@
 import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
-import {AuthorizationStatus, AppRoute} from '../constants.js';
+import {AuthorizationStatus, APIRoute} from '../constants.js';
 
 const fetchOffersList = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.HOTELS)
+  api.get(APIRoute.HOTELS)
     .then(({data}) => {
       const adoptedData = data.map(
         (offer) => getOfferAdapter(offer),
@@ -13,7 +13,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
-  api.get(AppRoute.LOGIN)
+  api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
       dispatch(ActionCreator.saveAuthEmail(data.email));
@@ -22,7 +22,7 @@ const checkAuth = () => (dispatch, _getState, api) => (
 );
 
 const login = ({email, password}) => (dispatch, _getState, api) => (
-  api.post(AppRoute.LOGIN, {email, password})
+  api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
       dispatch(ActionCreator.saveAuthEmail(data.email));
@@ -30,4 +30,10 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
 );
 
-export {fetchOffersList, checkAuth, login};
+const logout = () => (dispatch, _getState, api) => (
+  api.delete(APIRoute.LOGOUT)
+    .then(() => localStorage.removeItem('token'))
+    .then(() => dispatch(ActionCreator.logout()))
+);
+
+export {fetchOffersList, checkAuth, login, logout};

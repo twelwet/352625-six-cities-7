@@ -32,6 +32,12 @@ const reducer = (state = initialState, action) => {
         ...state,
         userEmail: action.payload,
       };
+    case ActionType.LOGOUT:
+      return {
+        ...state,
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+        userEmail: null,
+      };
     default:
       return state;
   }

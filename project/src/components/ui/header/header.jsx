@@ -3,9 +3,16 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus} from '../../../constants.js';
+import {logout} from '../../../store/api-actions.js';
 
-function Header({authorizationStatus, userEmail}) {
+function Header({authorizationStatus, userEmail, onSignOut}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
+
+  const handleSignOut = (evt) => {
+    evt.preventDefault();
+    onSignOut();
+  };
+
   return (
     <header className="header">
       <div className="container">
@@ -27,7 +34,11 @@ function Header({authorizationStatus, userEmail}) {
               {
                 isAuth ? (
                   <li className="header__nav-item">
-                    <a className="header__nav-link" href={'/'}>
+                    <a
+                      className="header__nav-link"
+                      href={'/'}
+                      onClick={handleSignOut}
+                    >
                       <span className="header__signout">Sign out</span>
                     </a>
                   </li>
@@ -44,6 +55,7 @@ function Header({authorizationStatus, userEmail}) {
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   userEmail: PropTypes.string,
+  onSignOut: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -51,5 +63,11 @@ const mapStateToProps = (state) => ({
   userEmail: state.userEmail,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  onSignOut() {
+    dispatch(logout());
+  },
+});
+
 export {Header};
-export default connect(mapStateToProps, null)(Header);
+export default connect(mapStateToProps, mapDispatchToProps)(Header);

@@ -3,6 +3,7 @@ export const ActionType = {
   LOAD_OFFERS: 'api/load-offers',
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_EMAIL: 'user/save-auth-email',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -21,5 +22,8 @@ export const ActionCreator = {
   saveAuthEmail: (data) => ({
     type: ActionType.SAVE_AUTH_EMAIL,
     payload: data,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };

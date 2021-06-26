@@ -23,9 +23,10 @@ const AuthorizationStatus = {
 const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
 const REQUEST_TIMEOUT = 5000;
 
-const AppRoute = {
+const APIRoute = {
   HOTELS: '/hotels',
   LOGIN: '/login',
+  LOGOUT: '/logout',
 };
 
 const HttpCode = {
@@ -33,4 +34,4 @@ const HttpCode = {
 };
 
 
-export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, AppRoute, HttpCode};
+export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, HttpCode};
