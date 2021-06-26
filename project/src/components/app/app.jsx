@@ -10,7 +10,7 @@ import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
-import {AuthorizationStatus} from '../../constants.js';
+import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
 function App({offers, authorizationStatus}) {
   if (offers.length === 0 || authorizationStatus === AuthorizationStatus.UNKNOWN) {
@@ -20,20 +20,20 @@ function App({offers, authorizationStatus}) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={'/'} exact>
+        <Route path={AppRoute.MAIN} exact>
           <Main/>
         </Route>
 
-        <Route path={'/login'} exact>
+        <Route path={AppRoute.LOGIN} exact>
           <SignIn/>
         </Route>
 
-        <PrivateRoute path={'/favourites'} exact>
+        <PrivateRoute path={AppRoute.FAVOURITES} exact>
           <Favourites offers={offers}/>
         </PrivateRoute>
 
         <Route
-          path={'/offer/:id'}
+          path={`${AppRoute.OFFER}/:id`}
           exact
           render={
             (localProps) => {

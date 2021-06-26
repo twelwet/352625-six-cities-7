@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
 import {login} from '../../../store/api-actions.js';
+import {AppRoute} from '../../../constants.js';
 
 function SignIn({onSubmit}) {
   const loginRef = useRef();
@@ -58,7 +59,7 @@ function SignIn({onSubmit}) {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href={'/'}>
+              <a className="locations__item-link" href={AppRoute.MAIN}>
                 <span>Amsterdam</span>
               </a>
             </div>

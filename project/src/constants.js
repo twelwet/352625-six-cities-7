@@ -29,9 +29,16 @@ const APIRoute = {
   LOGOUT: '/logout',
 };
 
+const AppRoute = {
+  MAIN: '/',
+  FAVOURITES: '/favourites',
+  LOGIN: '/login',
+  OFFER: '/offer'
+};
+
 const HttpCode = {
   UNAUTHORIZED: 401,
 };
 
 
-export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, HttpCode};
+export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, HttpCode};

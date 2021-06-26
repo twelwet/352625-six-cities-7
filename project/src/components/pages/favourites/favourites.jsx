@@ -2,6 +2,7 @@ import React from 'react';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import ListFavourites from '../../ui/offers-list/list-favourites/list-favourites.jsx';
 import Header from '../../ui/header/header.jsx';
+import {AppRoute} from '../../../constants.js';
 
 function Favourites({offers}) {
   return (
@@ -20,7 +21,7 @@ function Favourites({offers}) {
         </div>
       </main>
       <footer className="footer container">
-        <a className="footer__logo-link" href={'/'}>
+        <a className="footer__logo-link" href={AppRoute.MAIN}>
           <img className="footer__logo" src={'img/logo.svg'} alt="6 cities logo" width="64" height="33"/>
         </a>
       </footer>

@@ -4,6 +4,7 @@ import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
 import {connect} from 'react-redux';
 import {ActionCreator} from '../../../store/action.js';
+import {AppRoute} from '../../../constants.js';
 
 function CitiesList({cities, city, onCityClick}) {
   return (
@@ -18,7 +19,7 @@ function CitiesList({cities, city, onCityClick}) {
                   evt.preventDefault();
                   onCityClick(cityName);
                 }}
-                href={'/'}
+                href={AppRoute.MAIN}
               >
                 <span>{cityName}</span>
               </a>

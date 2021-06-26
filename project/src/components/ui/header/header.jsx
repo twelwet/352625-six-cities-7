@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {AuthorizationStatus} from '../../../constants.js';
+import {AuthorizationStatus, AppRoute} from '../../../constants.js';
 import {logout} from '../../../store/api-actions.js';
 
 function Header({authorizationStatus, userEmail, onSignOut}) {
@@ -18,7 +18,7 @@ function Header({authorizationStatus, userEmail, onSignOut}) {
       <div className="container">
         <div className="header__wrapper">
           <div className="header__left">
-            <Link to={'/'} className="header__logo-link header__logo-link--active">
+            <Link to={AppRoute.MAIN} className="header__logo-link header__logo-link--active">
               <img className="header__logo" src={'img/logo.svg'} alt="6 cities logo" width="81" height="41"/>
             </Link>
           </div>
@@ -36,7 +36,7 @@ function Header({authorizationStatus, userEmail, onSignOut}) {
                   <li className="header__nav-item">
                     <a
                       className="header__nav-link"
-                      href={'/'}
+                      href={AppRoute.MAIN}
                       onClick={handleSignOut}
                     >
                       <span className="header__signout">Sign out</span>

@@ -4,6 +4,7 @@ import CardFavourites from '../../offer-card/card-favourites/card-favourites.jsx
 import offersPropTypes from '../../../../prop-types/offers.prop';
 import getOffersByAllCities from '../../../../utils/get-offers-by-all-cities.js';
 import getFavouritesOffers from '../../../../utils/get-favourites-offers.js';
+import {AppRoute} from '../../../../constants.js';
 
 function ListFavourites ({offers}) {
   const favouritesOffers = getFavouritesOffers(offers);
@@ -14,7 +15,7 @@ function ListFavourites ({offers}) {
         <li key={item.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={'/'}>
+              <Link className="locations__item-link" to={AppRoute.MAIN}>
                 <span>{item.city}</span>
               </Link>
             </div>
