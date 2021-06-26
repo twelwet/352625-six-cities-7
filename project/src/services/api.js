@@ -1,21 +1,32 @@
 import axios from 'axios';
+import {BACKEND_URL, REQUEST_TIMEOUT, HttpCode} from '../constants.js';
 
-const BACKEND_URL = 'https://7.react.pages.academy/six-cities';
-const REQUEST_TIMEOUT = 5000;
+const token = localStorage.getItem('token') ?? '';
 
-export const APIRoute = {
-  HOTELS: '/hotels',
-};
-
-export const createAPI = () => {
+const createAPI = (onUnauthorized) => {
   const api = axios.create({
     baseURL: BACKEND_URL,
     timeout: REQUEST_TIMEOUT,
+    headers: {
+      'x-token': token,
+    },
   });
 
   const onSuccess = (response) => response;
 
-  api.interceptors.response.use(onSuccess);
+  const onFail = (err) => {
+    const {response} = err;
+
+    if (response.status === HttpCode.UNAUTHORIZED) {
+      onUnauthorized();
+    }
+
+    throw err;
+  };
+
+  api.interceptors.response.use(onSuccess, onFail);
 
   return api;
 };
+
+export default createAPI;

@@ -1,20 +1,19 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 import CardFavourites from '../../offer-card/card-favourites/card-favourites.jsx';
-import offersPropTypes from '../../../../prop-types/offers.prop';
-import getOffersByAllCities from '../../../../utils/get-offers-by-all-cities.js';
-import getFavouritesOffers from '../../../../utils/get-favourites-offers.js';
+import offersPropTypes from '../../../../prop-types/offers.prop.js';
+import cityPropTypes from '../../../../prop-types/city.prop.js';
+import {AppRoute} from '../../../../constants.js';
 
-function ListFavourites ({offers}) {
-  const favouritesOffers = getFavouritesOffers(offers);
-  const offersByCities = getOffersByAllCities(favouritesOffers);
+function ListFavourites ({offersByCities}) {
   return (
     offersByCities.map(
       (item) => (
         <li key={item.city} className="favorites__locations-items">
           <div className="favorites__locations locations locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to={'/'}>
+              <Link className="locations__item-link" to={AppRoute.MAIN}>
                 <span>{item.city}</span>
               </Link>
             </div>
@@ -40,8 +39,12 @@ function ListFavourites ({offers}) {
 }
 
 ListFavourites.propTypes = {
-  offers: offersPropTypes,
+  offersByCities: PropTypes.arrayOf(
+    PropTypes.shape({
+      city: cityPropTypes,
+      offers: offersPropTypes,
+    }).isRequired,
+  ).isRequired,
 };
-
 
 export default ListFavourites;

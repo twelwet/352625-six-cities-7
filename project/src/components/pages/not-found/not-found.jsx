@@ -1,5 +1,6 @@
 import React from 'react';
 import Header from '../../ui/header/header.jsx';
+import {AppRoute} from '../../../constants.js';
 
 function NotFound() {
   return (
@@ -10,7 +11,7 @@ function NotFound() {
         <br />
         <small>Страница не найдена</small>
       </h1>
-      <a href={'/'} style={{textAlign: 'center'}}>На главную</a>
+      <a href={AppRoute.MAIN} style={{textAlign: 'center'}}>На главную</a>
     </div>
   );
 }

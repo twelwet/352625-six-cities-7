@@ -1,36 +1,41 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import Main from '../pages/main/main.jsx';
 import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
+import PrivateRoute from '../ui/private-route/private-route.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
+import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
-function App({offers}) {
-  if (offers.length === 0) {
+function App({offers, authorizationStatus}) {
+  if (offers.length === 0 || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
   return (
     <BrowserRouter>
       <Switch>
-        <Route path={'/'} exact>
+        <Route path={AppRoute.MAIN} exact>
           <Main/>
         </Route>
 
-        <Route path={'/login'} exact>
-          <SignIn/>
+        <Route path={AppRoute.LOGIN} exact>
+          {authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.MAIN}/> : <SignIn/>}
         </Route>
 
-        <Route path={'/favourites'} exact>
-          <Favourites offers={offers}/>
-        </Route>
+        <PrivateRoute
+          path={AppRoute.FAVOURITES}
+          exact
+          render={() => <Favourites offers={offers}/>}
+        />
 
         <Route
-          path={'/offer/:id'}
+          path={`${AppRoute.OFFER}/:id`}
           exact
           render={
             (localProps) => {
@@ -56,10 +61,12 @@ function App({offers}) {
 
 App.propTypes = {
   offers: offersPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offers: state.offers,
+  authorizationStatus: state.authorizationStatus,
 });
 
 export {App};

@@ -1,6 +1,9 @@
 export const ActionType = {
   CHANGE_CITY: 'main/change-city',
   LOAD_OFFERS: 'api/load-offers',
+  REQUIRE_AUTH: 'user/require-auth',
+  SAVE_AUTH_EMAIL: 'user/save-auth-email',
+  LOGOUT: 'user/logout',
 };
 
 export const ActionCreator = {
@@ -11,5 +14,16 @@ export const ActionCreator = {
   loadOffers: (offers) => ({
     type: ActionType.LOAD_OFFERS,
     payload: offers,
+  }),
+  requireAuth: (status) => ({
+    type: ActionType.REQUIRE_AUTH,
+    payload: status,
+  }),
+  saveAuthEmail: (data) => ({
+    type: ActionType.SAVE_AUTH_EMAIL,
+    payload: data,
+  }),
+  logout: () => ({
+    type: ActionType.LOGOUT,
   }),
 };
