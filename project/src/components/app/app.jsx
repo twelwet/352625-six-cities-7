@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route} from 'react-router-dom';
+import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Main from '../pages/main/main.jsx';
@@ -25,7 +25,7 @@ function App({offers, authorizationStatus}) {
         </Route>
 
         <Route path={AppRoute.LOGIN} exact>
-          <SignIn/>
+          {authorizationStatus === AuthorizationStatus.AUTH ? <Redirect to={AppRoute.MAIN}/> : <SignIn/>}
         </Route>
 
         <PrivateRoute
