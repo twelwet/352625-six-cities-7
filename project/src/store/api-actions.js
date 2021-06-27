@@ -2,6 +2,13 @@ import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 
+const prepareErrorStructure = (err, isErrorScreenRender = false) => ({
+  isErrorScreenRender,
+  isError: true,
+  infoMessage: 'Ошибка запроса к серверу',
+  errorObject: err,
+});
+
 const fetchOffersList = () => (dispatch, _getState, api) => (
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
@@ -10,12 +17,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
       );
       dispatch(ActionCreator.loadOffers(adoptedData));
     })
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo({
-      isErrorScreenRender: true,
-      isError: true,
-      infoMessage: 'Ошибка запроса к серверу',
-      errorObject: err,
-    })))
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
 );
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => (
@@ -23,7 +25,7 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => (
     .then(
       ({data}) => dispatch(ActionCreator.loadOffer(getOfferAdapter(data))),
     )
-    .catch(() => {})
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -42,12 +44,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.saveAuthEmail(data.email));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo({
-      isErrorScreenRender: false,
-      isError: true,
-      infoMessage: 'Ошибка авторизации',
-      errorObject: err,
-    })))
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, false))))
 );
 
 const logout = () => (dispatch, _getState, api) => (
