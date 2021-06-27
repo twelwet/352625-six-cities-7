@@ -11,6 +11,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
       dispatch(ActionCreator.loadOffers(adoptedData));
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo({
+      isErrorScreenRender: true,
       isError: true,
       infoMessage: 'Ошибка запроса к серверу',
       errorObject: err,
@@ -33,6 +34,12 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.saveAuthEmail(data.email));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo({
+      isErrorScreenRender: false,
+      isError: true,
+      infoMessage: 'Ошибка авторизации',
+      errorObject: err,
+    })))
 );
 
 const logout = () => (dispatch, _getState, api) => (

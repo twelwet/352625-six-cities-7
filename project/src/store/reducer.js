@@ -3,6 +3,7 @@ import {ActionType} from './action.js';
 import {AuthorizationStatus} from '../constants.js';
 
 const defaultErrorState = {
+  isErrorScreenRender: false,
   isError: false,
   infoMessage: '',
   errorObject: {

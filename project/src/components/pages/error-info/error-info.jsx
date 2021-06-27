@@ -19,6 +19,7 @@ function ErrorInfo({error}) {
 
 ErrorInfo.propTypes = {
   error: PropTypes.shape({
+    isErrorScreenRender: PropTypes.bool.isRequired,
     isError: PropTypes.bool.isRequired,
     infoMessage: PropTypes.string.isRequired,
     errorObject: PropTypes.shape({

@@ -14,7 +14,7 @@ import Spinner from '../ui/spinner/spinner.jsx';
 import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
 function App({offers, authorizationStatus, error}) {
-  if (error.isError) {
+  if (error.isError && error.isErrorScreenRender) {
     return <ErrorInfo error={error}/>;
   }
 
