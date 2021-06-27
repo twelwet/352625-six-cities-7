@@ -10,6 +10,11 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
       );
       dispatch(ActionCreator.loadOffers(adoptedData));
     })
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo({
+      isError: true,
+      infoMessage: 'Сервер не доступен',
+      errorObject: err,
+    })))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
