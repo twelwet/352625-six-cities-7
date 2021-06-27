@@ -5,7 +5,7 @@ import Header from '../../ui/header/header.jsx';
 import {login} from '../../../store/api-actions.js';
 import {AppRoute} from '../../../constants.js';
 
-function SignIn({onSubmit}) {
+function SignIn({onSubmit, error}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -16,9 +16,6 @@ function SignIn({onSubmit}) {
       email: loginRef.current.value,
       password: passwordRef.current.value,
     });
-
-    loginRef.current.value = '';
-    passwordRef.current.value = '';
   };
 
   return (
@@ -29,6 +26,7 @@ function SignIn({onSubmit}) {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
+            {error.isError ? <div>{error.infoMessage}</div> : ''}
             <form
               onSubmit={handleSubmit}
               className="login__form form"
@@ -75,7 +73,24 @@ function SignIn({onSubmit}) {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  error: PropTypes.shape({
+    isErrorScreenRender: PropTypes.bool.isRequired,
+    isError: PropTypes.bool.isRequired,
+    infoMessage: PropTypes.string.isRequired,
+    errorObject: PropTypes.shape({
+      config: PropTypes.shape({
+        method: PropTypes.string.isRequired,
+        url: PropTypes.string.isRequired,
+        baseURL: PropTypes.string.isRequired,
+      }).isRequired,
+      message: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  error: state.error,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -84,4 +99,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
