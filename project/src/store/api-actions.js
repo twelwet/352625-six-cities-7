@@ -1,5 +1,6 @@
 import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
+import getCommentAdapter from '../utils/get-comment-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 
 const prepareErrorStructure = (err, isErrorScreenRender = false) => ({
@@ -39,6 +40,17 @@ const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
 );
 
+const fetchComments = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.COMMENTS}/${id}`)
+    .then(({data}) => {
+      const adoptedData = data.map(
+        (comment) => getCommentAdapter(comment),
+      );
+      dispatch(ActionCreator.loadComments(adoptedData));
+    })
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -64,4 +76,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export {fetchOffersList, fetchOfferById, fetchNeighborOffers, checkAuth, login, logout};
+export {fetchOffersList, fetchOfferById, fetchNeighborOffers, fetchComments, checkAuth, login, logout};

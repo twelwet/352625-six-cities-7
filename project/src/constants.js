@@ -25,6 +25,7 @@ const REQUEST_TIMEOUT = 5000;
 
 const APIRoute = {
   HOTELS: '/hotels',
+  COMMENTS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };

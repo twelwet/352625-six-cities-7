@@ -49,6 +49,11 @@ const reducer = (state = initialState, action) => {
         ...state,
         neighborOffers: action.payload,
       };
+    case ActionType.LOAD_COMMENTS:
+      return {
+        ...state,
+        reviews: action.payload,
+      };
     case ActionType.REQUIRE_AUTH:
       return {
         ...state,

@@ -3,6 +3,7 @@ export const ActionType = {
   LOAD_OFFERS: 'api/load-offers',
   LOAD_OFFER: 'api/load-offer',
   LOAD_NEIGHBOR_OFFERS: 'api/load-neighbor-offers',
+  LOAD_COMMENTS: 'api/load-comments',
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_EMAIL: 'user/save-auth-email',
   LOGOUT: 'user/logout',
@@ -25,6 +26,10 @@ export const ActionCreator = {
   loadNeighborOffers: (neighborOffers) => ({
     type: ActionType.LOAD_NEIGHBOR_OFFERS,
     payload: neighborOffers,
+  }),
+  loadComments: (comments) => ({
+    type: ActionType.LOAD_COMMENTS,
+    payload: comments,
   }),
   requireAuth: (status) => ({
     type: ActionType.REQUIRE_AUTH,
