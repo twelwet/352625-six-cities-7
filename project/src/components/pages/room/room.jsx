@@ -1,19 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import offerPropTypes from '../../../prop-types/offer.prop.js';
+import offerPropTypes from '../../../prop-types/offer-not-required.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
+import {fetchOfferById} from '../../../store/api-actions.js';
 
-function Room({offer, offers, reviews, authorizationStatus}) {
-  const neighborOffers = offers
-    .filter((item) => item.city.name === offer.city.name && item.id !== offer.id)
-    .slice(0, 3);
+function Room({roomId, getOfferById, offer, offers, reviews, authorizationStatus}) {
+  useEffect(() => {
+    getOfferById(roomId);
+  }, [getOfferById, roomId]);
+
+  const neighborOffers = offers.slice(0, 3);
+
   const {
     id,
     title,
@@ -29,6 +34,10 @@ function Room({offer, offers, reviews, authorizationStatus}) {
     isPremium,
     isFavourite,
   } = offer;
+
+  if (Object.keys(offer).length === 0) {
+    return <Spinner/>;
+  }
 
   return (
     <div className="page">
@@ -143,17 +152,26 @@ function Room({offer, offers, reviews, authorizationStatus}) {
 }
 
 Room.propTypes = {
+  roomId: PropTypes.number.isRequired,
   offer: offerPropTypes,
   offers: offersPropTypes,
   reviews: reviewsPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
+  getOfferById: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  offer: state.offer,
   offers: state.offers,
   reviews: state.reviews,
   authorizationStatus: state.authorizationStatus,
 });
 
+const mapDispatchToProps = (dispatch) => ({
+  getOfferById (id) {
+    dispatch(fetchOfferById(id));
+  },
+});
+
 export {Room};
-export default connect(mapStateToProps, null)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

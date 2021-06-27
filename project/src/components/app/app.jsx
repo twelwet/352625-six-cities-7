@@ -51,7 +51,7 @@ function App({offers, authorizationStatus, error}) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer}/>);
+              return (<Room roomId={id}/>);
             }
           }
         />
