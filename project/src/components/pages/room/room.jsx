@@ -10,12 +10,13 @@ import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighb
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
-import {fetchOfferById, fetchNeighborOffers} from '../../../store/api-actions.js';
+import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
 
-function Room({roomId, getOfferById, getNeighborOffersById, offer, neighborOffers, reviews, authorizationStatus}) {
+function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
+    getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, roomId]);
 
   const {
@@ -34,7 +35,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, offer, neighborOffer
     isFavourite,
   } = offer;
 
-  if (Object.keys(offer).length === 0 || neighborOffers.length === 0) {
+  if (Object.keys(offer).length === 0 || neighborOffers.length === 0 || reviews.length === 0) {
     return <Spinner/>;
   }
 
@@ -132,7 +133,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, offer, neighborOffer
                   </p>
                 </div>
               </div>
-              <Reviews offerId={offer.id} reviews={reviews} authorizationStatus={authorizationStatus}/>
+              <Reviews reviews={reviews} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
           <section className="property__map map">
@@ -158,6 +159,7 @@ Room.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
   getOfferById: PropTypes.func.isRequired,
   getNeighborOffersById: PropTypes.func.isRequired,
+  getCommentsByOfferId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
@@ -173,6 +175,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   getNeighborOffersById (id) {
     dispatch(fetchNeighborOffers(id));
+  },
+  getCommentsByOfferId (id) {
+    dispatch(fetchComments(id));
   },
 });
 

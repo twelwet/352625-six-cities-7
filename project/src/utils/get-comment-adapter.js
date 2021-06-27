@@ -17,7 +17,7 @@ const getCommentAdapter = (commentFromServer) => {
       name: user.name,
       isPro: user['is_pro'],
       avatarUrl: user['avatar_url'],
-    }
+    },
   };
 };
 
