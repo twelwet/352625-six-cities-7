@@ -5,7 +5,14 @@ import {AuthorizationStatus} from '../constants.js';
 const defaultErrorState = {
   isError: false,
   infoMessage: '',
-  errorObject: null,
+  errorObject: {
+    config: {
+      method: '',
+      url: '',
+      baseURL: '',
+    },
+    message: '',
+  },
 };
 
 const initialState = {

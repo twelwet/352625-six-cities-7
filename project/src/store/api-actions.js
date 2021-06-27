@@ -12,7 +12,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo({
       isError: true,
-      infoMessage: 'Сервер не доступен',
+      infoMessage: 'Ошибка запроса к серверу',
       errorObject: err,
     })))
 );
