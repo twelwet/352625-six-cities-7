@@ -28,6 +28,17 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => (
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
 );
 
+const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}/nearby`)
+    .then(({data}) => {
+      const adoptedData = data.map(
+        (offer) => getOfferAdapter(offer),
+      );
+      dispatch(ActionCreator.loadNeighborOffers(adoptedData));
+    })
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, true))))
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -53,4 +64,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export {fetchOffersList, fetchOfferById, checkAuth, login, logout};
+export {fetchOffersList, fetchOfferById, fetchNeighborOffers, checkAuth, login, logout};

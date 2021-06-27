@@ -20,6 +20,7 @@ const initialState = {
   city: DEFAULT_CITY,
   offers: [],
   offer: {},
+  neighborOffers: [],
   reviews: [],
   userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
