@@ -18,6 +18,14 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
     })))
 );
 
+const fetchOfferById = (id) => (dispatch, _getState, api) => (
+  api.get(`${APIRoute.HOTELS}/${id}`)
+    .then(
+      ({data}) => dispatch(ActionCreator.loadOffer(getOfferAdapter(data))),
+    )
+    .catch(() => {})
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -48,4 +56,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export {fetchOffersList, checkAuth, login, logout};
+export {fetchOffersList, fetchOfferById, checkAuth, login, logout};

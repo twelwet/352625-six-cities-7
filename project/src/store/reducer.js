@@ -19,6 +19,7 @@ const defaultErrorState = {
 const initialState = {
   city: DEFAULT_CITY,
   offers: [],
+  offer: {},
   reviews: [],
   userEmail: null,
   authorizationStatus: AuthorizationStatus.UNKNOWN,
@@ -36,6 +37,11 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+      };
+    case ActionType.LOAD_OFFER:
+      return {
+        ...state,
+        offer: action.payload,
       };
     case ActionType.REQUIRE_AUTH:
       return {
