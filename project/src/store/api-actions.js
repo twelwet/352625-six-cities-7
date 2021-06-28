@@ -57,6 +57,11 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
 );
 
+const pushReview = (review, offerId) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
+    .catch(() => {})
+);
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -84,4 +89,4 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => dispatch(ActionCreator.logout()))
 );
 
-export {fetchOffersList, fetchOfferById, fetchNeighborOffers, fetchComments, checkAuth, login, logout};
+export {fetchOffersList, fetchOfferById, fetchNeighborOffers, fetchComments, pushReview, checkAuth, login, logout};

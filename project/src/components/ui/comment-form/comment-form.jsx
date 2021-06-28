@@ -2,41 +2,27 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
-import {ActionCreator} from '../../../store/action.js';
+import {pushReview, fetchComments} from '../../../store/api-actions.js';
+import offerPropTypes from '../../../prop-types/offer.prop.js';
 
 const reviewTemplate = {
-  id: 1234567890,
-  date: '',
+  offerId: null,
   rating: null,
   comment: '',
-  user: {
-    id: null,
-    name: null,
-    avatarUrl: null,
-    isPro: null,
-  },
 };
 
-function CommentForm({saveReview, authInfo}) {
+function CommentForm({saveReview, offer}) {
   const [review, setReview] = useState(reviewTemplate);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-
-    review.date = new Date().toISOString();
-
-    const {id, name, avatarUrl, isPro} = authInfo;
-    review.user.id = id;
-    review.user.name = name;
-    review.user.avatarUrl = avatarUrl;
-    review.user.isPro = isPro;
-
+    review.offerId = offer.id;
     saveReview(review);
   };
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    setReview({...review, [name]: value});
+    setReview({...review, [name]: name === 'rating' ? parseInt(value, 10) : value});
   };
 
   return (
@@ -68,24 +54,18 @@ function CommentForm({saveReview, authInfo}) {
 }
 
 CommentForm.propTypes = {
+  offer: offerPropTypes,
   saveReview: PropTypes.func.isRequired,
-  authInfo: PropTypes.shape({
-    id: PropTypes.number,
-    email: PropTypes.string,
-    name: PropTypes.string,
-    avatarUrl: PropTypes.string,
-    isPro: PropTypes.bool,
-    token: PropTypes.string,
-  }),
 };
 
 const mapStateToProps = (state) => ({
-  authInfo: state.authInfo,
+  offer: state.offer,
 });
 
 const mapDispatchToProps = (dispatch) => ({
   saveReview(data) {
-    dispatch(ActionCreator.saveComment(data));
+    dispatch(pushReview({comment: data.comment, rating: data.rating}, data.offerId));
+    dispatch(fetchComments(data.offerId));
   },
 });
 
