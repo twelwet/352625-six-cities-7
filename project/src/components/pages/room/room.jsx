@@ -17,7 +17,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     getOfferById(roomId);
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
-  }, [getOfferById, getNeighborOffersById, roomId]);
+  }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
   const {
     id,
