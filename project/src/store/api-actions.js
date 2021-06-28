@@ -9,7 +9,7 @@ const prepareErrorStructure = (err, infoMessage = 'Ошибка запроса �
   isErrorScreenRender,
   isError: true,
   infoMessage,
-  errorObject: err,
+  body: `${err.message}: ${err.config.method} ${err.config.baseURL}${err.config.url}`,
 });
 
 const fetchOffersList = () => (dispatch, _getState, api) => (
