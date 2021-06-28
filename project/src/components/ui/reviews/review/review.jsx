@@ -1,7 +1,11 @@
 import React from 'react';
 import reviewPropTypes from '../../../../prop-types/review.prop.js';
 
+const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+
 function Review({user, rating, comment, date}) {
+  const month = months[new Date(+ new Date(date)).getMonth()];
+  const year = new Date(+ new Date(date)).getFullYear();
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -18,7 +22,7 @@ function Review({user, rating, comment, date}) {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <time className="reviews__time" dateTime="2019-04-24">{`${month} ${year}`}</time>
       </div>
     </li>
   );
