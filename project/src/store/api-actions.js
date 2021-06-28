@@ -4,7 +4,13 @@ import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 
-const prepareErrorStructure = (err, infoMessage = 'Ошибка запроса к серверу', isErrorScreenRender = true) => ({
+const ErrorInfoMessage = {
+  GET_ERROR: 'Ошибка запроса к серверу',
+  LOGIN_ERROR: 'Ошибка авторизации, попробуйте еще раз',
+  POST_COMMENT_ERROR: 'Ошибка отправки комментария, попробуйте еще раз',
+};
+
+const prepareErrorStructure = (err, infoMessage = ErrorInfoMessage.GET_ERROR, isErrorScreenRender = true) => ({
   isErrorScreenRender,
   isError: true,
   infoMessage,
@@ -54,7 +60,7 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
 
 const pushComment = (review, offerId) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
-    .catch(() => {})
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, ErrorInfoMessage.POST_COMMENT_ERROR, false))))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -75,7 +81,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.saveAuthInfo(adoptedData));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, 'Ошибка авторизации, попробуйте еще раз', false))))
+    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, ErrorInfoMessage.LOGIN_ERROR, false))))
 );
 
 const logout = () => (dispatch, _getState, api) => (
