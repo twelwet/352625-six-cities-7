@@ -80,4 +80,4 @@ const reducer = (state = initialState, action) => {
   }
 };
 
-export {reducer};
+export {reducer, defaultErrorState};
