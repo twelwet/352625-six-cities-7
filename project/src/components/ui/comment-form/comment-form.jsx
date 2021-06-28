@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
-import {pushReview, fetchComments} from '../../../store/api-actions.js';
+import {pushComment, fetchComments} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 
 const reviewTemplate = {
@@ -64,7 +64,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveReview(data) {
-    dispatch(pushReview({comment: data.comment, rating: data.rating}, data.offerId));
+    dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId));
     dispatch(fetchComments(data.offerId));
   },
 });
