@@ -2,10 +2,10 @@ import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
-import {login} from '../../../store/api-actions.js';
+import {login, ErrorInfoMessage} from '../../../store/api-actions.js';
 import {AppRoute} from '../../../constants.js';
 
-function SignIn({onSubmit, error}) {
+function SignIn({onSubmit, errors}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -18,6 +18,8 @@ function SignIn({onSubmit, error}) {
     });
   };
 
+  const isLoginError = errors.find((err) => err.infoMessage === ErrorInfoMessage.LOGIN_ERROR);
+
   return (
     <div className="page page--gray page--login">
       <Header/>
@@ -26,7 +28,7 @@ function SignIn({onSubmit, error}) {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            {error.isError ? <div>{error.infoMessage}</div> : ''}
+            {isLoginError ? <div>{ErrorInfoMessage.LOGIN_ERROR}</div> : ''}
             <form
               onSubmit={handleSubmit}
               className="login__form form"
@@ -73,23 +75,18 @@ function SignIn({onSubmit, error}) {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  error: PropTypes.shape({
-    isErrorScreenRender: PropTypes.bool.isRequired,
-    isError: PropTypes.bool.isRequired,
-    infoMessage: PropTypes.string.isRequired,
-    errorObject: PropTypes.shape({
-      config: PropTypes.shape({
-        method: PropTypes.string.isRequired,
-        url: PropTypes.string.isRequired,
-        baseURL: PropTypes.string.isRequired,
-      }).isRequired,
-      message: PropTypes.string.isRequired,
-    }).isRequired,
-  }).isRequired,
+  errors: PropTypes.arrayOf(
+    PropTypes.shape({
+      isErrorScreenRender: PropTypes.bool,
+      isError: PropTypes.bool,
+      infoMessage: PropTypes.string,
+      body: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  error: state.error,
+  errors: state.errors,
 });
 
 const mapDispatchToProps = (dispatch) => ({
