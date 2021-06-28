@@ -54,11 +54,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         reviews: action.payload,
       };
-    case ActionType.SAVE_COMMENT:
-      return {
-        ...state,
-        reviews: state.reviews.concat([action.payload]),
-      };
     case ActionType.REQUIRE_AUTH:
       return {
         ...state,

@@ -4,9 +4,8 @@ export const ActionType = {
   LOAD_OFFER: 'api/load-offer',
   LOAD_NEIGHBOR_OFFERS: 'api/load-neighbor-offers',
   LOAD_COMMENTS: 'api/load-comments',
-  SAVE_COMMENT: 'room/save-comment',
   REQUIRE_AUTH: 'user/require-auth',
-  SAVE_AUTH_INFO: 'user/save-auth-email',
+  SAVE_AUTH_INFO: 'user/save-auth-info',
   LOGOUT: 'user/logout',
   SAVE_ERROR_INFO: 'api/save-error-info',
 };
@@ -31,10 +30,6 @@ export const ActionCreator = {
   loadComments: (comments) => ({
     type: ActionType.LOAD_COMMENTS,
     payload: comments,
-  }),
-  saveComment: (comment) => ({
-    type: ActionType.SAVE_COMMENT,
-    payload: comment,
   }),
   requireAuth: (status) => ({
     type: ActionType.REQUIRE_AUTH,
