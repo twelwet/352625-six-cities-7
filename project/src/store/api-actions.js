@@ -76,7 +76,8 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      dispatch(ActionCreator.saveAuthEmail(data.email));
+      const adoptedData = getUserAdapter(data);
+      dispatch(ActionCreator.saveAuthInfo(adoptedData));
       dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
