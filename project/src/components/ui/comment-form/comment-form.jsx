@@ -18,6 +18,7 @@ function CommentForm({saveReview, offer}) {
     evt.preventDefault();
     review.offerId = offer.id;
     saveReview(review);
+    setReview(reviewTemplate);
   };
 
   const handleFieldChange = (evt) => {
