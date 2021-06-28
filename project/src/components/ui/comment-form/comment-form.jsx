@@ -1,8 +1,16 @@
 import React, {useState} from 'react';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 
+const reviewTemplate = {
+  id: 1234567890,
+  date: '',
+  rating: null,
+  comment: '',
+  user: {},
+};
+
 function CommentForm() {
-  const [comment, setComment] = useState({rating: null, review: ''});
+  const [review, setReview] = useState(reviewTemplate);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -10,7 +18,7 @@ function CommentForm() {
 
   const handleFieldChange = (evt) => {
     const {name, value} = evt.target;
-    setComment({...comment, [name]: value});
+    setReview({...review, [name]: value});
   };
 
   return (
@@ -25,10 +33,10 @@ function CommentForm() {
       <textarea
         className="reviews__textarea form__textarea"
         id="review"
-        name="review"
+        name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleFieldChange}
-        value={comment.review}
+        value={review.comment}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
