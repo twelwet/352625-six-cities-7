@@ -13,9 +13,10 @@ import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
-function App({offers, authorizationStatus, error}) {
-  if (error.isError && error.isErrorScreenRender) {
-    return <ErrorInfo error={error}/>;
+function App({offers, authorizationStatus, errors}) {
+  const errorsToRender = errors.filter((error) => error.isErrorScreenRender === true);
+  if (errorsToRender.length > 0) {
+    return <ErrorInfo errors={errorsToRender}/>;
   }
 
   if (offers.length === 0 || authorizationStatus === AuthorizationStatus.UNKNOWN) {
@@ -67,11 +68,18 @@ function App({offers, authorizationStatus, error}) {
 App.propTypes = {
   offers: offersPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
-  error: PropTypes.object,
+  errors: PropTypes.arrayOf(
+    PropTypes.shape({
+      isErrorScreenRender: PropTypes.bool,
+      isError: PropTypes.bool,
+      infoMessage: PropTypes.string,
+      body: PropTypes.string,
+    }),
+  ).isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  error: state.error,
+  errors: state.errors,
   offers: state.offers,
   authorizationStatus: state.authorizationStatus,
 });

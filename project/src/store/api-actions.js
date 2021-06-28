@@ -3,7 +3,6 @@ import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
-import {defaultErrorState} from './reducer.js';
 
 const prepareErrorStructure = (err, infoMessage = 'Ошибка запроса к серверу', isErrorScreenRender = true) => ({
   isErrorScreenRender,
@@ -19,7 +18,6 @@ const fetchOffersList = () => (dispatch, _getState, api) => (
         (offer) => getOfferAdapter(offer),
       );
       dispatch(ActionCreator.loadOffers(adoptedData));
-      dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
 );
@@ -28,7 +26,6 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${id}`)
     .then(({data}) => {
       dispatch(ActionCreator.loadOffer(getOfferAdapter(data)));
-      dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
 );
@@ -40,7 +37,6 @@ const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
         (offer) => getOfferAdapter(offer),
       );
       dispatch(ActionCreator.loadNeighborOffers(adoptedData));
-      dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
 );
@@ -52,7 +48,6 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
         (comment) => getCommentAdapter(comment),
       );
       dispatch(ActionCreator.loadComments(adoptedData));
-      dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
 );
@@ -78,7 +73,6 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       localStorage.setItem('token', data.token);
       const adoptedData = getUserAdapter(data);
       dispatch(ActionCreator.saveAuthInfo(adoptedData));
-      dispatch(ActionCreator.saveErrorInfo(defaultErrorState));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
     .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, 'Ошибка авторизации, попробуйте еще раз', false))))

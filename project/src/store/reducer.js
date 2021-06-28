@@ -2,13 +2,6 @@ import {DEFAULT_CITY} from '../settings.js';
 import {ActionType} from './action.js';
 import {AuthorizationStatus} from '../constants.js';
 
-const defaultErrorState = {
-  isErrorScreenRender: false,
-  isError: false,
-  infoMessage: '',
-  body: '',
-};
-
 const initialState = {
   city: DEFAULT_CITY,
   offers: [],
@@ -17,7 +10,7 @@ const initialState = {
   reviews: [],
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  error: defaultErrorState,
+  errors: [],
 };
 
 const reducer = (state = initialState, action) => {
@@ -66,11 +59,11 @@ const reducer = (state = initialState, action) => {
     case ActionType.SAVE_ERROR_INFO:
       return {
         ...state,
-        error: action.payload,
+        errors: state.errors.concat([action.payload]),
       };
     default:
       return state;
   }
 };
 
-export {reducer, defaultErrorState};
+export {reducer};
