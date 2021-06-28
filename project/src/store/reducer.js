@@ -6,14 +6,7 @@ const defaultErrorState = {
   isErrorScreenRender: false,
   isError: false,
   infoMessage: '',
-  errorObject: {
-    config: {
-      method: '',
-      url: '',
-      baseURL: '',
-    },
-    message: '',
-  },
+  body: '',
 };
 
 const initialState = {
