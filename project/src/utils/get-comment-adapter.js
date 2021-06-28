@@ -11,8 +11,8 @@ const getCommentAdapter = (commentFromServer) => {
     id,
     date,
     rating,
-    description: comment,
-    author: {
+    comment,
+    user: {
       id: user.id,
       name: user.name,
       isPro: user['is_pro'],
