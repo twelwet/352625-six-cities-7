@@ -6,7 +6,7 @@ export const ActionType = {
   LOAD_COMMENTS: 'api/load-comments',
   SAVE_COMMENT: 'room/save-comment',
   REQUIRE_AUTH: 'user/require-auth',
-  SAVE_AUTH_EMAIL: 'user/save-auth-email',
+  SAVE_AUTH_INFO: 'user/save-auth-email',
   LOGOUT: 'user/logout',
   SAVE_ERROR_INFO: 'api/save-error-info',
 };
@@ -40,8 +40,8 @@ export const ActionCreator = {
     type: ActionType.REQUIRE_AUTH,
     payload: status,
   }),
-  saveAuthEmail: (data) => ({
-    type: ActionType.SAVE_AUTH_EMAIL,
+  saveAuthInfo: (data) => ({
+    type: ActionType.SAVE_AUTH_INFO,
     payload: data,
   }),
   logout: () => ({

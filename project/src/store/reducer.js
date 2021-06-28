@@ -22,7 +22,7 @@ const initialState = {
   offer: {},
   neighborOffers: [],
   reviews: [],
-  userEmail: null,
+  authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   error: defaultErrorState,
 };
@@ -64,10 +64,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload,
       };
-    case ActionType.SAVE_AUTH_EMAIL:
+    case ActionType.SAVE_AUTH_INFO:
       return {
         ...state,
-        userEmail: action.payload,
+        authInfo: action.payload,
       };
     case ActionType.LOGOUT:
       return {

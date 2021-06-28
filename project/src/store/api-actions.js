@@ -1,6 +1,7 @@
 import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
+import getUserAdapter from '../utils/get-user-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 import {defaultErrorState} from './reducer.js';
 
@@ -59,8 +60,9 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
+      const adoptedData = getUserAdapter(data);
       dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.saveAuthEmail(data.email));
+      dispatch(ActionCreator.saveAuthInfo(adoptedData));
     })
     .catch(() => {})
 );
