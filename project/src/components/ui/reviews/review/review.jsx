@@ -4,8 +4,12 @@ import reviewPropTypes from '../../../../prop-types/review.prop.js';
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
 function Review({user, rating, comment, date}) {
-  const month = months[new Date(+ new Date(date)).getMonth()];
-  const year = new Date(+ new Date(date)).getFullYear();
+  const adaptedDate = new Date(+ new Date(date));
+  const year = adaptedDate.getFullYear();
+  const month = adaptedDate.getMonth() + 1;
+  const day = adaptedDate.getDate() + 1;
+  const monthByLetters = months[adaptedDate.getMonth()];
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
@@ -22,7 +26,7 @@ function Review({user, rating, comment, date}) {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{`${month} ${year}`}</time>
+        <time className="reviews__time" dateTime={`${year}-${month}-${day}`}>{`${monthByLetters} ${year}`}</time>
       </div>
     </li>
   );
