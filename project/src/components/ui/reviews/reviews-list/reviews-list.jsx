@@ -6,11 +6,13 @@ function ReviewsList({reviews}) {
   return (
     <ul className="reviews__list">
       {
-        reviews.map(
-          (review) => (
-            <Review key={review.id} {...review}/>
-          ),
-        )
+        reviews
+          .sort((a, b) => (+ new Date(b.date)) - (+ new Date(a.date)))
+          .map(
+            (review) => (
+              <Review key={review.id} {...review}/>
+            ),
+          )
       }
     </ul>
   );
