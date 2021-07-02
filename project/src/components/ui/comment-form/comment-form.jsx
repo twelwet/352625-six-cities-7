@@ -5,18 +5,18 @@ import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import {pushComment, fetchComments} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 
-const reviewTemplate = {
-  offerId: null,
-  rating: null,
-  comment: '',
-};
+const minCommentLength = 50;
 
 function CommentForm({saveReview, offer}) {
+  const reviewTemplate = {
+    offerId: offer.id,
+    rating: null,
+    comment: '',
+  };
   const [review, setReview] = useState(reviewTemplate);
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    review.offerId = offer.id;
     saveReview(review);
     setReview(reviewTemplate);
   };
@@ -42,13 +42,20 @@ function CommentForm({saveReview, offer}) {
         placeholder="Tell how was your stay, what you like and what can be improved"
         onChange={handleFieldChange}
         value={review.comment}
+        maxLength={'300'}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
           describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
         </p>
-        <button className="reviews__submit form__submit button" type="submit" disabled="">Submit</button>
+        <button
+          className="reviews__submit form__submit button"
+          type="submit"
+          disabled={(review.comment.length < minCommentLength || review.rating === null) ? 'true' : ''}
+        >
+          Submit
+        </button>
       </div>
     </form>
   );
