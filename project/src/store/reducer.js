@@ -11,6 +11,13 @@ const initialState = {
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   errors: [],
+  isLoading: {
+    offers: true,
+    authorizationStatus: true,
+    offer: true,
+    neighborOffers: true,
+    reviews: true,
+  },
 };
 
 const reducer = (state = initialState, action) => {
@@ -24,26 +31,46 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         offers: action.payload,
+        isLoading: {
+          ...state.isLoading,
+          offers: false,
+        },
       };
     case ActionType.LOAD_OFFER:
       return {
         ...state,
         offer: action.payload,
+        isLoading: {
+          ...state.isLoading,
+          offer: false,
+        },
       };
     case ActionType.LOAD_NEIGHBOR_OFFERS:
       return {
         ...state,
         neighborOffers: action.payload,
+        isLoading: {
+          ...state.isLoading,
+          neighborOffers: false,
+        },
       };
     case ActionType.LOAD_COMMENTS:
       return {
         ...state,
         reviews: action.payload,
+        isLoading: {
+          ...state.isLoading,
+          reviews: false,
+        },
       };
     case ActionType.REQUIRE_AUTH:
       return {
         ...state,
         authorizationStatus: action.payload,
+        isLoading: {
+          ...state.isLoading,
+          authorizationStatus: false,
+        },
       };
     case ActionType.SAVE_AUTH_INFO:
       return {

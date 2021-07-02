@@ -13,13 +13,13 @@ import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
-function App({offers, authorizationStatus, errors}) {
+function App({offers, authorizationStatus, errors, isLoading}) {
   const errorsToRender = errors.filter((error) => error.isErrorScreenRender === true);
   if (errorsToRender.length > 0) {
     return <ErrorInfo errors={errorsToRender}/>;
   }
 
-  if (offers.length === 0 || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  if (isLoading.offers || isLoading.authorizationStatus) {
     return <Spinner/>;
   }
 
@@ -76,12 +76,20 @@ App.propTypes = {
       body: PropTypes.string,
     }),
   ).isRequired,
+  isLoading: PropTypes.shape({
+    offers: PropTypes.bool.isRequired,
+    authorizationStatus: PropTypes.bool.isRequired,
+    offer: PropTypes.bool.isRequired,
+    neighborOffers: PropTypes.bool.isRequired,
+    reviews: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = (state) => ({
   errors: state.errors,
   offers: state.offers,
   authorizationStatus: state.authorizationStatus,
+  isLoading: state.isLoading,
 });
 
 export {App};

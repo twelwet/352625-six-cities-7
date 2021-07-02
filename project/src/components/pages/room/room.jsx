@@ -12,7 +12,7 @@ import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
 
-function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
+function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus, isLoading}) {
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
@@ -35,7 +35,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     isFavourite,
   } = offer;
 
-  if (Object.keys(offer).length === 0 || neighborOffers.length === 0 || reviews.length === 0) {
+  if (isLoading.offer || isLoading.neighborOffers || isLoading.reviews) {
     return <Spinner/>;
   }
 
@@ -160,6 +160,13 @@ Room.propTypes = {
   getOfferById: PropTypes.func.isRequired,
   getNeighborOffersById: PropTypes.func.isRequired,
   getCommentsByOfferId: PropTypes.func.isRequired,
+  isLoading: PropTypes.shape({
+    offers: PropTypes.bool.isRequired,
+    authorizationStatus: PropTypes.bool.isRequired,
+    offer: PropTypes.bool.isRequired,
+    neighborOffers: PropTypes.bool.isRequired,
+    reviews: PropTypes.bool.isRequired,
+  }),
 };
 
 const mapStateToProps = (state) => ({
@@ -167,6 +174,7 @@ const mapStateToProps = (state) => ({
   neighborOffers: state.neighborOffers,
   reviews: state.reviews,
   authorizationStatus: state.authorizationStatus,
+  isLoading: state.isLoading,
 });
 
 const mapDispatchToProps = (dispatch) => ({
