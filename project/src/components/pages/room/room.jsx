@@ -21,13 +21,17 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
-  const {status: offerStatus, data: offerData, error} = offer;
-  // TODO упростить логику
-  if (offerStatus === Status.REJECTED && error.message.length > 0) {
+  const {status: offerStatus, data: offerData} = offer;
+  const {status: neighborOffersStatus, data: neighborOffersData, error} = neighborOffers;
+
+  const isErrorsExist = () => (offerStatus === Status.REJECTED || neighborOffersStatus === Status.REJECTED);
+  const isLoadingExist = () => (offerStatus === Status.PENDING || neighborOffersStatus === Status.PENDING);
+
+  if (isErrorsExist()) {
     return <ErrorInfo error={error}/>;
   }
 
-  if (offerStatus === Status.PENDING || isLoading.neighborOffers || isLoading.reviews) {
+  if (isLoadingExist() || isLoading.reviews) {
     return <Spinner/>;
   }
 
@@ -146,13 +150,13 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighborOffers.concat(offerData)} city={city} activeOfferId={id}/>
+            <Map offers={neighborOffersData.concat(offerData)} city={city} activeOfferId={id}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListNeighborhood offers={neighborOffers} />
+            <ListNeighborhood offers={neighborOffersData} />
           </section>
         </div>
       </main>
