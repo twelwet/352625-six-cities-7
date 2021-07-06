@@ -26,7 +26,13 @@ const initialState = {
       message: null,
     },
   },
-  reviews: [],
+  reviews: {
+    status: Status.IDLE,
+    data: [],
+    error: {
+      message: null,
+    },
+  },
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
   isLoading: {
@@ -121,15 +127,31 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    case ActionType.LOAD_COMMENTS:
+    case ActionType.LOAD_COMMENTS_PENDING:
       return {
         ...state,
-        reviews: action.payload,
-        isLoading: {
-          ...state.isLoading,
-          reviews: false,
+        reviews: {
+          ...state.reviews,
+          status: Status.PENDING,
         },
       };
+    case ActionType.LOAD_COMMENTS_FULFILLED:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          ...action.payload,
+        },
+      };
+    case ActionType.LOAD_COMMENTS_REJECTED:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          ...action.payload,
+        },
+      };
+
     case ActionType.REQUIRE_AUTH:
       return {
         ...state,

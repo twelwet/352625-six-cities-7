@@ -2,16 +2,23 @@ import {Status} from '../constants.js';
 
 export const ActionType = {
   CHANGE_CITY: 'main/change-city',
+
   LOAD_OFFERS_PENDING: `api/load-offers_${Status.PENDING}`,
   LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
   LOAD_OFFERS_REJECTED: `api/load-offers_${Status.REJECTED}`,
+
   LOAD_OFFER_PENDING: `api/load-offer_${Status.PENDING}`,
   LOAD_OFFER_FULFILLED: `api/load-offer_${Status.FULFILLED}`,
   LOAD_OFFER_REJECTED: `api/load-offer_${Status.REJECTED}`,
+
   LOAD_NEIGHBOR_OFFERS_PENDING: `api/load-neighbor-offers_${Status.PENDING}`,
   LOAD_NEIGHBOR_OFFERS_FULFILLED: `api/load-neighbor-offers_${Status.FULFILLED}`,
   LOAD_NEIGHBOR_OFFERS_REJECTED: `api/load-neighbor-offers_${Status.REJECTED}`,
-  LOAD_COMMENTS: 'api/load-comments',
+
+  LOAD_COMMENTS_PENDING: `api/load-comments_${Status.PENDING}`,
+  LOAD_COMMENTS_FULFILLED: `api/load-comments_${Status.FULFILLED}`,
+  LOAD_COMMENTS_REJECTED: `api/load-comments_${Status.REJECTED}`,
+
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_INFO: 'user/save-auth-info',
   LOGOUT: 'user/logout',
@@ -62,10 +69,19 @@ export const ActionCreator = {
     payload: { status: Status.REJECTED, error: {message: errorMessage} },
   }),
 
-  loadComments: (comments) => ({
-    type: ActionType.LOAD_COMMENTS,
-    payload: comments,
+  loadCommentsPending: () => ({
+    type: ActionType.LOAD_COMMENTS_PENDING,
+    payload: { status: Status.PENDING },
   }),
+  loadCommentsFulfilled: (comments) => ({
+    type: ActionType.LOAD_COMMENTS_FULFILLED,
+    payload: { status: Status.FULFILLED, data: comments },
+  }),
+  loadCommentsRejected: (errorMessage) => ({
+    type: ActionType.LOAD_COMMENTS_REJECTED,
+    payload: { status: Status.REJECTED, error: {message: errorMessage} },
+  }),
+
   requireAuth: (status) => ({
     type: ActionType.REQUIRE_AUTH,
     payload: status,
