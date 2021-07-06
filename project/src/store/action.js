@@ -58,7 +58,7 @@ export const ActionCreator = {
     payload: { status: Status.FULFILLED, data: neighborOffers },
   }),
   loadNeighborOffersRejected: (errorMessage) => ({
-    type: ActionType.LOAD_OFFER_REJECTED,
+    type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
     payload: { status: Status.REJECTED, error: {message: errorMessage} },
   }),
 
