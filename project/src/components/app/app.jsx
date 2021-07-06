@@ -15,7 +15,7 @@ import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 
 function App({offers, authorizationStatus}) {
   const {status, data: offersData, error} = offers;
-
+  // TODO упростить логику
   if (status === Status.REJECTED && error.message.length > 0) {
     return <ErrorInfo error={error}/>;
   }

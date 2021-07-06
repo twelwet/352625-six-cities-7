@@ -11,13 +11,25 @@ import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
-
+import {Status} from '../../../constants.js';
+import ErrorInfo from '../error-info/error-info';
+// TODO удалить isLoading
 function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus, isLoading}) {
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
+
+  const {status: offerStatus, data: offerData, error} = offer;
+  // TODO упростить логику
+  if (offerStatus === Status.REJECTED && error.message.length > 0) {
+    return <ErrorInfo error={error}/>;
+  }
+
+  if (offerStatus === Status.PENDING || isLoading.neighborOffers || isLoading.reviews) {
+    return <Spinner/>;
+  }
 
   const {
     id,
@@ -31,13 +43,10 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     maxAdults,
     goods,
     host,
+    city,
     isPremium,
     isFavourite,
-  } = offer;
-
-  if (isLoading.offer || isLoading.neighborOffers || isLoading.reviews) {
-    return <Spinner/>;
-  }
+  } = offerData;
 
   return (
     <div className="page">
@@ -137,7 +146,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighborOffers.concat(offer)} city={offer.city} activeOfferId={id}/>
+            <Map offers={neighborOffers.concat(offerData)} city={city} activeOfferId={id}/>
           </section>
         </section>
         <div className="container">
