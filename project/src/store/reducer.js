@@ -1,10 +1,17 @@
 import {DEFAULT_CITY} from '../settings.js';
 import {ActionType} from './action.js';
 import {AuthorizationStatus} from '../constants.js';
+import {Status} from '../constants.js';
 
 const initialState = {
   city: DEFAULT_CITY,
-  offers: [],
+  offers: {
+    status: Status.IDLE,
+    data: [],
+    error: {
+      message: null,
+    },
+  },
   offer: {},
   neighborOffers: [],
   reviews: [],
@@ -27,13 +34,30 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
-    case ActionType.LOAD_OFFERS:
+    case ActionType.LOAD_OFFERS_PENDING:
       return {
         ...state,
-        offers: action.payload,
-        isLoading: {
-          ...state.isLoading,
-          offers: false,
+        offers: {
+          ...state.offers,
+          status: Status.PENDING,
+        },
+      };
+    case ActionType.LOAD_OFFERS_FULFILLED:
+      return {
+        ...state,
+        offers: {
+          ...state.offers,
+          status: Status.FULFILLED,
+          data: action.payload,
+        },
+      };
+    case ActionType.LOAD_OFFERS_REJECTED:
+      return {
+        ...state,
+        offers: {
+          ...state.offers,
+          status: Status.REJECTED,
+          error: {message: action.payload},
         },
       };
     case ActionType.LOAD_OFFER:

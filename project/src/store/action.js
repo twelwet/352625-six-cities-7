@@ -1,6 +1,10 @@
+import {Status} from '../constants.js';
+
 export const ActionType = {
   CHANGE_CITY: 'main/change-city',
-  LOAD_OFFERS: 'api/load-offers',
+  LOAD_OFFERS_PENDING: `api/load-offers_${Status.PENDING}`,
+  LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
+  LOAD_OFFERS_REJECTED: `api/load-offers_${Status.REJECTED}`,
   LOAD_OFFER: 'api/load-offer',
   LOAD_NEIGHBOR_OFFERS: 'api/load-neighbor-offers',
   LOAD_COMMENTS: 'api/load-comments',
@@ -15,10 +19,19 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: cityName,
   }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: offers,
+  loadOffersPending: () => ({
+    type: ActionType.LOAD_OFFERS_PENDING,
+    payload: { status: Status.PENDING },
   }),
+  loadOffersFulfilled: (offers) => ({
+    type: ActionType.LOAD_OFFERS_FULFILLED,
+    payload: { status: Status.FULFILLED, data: offers },
+  }),
+  loadOffersRejected: (errorMessage) => ({
+    type: ActionType.LOAD_OFFERS_REJECTED,
+    payload: { status: Status.REJECTED, error: {message: errorMessage} },
+  }),
+
   loadOffer: (offer) => ({
     type: ActionType.LOAD_OFFER,
     payload: offer,
