@@ -9,8 +9,9 @@ import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 
 function Main({city, offers}) {
-  const cities = [...new Set(offers.map((offer) => offer.city.name))];
-  const cityOffers = offers.filter((offer) => offer.city.name === city);
+  const {data: offersData} = offers;
+  const cities = [...new Set(offersData.map((offer) => offer.city.name))];
+  const cityOffers = offersData.filter((offer) => offer.city.name === city);
   const placesCount = cityOffers.length;
 
   const [activeOfferId, setActiveOfferId] = useState(null);
