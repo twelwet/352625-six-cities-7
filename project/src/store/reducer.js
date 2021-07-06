@@ -19,7 +19,13 @@ const initialState = {
       message: null,
     },
   },
-  neighborOffers: [],
+  neighborOffers: {
+    status: Status.IDLE,
+    data: [],
+    error: {
+      message: null,
+    },
+  },
   reviews: [],
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
@@ -90,15 +96,31 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    case ActionType.LOAD_NEIGHBOR_OFFERS:
+    case ActionType.LOAD_NEIGHBOR_OFFERS_PENDING:
       return {
         ...state,
-        neighborOffers: action.payload,
-        isLoading: {
-          ...state.isLoading,
-          neighborOffers: false,
+        neighborOffers: {
+          ...state.neighborOffers,
+          status: Status.PENDING,
         },
       };
+    case ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED:
+      return {
+        ...state,
+        neighborOffers: {
+          ...state.neighborOffers,
+          ...action.payload,
+        },
+      };
+    case ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED:
+      return {
+        ...state,
+        neighborOffers: {
+          ...state.neighborOffers,
+          ...action.payload,
+        },
+      };
+
     case ActionType.LOAD_COMMENTS:
       return {
         ...state,
