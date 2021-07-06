@@ -41,5 +41,11 @@ const HttpCode = {
   UNAUTHORIZED: 401,
 };
 
+const Status = {
+  IDLE: 'IDLE',
+  PENDING: 'PENDING',
+  FULFILLED: 'FULFILLED',
+  REJECTED: 'REJECTED',
+};
 
-export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, HttpCode};
+export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, HttpCode, Status};
