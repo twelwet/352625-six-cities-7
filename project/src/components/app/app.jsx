@@ -10,11 +10,12 @@ import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
-import {AuthorizationStatus, AppRoute} from '../../constants.js';
+import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 
-function App({offers, authorizationStatus, errors, isLoading}) {
+function App({offers, authorizationStatus}) {
+  const {status, data: offersData} = offers;
 
-  if (isLoading.offers || isLoading.authorizationStatus) {
+  if (status === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
@@ -32,7 +33,7 @@ function App({offers, authorizationStatus, errors, isLoading}) {
         <PrivateRoute
           path={AppRoute.FAVOURITES}
           exact
-          render={() => <Favourites offers={offers}/>}
+          render={() => <Favourites offers={offersData}/>}
         />
 
         <Route
@@ -41,7 +42,7 @@ function App({offers, authorizationStatus, errors, isLoading}) {
           render={
             (localProps) => {
               const id = parseInt(localProps.match.params.id, 10);
-              const offer = offers.find((item) => item.id === id);
+              const offer = offersData.find((item) => item.id === id);
 
               if (!offer) {
                 return <NotFound/>;
@@ -63,28 +64,11 @@ function App({offers, authorizationStatus, errors, isLoading}) {
 App.propTypes = {
   offers: offersPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
-  errors: PropTypes.arrayOf(
-    PropTypes.shape({
-      isErrorScreenRender: PropTypes.bool,
-      isError: PropTypes.bool,
-      infoMessage: PropTypes.string,
-      body: PropTypes.string,
-    }),
-  ).isRequired,
-  isLoading: PropTypes.shape({
-    offers: PropTypes.bool.isRequired,
-    authorizationStatus: PropTypes.bool.isRequired,
-    offer: PropTypes.bool.isRequired,
-    neighborOffers: PropTypes.bool.isRequired,
-    reviews: PropTypes.bool.isRequired,
-  }),
 };
 
 const mapStateToProps = (state) => ({
-  errors: state.errors,
   offers: state.offers,
   authorizationStatus: state.authorizationStatus,
-  isLoading: state.isLoading,
 });
 
 export {App};
