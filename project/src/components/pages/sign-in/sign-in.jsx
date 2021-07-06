@@ -2,10 +2,10 @@ import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
-import {login, ErrorInfoMessage} from '../../../store/api-actions.js';
+import {login} from '../../../store/api-actions.js';
 import {AppRoute} from '../../../constants.js';
 
-function SignIn({onSubmit, errors}) {
+function SignIn({onSubmit}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -18,8 +18,6 @@ function SignIn({onSubmit, errors}) {
     });
   };
 
-  const isLoginError = errors.find((err) => err.infoMessage === ErrorInfoMessage.LOGIN_ERROR);
-
   return (
     <div className="page page--gray page--login">
       <Header/>
@@ -28,7 +26,6 @@ function SignIn({onSubmit, errors}) {
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            {isLoginError ? <div>{ErrorInfoMessage.LOGIN_ERROR}</div> : ''}
             <form
               onSubmit={handleSubmit}
               className="login__form form"
@@ -75,19 +72,7 @@ function SignIn({onSubmit, errors}) {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
-  errors: PropTypes.arrayOf(
-    PropTypes.shape({
-      isErrorScreenRender: PropTypes.bool,
-      isError: PropTypes.bool,
-      infoMessage: PropTypes.string,
-      body: PropTypes.string,
-    }),
-  ).isRequired,
 };
-
-const mapStateToProps = (state) => ({
-  errors: state.errors,
-});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
@@ -96,4 +81,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {SignIn};
-export default connect(mapStateToProps, mapDispatchToProps)(SignIn);
+export default connect(null, mapDispatchToProps)(SignIn);
