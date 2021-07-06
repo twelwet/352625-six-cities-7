@@ -17,7 +17,6 @@ const initialState = {
   reviews: [],
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  errors: [],
   isLoading: {
     offers: true,
     authorizationStatus: true,
@@ -104,11 +103,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
-      };
-    case ActionType.SAVE_ERROR_INFO:
-      return {
-        ...state,
-        errors: state.errors.concat([action.payload]),
       };
     default:
       return state;

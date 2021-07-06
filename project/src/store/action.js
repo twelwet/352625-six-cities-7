@@ -11,7 +11,6 @@ export const ActionType = {
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_INFO: 'user/save-auth-info',
   LOGOUT: 'user/logout',
-  SAVE_ERROR_INFO: 'api/save-error-info',
 };
 
 export const ActionCreator = {
@@ -54,9 +53,5 @@ export const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
-  }),
-  saveErrorInfo: (error) => ({
-    type: ActionType.SAVE_ERROR_INFO,
-    payload: error,
   }),
 };
