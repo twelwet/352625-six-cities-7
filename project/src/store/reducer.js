@@ -149,10 +149,6 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         authorizationStatus: action.payload,
-        isLoading: {
-          ...state.isLoading,
-          authorizationStatus: false,
-        },
       };
     case ActionType.SAVE_AUTH_INFO:
       return {
