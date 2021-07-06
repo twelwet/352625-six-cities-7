@@ -12,24 +12,24 @@ const ErrorInfoMessage = {
   REQUEST_PROBLEM: 'Something went wrong with request',
 };
 
-const handleError = (error, dispatch) => {
+const handleError = (error, dispatch, action) => {
   if (error.response) {
     const {status} = error.response;
     switch (status) {
       case HttpCode.NOT_FOUND:
-        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.NOT_FOUND));
+        dispatch(action(ErrorInfoMessage.NOT_FOUND));
         break;
       case HttpCode.BAD_REQUEST:
-        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.BAD_REQUEST));
+        dispatch(action(ErrorInfoMessage.BAD_REQUEST));
         break;
       default:
-        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.UNHANDLED));
+        dispatch(action(ErrorInfoMessage.UNHANDLED));
         break;
     }
   } else if (error.request) {
-    dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.REQUEST_PROBLEM));
+    dispatch(action(ErrorInfoMessage.REQUEST_PROBLEM));
   } else {
-    dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE));
+    dispatch(action(ErrorInfoMessage.DEFAULT_MESSAGE));
   }
 };
 
@@ -42,16 +42,17 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
       );
       dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
     })
-    .catch((error) => handleError(error, dispatch));
+    .catch((error) => handleError(error, dispatch, ActionCreator.loadOffersRejected));
 };
 
-const fetchOfferById = (id) => (dispatch, _getState, api) => (
+const fetchOfferById = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.loadOfferPending());
   api.get(`${APIRoute.HOTELS}/${id}`)
     .then(({data}) => {
-      dispatch(ActionCreator.loadOffer(getOfferAdapter(data)));
+      dispatch(ActionCreator.loadOfferFulfilled(getOfferAdapter(data)));
     })
-    .catch(() => {})
-);
+    .catch((error) => handleError(error, dispatch, ActionCreator.loadOfferRejected()));
+};
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${id}/nearby`)
