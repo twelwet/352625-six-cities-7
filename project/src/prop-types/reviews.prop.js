@@ -1,4 +1,10 @@
 import PropTypes from 'prop-types';
-import reviewPropTypes from './review.prop.js';
+import reviewPropTypes from './review-data.prop.js';
 
-export default PropTypes.arrayOf(reviewPropTypes).isRequired;
+export default PropTypes.shape({
+  status: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(reviewPropTypes).isRequired,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }).isRequired,
+})
