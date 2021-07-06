@@ -2,10 +2,14 @@ import {ActionCreator} from './action.js';
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
-import {AuthorizationStatus, APIRoute} from '../constants.js';
+import {AuthorizationStatus, APIRoute, HttpCode} from '../constants.js';
 
 const ErrorInfoMessage = {
   DEFAULT_MESSAGE: 'Something went wrong',
+  NOT_FOUND: 'Resource not found',
+  BAD_REQUEST: 'Incorrect request',
+  UNHANDLED: 'Unhandled response code',
+  REQUEST_PROBLEM: 'Something went wrong with request',
 };
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
@@ -17,7 +21,26 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
       );
       dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
     })
-    .catch((error) => dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE)));
+    .catch((error) => {
+      if (error.response) {
+        const {status} = error.response;
+        switch (status) {
+          case HttpCode.NOT_FOUND:
+            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.NOT_FOUND));
+            break;
+          case HttpCode.BAD_REQUEST:
+            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.BAD_REQUEST));
+            break;
+          default:
+            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.UNHANDLED));
+            break;
+        }
+      } else if (error.request) {
+        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.REQUEST_PROBLEM));
+      } else {
+        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE));
+      }
+    });
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => (
