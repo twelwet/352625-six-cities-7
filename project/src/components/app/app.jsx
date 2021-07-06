@@ -8,16 +8,11 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import PrivateRoute from '../ui/private-route/private-route.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
-import ErrorInfo from '../pages/error-info/error-info.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import {AuthorizationStatus, AppRoute} from '../../constants.js';
 
 function App({offers, authorizationStatus, errors, isLoading}) {
-  const errorsToRender = errors.filter((error) => error.isErrorScreenRender === true);
-  if (errorsToRender.length > 0) {
-    return <ErrorInfo errors={errorsToRender}/>;
-  }
 
   if (isLoading.offers || isLoading.authorizationStatus) {
     return <Spinner/>;
