@@ -52,7 +52,7 @@ function CommentForm({saveReview, offer}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null) ? 'true' : ''}
+          disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
         >
           Submit
         </button>
