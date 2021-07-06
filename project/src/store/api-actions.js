@@ -5,17 +5,8 @@ import getUserAdapter from '../utils/get-user-adapter.js';
 import {AuthorizationStatus, APIRoute} from '../constants.js';
 
 const ErrorInfoMessage = {
-  GET_ERROR: 'Ошибка запроса к серверу',
-  LOGIN_ERROR: 'Ошибка авторизации, попробуйте еще раз',
-  POST_COMMENT_ERROR: 'Ошибка отправки комментария, попробуйте еще раз',
+  DEFAULT_MESSAGE: 'Something went wrong',
 };
-
-const prepareErrorStructure = (err, infoMessage = ErrorInfoMessage.GET_ERROR, isErrorScreenRender = true) => ({
-  isErrorScreenRender,
-  isError: true,
-  infoMessage,
-  body: `${err.message}: ${err.config.method} ${err.config.baseURL}${err.config.url}`,
-});
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadOffersPending());
@@ -26,7 +17,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
       );
       dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
     })
-    .catch((error) => dispatch(ActionCreator.loadOffersRejected('Something went wrong')));
+    .catch((error) => dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE)));
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => (
@@ -34,7 +25,7 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => (
     .then(({data}) => {
       dispatch(ActionCreator.loadOffer(getOfferAdapter(data)));
     })
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
+    .catch(() => {})
 );
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
@@ -45,7 +36,7 @@ const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
       );
       dispatch(ActionCreator.loadNeighborOffers(adoptedData));
     })
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
+    .catch(() => {})
 );
 
 const fetchComments = (id) => (dispatch, _getState, api) => (
@@ -56,12 +47,12 @@ const fetchComments = (id) => (dispatch, _getState, api) => (
       );
       dispatch(ActionCreator.loadComments(adoptedData));
     })
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
+    .catch(() => {})
 );
 
 const pushComment = (review, offerId) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, ErrorInfoMessage.POST_COMMENT_ERROR, false))))
+    .catch(() => {})
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -82,7 +73,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
       dispatch(ActionCreator.saveAuthInfo(adoptedData));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err, ErrorInfoMessage.LOGIN_ERROR, false))))
+    .catch(() => {})
 );
 
 const logout = () => (dispatch, _getState, api) => (
