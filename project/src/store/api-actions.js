@@ -66,16 +66,17 @@ const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
     .catch((error) => handleError(error, dispatch, ActionCreator.loadNeighborOffersRejected));
 };
 
-const fetchComments = (id) => (dispatch, _getState, api) => (
+const fetchComments = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.loadCommentsPending());
   api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => {
       const adoptedData = data.map(
         (comment) => getCommentAdapter(comment),
       );
-      dispatch(ActionCreator.loadComments(adoptedData));
+      dispatch(ActionCreator.loadCommentsFulfilled(adoptedData));
     })
-    .catch(() => {})
-);
+    .catch((error) => handleError(error, dispatch, ActionCreator.loadCommentsRejected));
+};
 
 const pushComment = (review, offerId) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
