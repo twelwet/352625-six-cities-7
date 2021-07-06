@@ -10,10 +10,15 @@ import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
+import ErrorInfo from '../pages/error-info/error-info.jsx';
 import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 
 function App({offers, authorizationStatus}) {
-  const {status, data: offersData} = offers;
+  const {status, data: offersData, error} = offers;
+
+  if (status === Status.REJECTED && error.message.length > 0) {
+    return <ErrorInfo error={error}/>;
+  }
 
   if (status === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
