@@ -51,19 +51,20 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => {
     .then(({data}) => {
       dispatch(ActionCreator.loadOfferFulfilled(getOfferAdapter(data)));
     })
-    .catch((error) => handleError(error, dispatch, ActionCreator.loadOfferRejected()));
+    .catch((error) => handleError(error, dispatch, ActionCreator.loadOfferRejected));
 };
 
-const fetchNeighborOffers = (id) => (dispatch, _getState, api) => (
+const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.loadNeighborOffersPending());
   api.get(`${APIRoute.HOTELS}/${id}/nearby`)
     .then(({data}) => {
       const adoptedData = data.map(
         (offer) => getOfferAdapter(offer),
       );
-      dispatch(ActionCreator.loadNeighborOffers(adoptedData));
+      dispatch(ActionCreator.loadNeighborOffersFulfilled(adoptedData));
     })
-    .catch(() => {})
-);
+    .catch((error) => handleError(error, dispatch, ActionCreator.loadNeighborOffersRejected));
+};
 
 const fetchComments = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.COMMENTS}/${id}`)
