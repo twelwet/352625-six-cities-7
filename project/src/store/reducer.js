@@ -12,7 +12,13 @@ const initialState = {
       message: null,
     },
   },
-  offer: {},
+  offer: {
+    status: Status.IDLE,
+    data: {},
+    error: {
+      message: null,
+    },
+  },
   neighborOffers: [],
   reviews: [],
   authInfo: {},
@@ -33,6 +39,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         city: action.payload,
       };
+
     case ActionType.LOAD_OFFERS_PENDING:
       return {
         ...state,
@@ -57,15 +64,32 @@ const reducer = (state = initialState, action) => {
           ...action.payload,
         },
       };
-    case ActionType.LOAD_OFFER:
+
+    case ActionType.LOAD_OFFER_PENDING:
       return {
         ...state,
-        offer: action.payload,
-        isLoading: {
-          ...state.isLoading,
-          offer: false,
+        offer: {
+          ...state.offer,
+          status: Status.PENDING,
         },
       };
+    case ActionType.LOAD_OFFER_FULFILLED:
+      return {
+        ...state,
+        offer: {
+          ...state.offer,
+          ...action.payload,
+        },
+      };
+    case ActionType.LOAD_OFFER_REJECTED:
+      return {
+        ...state,
+        offer: {
+          ...state.offer,
+          ...action.payload,
+        },
+      };
+
     case ActionType.LOAD_NEIGHBOR_OFFERS:
       return {
         ...state,

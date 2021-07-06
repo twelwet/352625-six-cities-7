@@ -5,7 +5,9 @@ export const ActionType = {
   LOAD_OFFERS_PENDING: `api/load-offers_${Status.PENDING}`,
   LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
   LOAD_OFFERS_REJECTED: `api/load-offers_${Status.REJECTED}`,
-  LOAD_OFFER: 'api/load-offer',
+  LOAD_OFFER_PENDING: `api/load-offer_${Status.PENDING}`,
+  LOAD_OFFER_FULFILLED: `api/load-offer_${Status.FULFILLED}`,
+  LOAD_OFFER_REJECTED: `api/load-offer_${Status.REJECTED}`,
   LOAD_NEIGHBOR_OFFERS: 'api/load-neighbor-offers',
   LOAD_COMMENTS: 'api/load-comments',
   REQUIRE_AUTH: 'user/require-auth',
@@ -18,6 +20,7 @@ export const ActionCreator = {
     type: ActionType.CHANGE_CITY,
     payload: cityName,
   }),
+
   loadOffersPending: () => ({
     type: ActionType.LOAD_OFFERS_PENDING,
     payload: { status: Status.PENDING },
@@ -31,10 +34,19 @@ export const ActionCreator = {
     payload: { status: Status.REJECTED, error: {message: errorMessage} },
   }),
 
-  loadOffer: (offer) => ({
-    type: ActionType.LOAD_OFFER,
-    payload: offer,
+  loadOfferPending: () => ({
+    type: ActionType.LOAD_OFFER_PENDING,
+    payload: { status: Status.PENDING },
   }),
+  loadOfferFulfilled: (offer) => ({
+    type: ActionType.LOAD_OFFER_FULFILLED,
+    payload: { status: Status.FULFILLED, data: offer },
+  }),
+  loadOfferRejected: (errorMessage) => ({
+    type: ActionType.LOAD_OFFER_REJECTED,
+    payload: { status: Status.REJECTED, error: {message: errorMessage} },
+  }),
+
   loadNeighborOffers: (neighborOffers) => ({
     type: ActionType.LOAD_NEIGHBOR_OFFERS,
     payload: neighborOffers,
