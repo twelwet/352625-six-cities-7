@@ -1,5 +1,5 @@
 import React from 'react';
-import reviewPropTypes from '../../../../prop-types/review.prop.js';
+import reviewDataPropTypes from '../../../../prop-types/review-data.prop.js';
 
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
@@ -32,6 +32,6 @@ function Review({user, rating, comment, date}) {
   );
 }
 
-Review.propTypes = reviewPropTypes;
+Review.propTypes = reviewDataPropTypes;
 
 export default Review;

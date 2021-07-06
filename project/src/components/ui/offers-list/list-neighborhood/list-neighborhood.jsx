@@ -1,6 +1,6 @@
 import React from 'react';
 import CardNeighborhood from '../../offer-card/card-neighborhood/card-neighborhood.jsx';
-import offersPropTypes from '../../../../prop-types/offers.prop';
+import offersDataPropTypes from '../../../../prop-types/offers-data.prop.js';
 
 function ListNeighborhood ({offers}) {
   return (
@@ -22,7 +22,7 @@ function ListNeighborhood ({offers}) {
 }
 
 ListNeighborhood.propTypes = {
-  offers: offersPropTypes,
+  offers: offersDataPropTypes,
 };
 
 

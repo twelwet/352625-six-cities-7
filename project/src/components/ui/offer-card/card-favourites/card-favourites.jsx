@@ -1,5 +1,5 @@
 import React from 'react';
-import offerPropTypes from '../../../../prop-types/offer.prop.js';
+import offerDataPropTypes from '../../../../prop-types/offer-data.prop.js';
 import OfferCard from '../../offer-card/offer-card';
 
 function CardFavourites(props) {
@@ -20,7 +20,7 @@ function CardFavourites(props) {
 }
 
 CardFavourites.propTypes = {
-  data: offerPropTypes,
+  data: offerDataPropTypes,
 };
 
 export default CardFavourites;

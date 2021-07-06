@@ -2,7 +2,7 @@ import React from 'react';
 import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 import CardFavourites from '../../offer-card/card-favourites/card-favourites.jsx';
-import offersPropTypes from '../../../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../../prop-types/city.prop.js';
 import {AppRoute} from '../../../../constants.js';
 
@@ -42,7 +42,7 @@ ListFavourites.propTypes = {
   offersByCities: PropTypes.arrayOf(
     PropTypes.shape({
       city: cityPropTypes,
-      offers: offersPropTypes,
+      offers: offersDataPropTypes,
     }).isRequired,
   ).isRequired,
 };

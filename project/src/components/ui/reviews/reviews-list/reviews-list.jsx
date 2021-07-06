@@ -1,6 +1,6 @@
 import React from 'react';
 import Review from '../review/review.jsx';
-import reviewsPropTypes from '../../../../prop-types/reviews.prop.js';
+import reviewsDataPropTypes from '../../../../prop-types/reviews-data.prop.js';
 
 function ReviewsList({reviews}) {
   return (
@@ -19,7 +19,7 @@ function ReviewsList({reviews}) {
 }
 
 ReviewsList.propTypes = {
-  reviews: reviewsPropTypes,
+  reviews: reviewsDataPropTypes,
 };
 
 export default ReviewsList;

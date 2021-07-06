@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ReviewsList from './reviews-list/reviews-list.jsx';
 import CommentForm from '../comment-form/comment-form.jsx';
-import reviewsPropTypes from '../../../prop-types/reviews.prop.js';
+import reviewsDataPropTypes from '../../../prop-types/reviews-data.prop.js';
 import {AuthorizationStatus} from '../../../constants.js';
 
 function Reviews({reviews, authorizationStatus}) {
@@ -16,7 +16,7 @@ function Reviews({reviews, authorizationStatus}) {
 }
 
 Reviews.propTypes = {
-  reviews: reviewsPropTypes,
+  reviews: reviewsDataPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
