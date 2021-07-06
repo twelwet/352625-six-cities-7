@@ -7,4 +7,4 @@ export default PropTypes.shape({
   error: PropTypes.shape({
     message: PropTypes.string,
   }).isRequired,
-})
+});
