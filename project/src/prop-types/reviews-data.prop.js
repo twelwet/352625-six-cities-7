@@ -1,4 +1,4 @@
 import PropTypes from 'prop-types';
-import reviewPropTypes from './review-data.prop.js';
+import reviewDataPropTypes from './review-data.prop.js';
 
-export default PropTypes.arrayOf(reviewPropTypes).isRequired;
+export default PropTypes.arrayOf(reviewDataPropTypes).isRequired;
