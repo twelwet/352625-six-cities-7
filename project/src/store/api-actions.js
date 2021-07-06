@@ -17,16 +17,17 @@ const prepareErrorStructure = (err, infoMessage = ErrorInfoMessage.GET_ERROR, is
   body: `${err.message}: ${err.config.method} ${err.config.baseURL}${err.config.url}`,
 });
 
-const fetchOffersList = () => (dispatch, _getState, api) => (
+const fetchOffersList = () => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.loadOffersPending());
   api.get(APIRoute.HOTELS)
     .then(({data}) => {
       const adoptedData = data.map(
         (offer) => getOfferAdapter(offer),
       );
-      dispatch(ActionCreator.loadOffers(adoptedData));
+      dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
     })
-    .catch((err) => dispatch(ActionCreator.saveErrorInfo(prepareErrorStructure(err))))
-);
+    .catch((error) => dispatch(ActionCreator.loadOffersRejected('Something went wrong')));
+};
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => (
   api.get(`${APIRoute.HOTELS}/${id}`)
