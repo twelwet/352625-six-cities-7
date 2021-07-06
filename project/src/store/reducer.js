@@ -35,13 +35,6 @@ const initialState = {
   },
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
-  isLoading: {
-    offers: true,
-    authorizationStatus: true,
-    offer: true,
-    neighborOffers: true,
-    reviews: true,
-  },
 };
 
 const reducer = (state = initialState, action) => {
