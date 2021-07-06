@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import offerPropTypes from '../../../prop-types/offer-not-required.prop.js';
+import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
@@ -11,10 +11,9 @@ import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
-import {Status} from '../../../constants.js';
-import ErrorInfo from '../error-info/error-info';
-// TODO удалить isLoading
-function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus, isLoading}) {
+import {Status, AuthorizationStatus} from '../../../constants.js';
+
+function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
@@ -22,16 +21,24 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
   const {status: offerStatus, data: offerData} = offer;
-  const {status: neighborOffersStatus, data: neighborOffersData, error} = neighborOffers;
+  const {status: neighborOffersStatus, data: neighborOffersData} = neighborOffers;
+  const {status: reviewsStatus, data: reviewsData} = reviews;
 
-  const isErrorsExist = () => (offerStatus === Status.REJECTED || neighborOffersStatus === Status.REJECTED);
-  const isLoadingExist = () => (offerStatus === Status.PENDING || neighborOffersStatus === Status.PENDING);
+  // TODO Если поставить более логичное условие:
+  //  const isLoadingExist = () => (offerStatus === Status.PENDING
+  //     || neighborOffersStatus === Status.PENDING
+  //     || reviewsStatus === Status.PENDING
+  //     || authorizationStatus === AuthorizationStatus.UNKNOWN);
+  //  то useEffect не запускает соответствующие диспатчи.
 
-  if (isErrorsExist()) {
-    return <ErrorInfo error={error}/>;
-  }
+  // TODO добавить обработку ошибок
 
-  if (isLoadingExist() || isLoading.reviews) {
+  const isLoadingExist = () => (offerStatus !== Status.FULFILLED
+    || neighborOffersStatus !== Status.FULFILLED
+    || reviewsStatus !== Status.FULFILLED
+    || authorizationStatus === AuthorizationStatus.UNKNOWN);
+
+  if (isLoadingExist()) {
     return <Spinner/>;
   }
 
@@ -146,7 +153,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
                   </p>
                 </div>
               </div>
-              <Reviews reviews={reviews} authorizationStatus={authorizationStatus}/>
+              <Reviews reviews={reviewsData} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
           <section className="property__map map">
@@ -166,20 +173,13 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
 
 Room.propTypes = {
   roomId: PropTypes.number.isRequired,
-  offer: offerPropTypes,
+  offer: offerOptionalPropTypes,
   neighborOffers: offersPropTypes,
   reviews: reviewsPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
   getOfferById: PropTypes.func.isRequired,
   getNeighborOffersById: PropTypes.func.isRequired,
   getCommentsByOfferId: PropTypes.func.isRequired,
-  isLoading: PropTypes.shape({
-    offers: PropTypes.bool.isRequired,
-    authorizationStatus: PropTypes.bool.isRequired,
-    offer: PropTypes.bool.isRequired,
-    neighborOffers: PropTypes.bool.isRequired,
-    reviews: PropTypes.bool.isRequired,
-  }),
 };
 
 const mapStateToProps = (state) => ({
