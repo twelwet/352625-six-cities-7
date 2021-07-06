@@ -12,6 +12,27 @@ const ErrorInfoMessage = {
   REQUEST_PROBLEM: 'Something went wrong with request',
 };
 
+const handleError = (error, dispatch) => {
+  if (error.response) {
+    const {status} = error.response;
+    switch (status) {
+      case HttpCode.NOT_FOUND:
+        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.NOT_FOUND));
+        break;
+      case HttpCode.BAD_REQUEST:
+        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.BAD_REQUEST));
+        break;
+      default:
+        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.UNHANDLED));
+        break;
+    }
+  } else if (error.request) {
+    dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.REQUEST_PROBLEM));
+  } else {
+    dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE));
+  }
+};
+
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadOffersPending());
   api.get(APIRoute.HOTELS)
@@ -21,26 +42,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
       );
       dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
     })
-    .catch((error) => {
-      if (error.response) {
-        const {status} = error.response;
-        switch (status) {
-          case HttpCode.NOT_FOUND:
-            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.NOT_FOUND));
-            break;
-          case HttpCode.BAD_REQUEST:
-            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.BAD_REQUEST));
-            break;
-          default:
-            dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.UNHANDLED));
-            break;
-        }
-      } else if (error.request) {
-        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.REQUEST_PROBLEM));
-      } else {
-        dispatch(ActionCreator.loadOffersRejected(ErrorInfoMessage.DEFAULT_MESSAGE));
-      }
-    });
+    .catch((error) => handleError(error, dispatch));
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => (
