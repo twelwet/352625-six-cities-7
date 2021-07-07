@@ -4,10 +4,11 @@ import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
+import {Status} from '../../../constants';
 
-const minCommentLength = 50;
+// const minCommentLength = 50;
 
-function CommentForm({saveReview, offer}) {
+function CommentForm({saveReview, offer, userComment}) {
   const reviewTemplate = {
     offerId: offer.data.id,
     rating: null,
@@ -18,7 +19,9 @@ function CommentForm({saveReview, offer}) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     saveReview(review);
-    setReview(reviewTemplate);
+    if (userComment.status === Status.FULFILLED) {
+      setReview(reviewTemplate);
+    }
   };
 
   const handleFieldChange = (evt) => {
@@ -43,6 +46,7 @@ function CommentForm({saveReview, offer}) {
         onChange={handleFieldChange}
         value={review.comment}
         maxLength={'300'}
+        disabled={userComment.status === Status.PENDING}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -52,7 +56,7 @@ function CommentForm({saveReview, offer}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
+          // disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
         >
           Submit
         </button>
@@ -63,11 +67,15 @@ function CommentForm({saveReview, offer}) {
 
 CommentForm.propTypes = {
   offer: offerPropTypes,
+  userComment: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+  }),
   saveReview: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   offer: state.offer,
+  userComment: state.userComment,
 });
 
 const mapDispatchToProps = (dispatch) => ({
