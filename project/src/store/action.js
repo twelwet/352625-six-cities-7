@@ -19,6 +19,11 @@ export const ActionType = {
   LOAD_COMMENTS_FULFILLED: `api/load-comments_${Status.FULFILLED}`,
   LOAD_COMMENTS_REJECTED: `api/load-comments_${Status.REJECTED}`,
 
+  PUSH_COMMENT_IDLE: `api/push-comment_${Status.IDLE}`,
+  PUSH_COMMENT_PENDING: `api/push-comment_${Status.PENDING}`,
+  PUSH_COMMENT_FULFILLED: `api/push-comment_${Status.FULFILLED}`,
+  PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
+
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_INFO: 'user/save-auth-info',
   LOGOUT: 'user/logout',
@@ -81,6 +86,23 @@ export const ActionCreator = {
   loadCommentsRejected: (errorMessage) => ({
     type: ActionType.LOAD_COMMENTS_REJECTED,
     payload: { status: Status.REJECTED, error: {message: errorMessage} },
+  }),
+
+  pushCommentIdle: () => ({
+    type: ActionType.PUSH_COMMENT_IDLE,
+    payload: { status: Status.IDLE },
+  }),
+  pushCommentPending: () => ({
+    type: ActionType.PUSH_COMMENT_PENDING,
+    payload: { status: Status.PENDING },
+  }),
+  pushCommentFulfilled: () => ({
+    type: ActionType.PUSH_COMMENT_FULFILLED,
+    payload: { status: Status.FULFILLED },
+  }),
+  pushCommentRejected: () => ({
+    type: ActionType.PUSH_COMMENT_REJECTED,
+    payload: { status: Status.REJECTED },
   }),
 
   requireAuth: (status) => ({
