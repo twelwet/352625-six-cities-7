@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
@@ -12,33 +12,58 @@ import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
 import {Status, AuthorizationStatus} from '../../../constants.js';
+import ErrorInfo from '../error-info/error-info';
 
 function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
+  const {
+    status: offerStatus,
+    data: offerData,
+    error: offerError,
+  } = offer;
+  const {
+    status: neighborOffersStatus,
+    data: neighborOffersData,
+    error: neighborOffersError,
+  } = neighborOffers;
+  const {
+    status: reviewsStatus,
+    data: reviewsData,
+    error: reviewsError,
+  } = reviews;
+
+  const [isErrorsExist, setIsErrorsExist] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
-  const {status: offerStatus, data: offerData} = offer;
-  const {status: neighborOffersStatus, data: neighborOffersData} = neighborOffers;
-  const {status: reviewsStatus, data: reviewsData} = reviews;
+  useEffect(() => {
+    if (offerError.message !== null || neighborOffersError.message !== null || reviewsError.message !== null) {
+      setIsErrorsExist(true);
+    }
+  }, [offerError.message, neighborOffersError.message, reviewsError.message]);
 
-  // TODO Если поставить более логичное условие:
-  //  const isLoadingExist = () => (offerStatus === Status.PENDING
-  //     || neighborOffersStatus === Status.PENDING
-  //     || reviewsStatus === Status.PENDING
-  //     || authorizationStatus === AuthorizationStatus.UNKNOWN);
-  //  то useEffect не запускает соответствующие диспатчи.
+  useEffect(() => {
+    // TODO Надо как-то упростить
+    if ((offerStatus === Status.PENDING || offerStatus === Status.IDLE)
+      || (neighborOffersStatus === Status.PENDING || neighborOffersStatus === Status.IDLE)
+      || (reviewsStatus === Status.PENDING || reviewsStatus === Status.IDLE)
+      || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [setIsLoading]);
 
-  // TODO добавить обработку ошибок
+  if (isErrorsExist) {
+    const errors = [offerError, neighborOffersError, reviewsError];
+    return <ErrorInfo errors={errors}/>;
+  }
 
-  const isLoadingExist = () => (offerStatus !== Status.FULFILLED
-    || neighborOffersStatus !== Status.FULFILLED
-    || reviewsStatus !== Status.FULFILLED
-    || authorizationStatus === AuthorizationStatus.UNKNOWN);
-
-  if (isLoadingExist()) {
+  if (isLoading) {
     return <Spinner/>;
   }
 
