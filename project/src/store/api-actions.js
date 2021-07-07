@@ -71,9 +71,8 @@ const pushComment = (review, offerId) => (dispatch, _getState, api) => (
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
-      const adoptedData = getUserAdapter(data);
       dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.saveAuthInfo(adoptedData));
+      dispatch(ActionCreator.saveAuthInfo(getUserAdapter(data)));
     })
     .catch(() => {})
 );
@@ -82,8 +81,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      const adoptedData = getUserAdapter(data);
-      dispatch(ActionCreator.saveAuthInfo(adoptedData));
+      dispatch(ActionCreator.saveAuthInfo(getUserAdapter(data)));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
     .catch(() => {})
