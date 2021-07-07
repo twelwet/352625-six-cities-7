@@ -1,14 +1,11 @@
 import React from 'react';
 import reviewDataPropTypes from '../../../../prop-types/review-data.prop.js';
 
-const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-
 function Review({user, rating, comment, date}) {
-  const adaptedDate = new Date(+ new Date(date));
-  const year = adaptedDate.getFullYear();
-  const month = adaptedDate.getMonth() + 1;
-  const day = adaptedDate.getDate() + 1;
-  const monthByLetters = months[adaptedDate.getMonth()];
+  const year = (new Date(date)).toLocaleString('en-US', {year: 'numeric'});
+  const month = (new Date(date)).toLocaleString('en-US', {month: '2-digit'});
+  const day = (new Date(date)).toLocaleString('en-US', {day: '2-digit'});
+  const commentDate = (new Date(date)).toLocaleString('en-US', {month: 'long', year: 'numeric'});
 
   return (
     <li className="reviews__item">
@@ -26,7 +23,7 @@ function Review({user, rating, comment, date}) {
           </div>
         </div>
         <p className="reviews__text">{comment}</p>
-        <time className="reviews__time" dateTime={`${year}-${month}-${day}`}>{`${monthByLetters} ${year}`}</time>
+        <time className="reviews__time" dateTime={`${year}-${month}-${day}`}>{commentDate}</time>
       </div>
     </li>
   );
