@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
+import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Status} from '../../../constants';
@@ -36,6 +37,7 @@ function CommentForm({saveReview, offer, userComment}) {
       method="post"
       onSubmit={handleSubmit}
     >
+      {userComment.status === Status.REJECTED ? <Notification message={'Mark the rating or write more characters'}/> : ''}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <RatingStarsList changeHandler={handleFieldChange} activeStar={parseInt(review.rating, 10)}/>
       <textarea
