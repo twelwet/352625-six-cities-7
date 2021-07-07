@@ -63,11 +63,18 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
     .catch((error) => handleError(error, dispatch, ActionCreator.loadCommentsRejected));
 };
 
-const pushComment = (review, offerId) => (dispatch, _getState, api) => (
+const pushComment = (review, offerId) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.pushCommentPending());
   api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
-    .then(({data}) => dispatch(ActionCreator.saveComments(getAdaptedData(data, getCommentAdapter))))
-    .catch(() => {})
-);
+    .then(({data}) => {
+      dispatch(ActionCreator.saveComments(getAdaptedData(data, getCommentAdapter)));
+      dispatch(ActionCreator.pushCommentFulfilled());
+      dispatch(ActionCreator.pushCommentIdle());
+    })
+    .catch((error) => {
+      dispatch(ActionCreator.pushCommentRejected());
+    });
+};
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
