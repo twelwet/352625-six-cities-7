@@ -16,20 +16,20 @@ const getAdaptedData = (data, adapter) => data.map((item) => adapter(item));
 
 const handleError = (error, dispatch, action) => {
   if (error.response) {
-    const {status} = error.response;
+    const {status, config} = error.response;
     switch (status) {
       case HttpCode.NOT_FOUND:
-        dispatch(action(ErrorInfoMessage.NOT_FOUND));
+        dispatch(action(`${status}. ${ErrorInfoMessage.NOT_FOUND}: ${config.url}`));
         break;
       case HttpCode.BAD_REQUEST:
-        dispatch(action(ErrorInfoMessage.BAD_REQUEST));
+        dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
         break;
       default:
-        dispatch(action(ErrorInfoMessage.UNHANDLED));
+        dispatch(action(`${status}. ${ErrorInfoMessage.UNHANDLED}: ${config.url}`));
         break;
     }
   } else if (error.request) {
-    dispatch(action(ErrorInfoMessage.REQUEST_PROBLEM));
+    dispatch(action(`${ErrorInfoMessage.REQUEST_PROBLEM}: ${error.request.baseUrl}`));
   } else {
     dispatch(action(ErrorInfoMessage.DEFAULT_MESSAGE));
   }
