@@ -48,6 +48,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
 
   useEffect(() => {
     // TODO Надо как-то упростить
+    // TODO после загрузки приложения при клике на любое предложение - бесконечный Spinner
     if ((offerStatus === Status.PENDING || offerStatus === Status.IDLE)
       || (neighborOffersStatus === Status.PENDING || neighborOffersStatus === Status.IDLE)
       || (reviewsStatus === Status.PENDING || reviewsStatus === Status.IDLE)
