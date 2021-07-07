@@ -9,7 +9,7 @@ const minCommentLength = 50;
 
 function CommentForm({saveReview, offer}) {
   const reviewTemplate = {
-    offerId: offer.id,
+    offerId: offer.data.id,
     rating: null,
     comment: '',
   };
