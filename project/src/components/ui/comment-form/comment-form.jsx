@@ -7,7 +7,7 @@ import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Status} from '../../../constants';
 
-// const minCommentLength = 50;
+const minCommentLength = 50;
 
 function CommentForm({saveReview, offer, userComment}) {
   const reviewTemplate = {
@@ -58,7 +58,7 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          // disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
+          disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
         >
           Submit
         </button>
