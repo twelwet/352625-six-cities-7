@@ -19,6 +19,7 @@ function CommentForm({saveReview, offer, userComment}) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    // TODO вернуть промис из асинхронного действия и привязать очистку формы к его выполнению
     saveReview(review);
     if (userComment.status === Status.FULFILLED) {
       setReview(reviewTemplate);
@@ -58,7 +59,7 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null) ? true : ''}
+          disabled={(review.comment.length < minCommentLength || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
         >
           Submit
         </button>
