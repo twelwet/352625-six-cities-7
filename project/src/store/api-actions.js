@@ -65,6 +65,7 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
 
 const pushComment = (review, offerId) => (dispatch, _getState, api) => (
   api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
+    .then(({data}) => dispatch(ActionCreator.saveComments(getAdaptedData(data, getCommentAdapter))))
     .catch(() => {})
 );
 

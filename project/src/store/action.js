@@ -22,6 +22,7 @@ export const ActionType = {
   REQUIRE_AUTH: 'user/require-auth',
   SAVE_AUTH_INFO: 'user/save-auth-info',
   LOGOUT: 'user/logout',
+  SAVE_COMMENTS: 'room/save-comments',
 };
 
 export const ActionCreator = {
@@ -92,5 +93,9 @@ export const ActionCreator = {
   }),
   logout: () => ({
     type: ActionType.LOGOUT,
+  }),
+  saveComments: (comments) => ({
+    type: ActionType.SAVE_COMMENTS,
+    payload: comments,
   }),
 };

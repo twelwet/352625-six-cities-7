@@ -161,6 +161,14 @@ const reducer = (state = initialState, action) => {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
       };
+    case ActionType.SAVE_COMMENTS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          data: action.payload,
+        },
+      };
     default:
       return state;
   }
