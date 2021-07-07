@@ -12,6 +12,8 @@ const ErrorInfoMessage = {
   REQUEST_PROBLEM: 'Something went wrong with request',
 };
 
+const getAdaptedData = (data, adapter) => data.map((item) => adapter(item));
+
 const handleError = (error, dispatch, action) => {
   if (error.response) {
     const {status} = error.response;
@@ -36,45 +38,28 @@ const handleError = (error, dispatch, action) => {
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadOffersPending());
   api.get(APIRoute.HOTELS)
-    .then(({data}) => {
-      const adoptedData = data.map(
-        (offer) => getOfferAdapter(offer),
-      );
-      dispatch(ActionCreator.loadOffersFulfilled(adoptedData));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, ActionCreator.loadOffersRejected));
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadOfferPending());
   api.get(`${APIRoute.HOTELS}/${id}`)
-    .then(({data}) => {
-      dispatch(ActionCreator.loadOfferFulfilled(getOfferAdapter(data)));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadOfferFulfilled(getOfferAdapter(data))))
     .catch((error) => handleError(error, dispatch, ActionCreator.loadOfferRejected));
 };
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadNeighborOffersPending());
   api.get(`${APIRoute.HOTELS}/${id}/nearby`)
-    .then(({data}) => {
-      const adoptedData = data.map(
-        (offer) => getOfferAdapter(offer),
-      );
-      dispatch(ActionCreator.loadNeighborOffersFulfilled(adoptedData));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, ActionCreator.loadNeighborOffersRejected));
 };
 
 const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loadCommentsPending());
   api.get(`${APIRoute.COMMENTS}/${id}`)
-    .then(({data}) => {
-      const adoptedData = data.map(
-        (comment) => getCommentAdapter(comment),
-      );
-      dispatch(ActionCreator.loadCommentsFulfilled(adoptedData));
-    })
+    .then(({data}) => dispatch(ActionCreator.loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
     .catch((error) => handleError(error, dispatch, ActionCreator.loadCommentsRejected));
 };
 
