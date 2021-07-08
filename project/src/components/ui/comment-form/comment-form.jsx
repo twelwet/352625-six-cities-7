@@ -5,7 +5,7 @@ import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
-import {Status} from '../../../constants';
+import {Status, HttpCode} from '../../../constants';
 
 const minCommentLength = 50;
 
@@ -20,8 +20,8 @@ function CommentForm({saveReview, offer, userComment}) {
   const handleSubmit = (evt) => {
     evt.preventDefault();
     // TODO вернуть промис из асинхронного действия и привязать очистку формы к его выполнению
-    saveReview(review);
-    if (userComment.status === Status.FULFILLED) {
+    // TODO saveReview(review) почему-то возвращает пустой объект {}, а должна статус-код ответа сервера HttpCode.OK
+    if (saveReview(review) === HttpCode.OK) {
       setReview(reviewTemplate);
     }
   };
@@ -83,7 +83,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   saveReview(data) {
-    dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId));
+    return dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId));
   },
 });
 

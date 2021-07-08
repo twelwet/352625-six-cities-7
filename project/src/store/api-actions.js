@@ -65,11 +65,12 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
 
 const pushComment = (review, offerId) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.pushCommentPending());
-  api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
-    .then(({data}) => {
-      dispatch(ActionCreator.saveComments(getAdaptedData(data, getCommentAdapter)));
+  return api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
+    .then((response) => {
+      dispatch(ActionCreator.saveComments(getAdaptedData(response.data, getCommentAdapter)));
       dispatch(ActionCreator.pushCommentFulfilled());
       dispatch(ActionCreator.pushCommentIdle());
+      return response.status;
     })
     .catch((error) => {
       dispatch(ActionCreator.pushCommentRejected());
