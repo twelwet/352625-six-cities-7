@@ -26,7 +26,6 @@ export const ActionType = {
 
   REQUIRE_AUTH: 'user/require-auth',
 
-  LOGIN_IDLE: `user/login_${Status.IDLE}`,
   LOGIN_PENDING: `user/login_${Status.PENDING}`,
   LOGIN_FULFILLED: `user/login_${Status.FULFILLED}`,
   LOGIN_REJECTED: `user/login_${Status.REJECTED}`,
@@ -115,10 +114,6 @@ export const ActionCreator = {
     payload: status,
   }),
 
-  loginIdle: () => ({
-    type: ActionType.LOGIN_IDLE,
-    payload: { status: Status.IDLE },
-  }),
   loginPending: () => ({
     type: ActionType.LOGIN_PENDING,
     payload: { status: Status.PENDING },
