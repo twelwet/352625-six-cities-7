@@ -9,7 +9,8 @@ import Notification from '../../ui/notification/notification.jsx';
 function SignIn({onSubmit, login}) {
   const loginRef = useRef();
   const passwordRef = useRef();
-
+  // TODO При успешном логине происходит редирект на главную, наверное в связи с этим: 'Cannot set .value of null'
+  // TODO Почитал ТЗ - там нет требования очищать форму SignIn, поэтому уберу избыточную логику.
   const clearFields = () => {
     loginRef.current.value = '';
     passwordRef.current.value = '';
