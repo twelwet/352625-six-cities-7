@@ -3,18 +3,12 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
 import {login as loginAsync} from '../../../store/api-actions.js';
-import {AppRoute, Status, HttpCode} from '../../../constants.js';
+import {AppRoute, Status} from '../../../constants.js';
 import Notification from '../../ui/notification/notification.jsx';
 
 function SignIn({onSubmit, login}) {
   const loginRef = useRef();
   const passwordRef = useRef();
-  // TODO При успешном логине происходит редирект на главную, наверное в связи с этим: 'Cannot set .value of null'
-  // TODO Почитал ТЗ - там нет требования очищать форму SignIn, поэтому уберу избыточную логику.
-  const clearFields = () => {
-    loginRef.current.value = '';
-    passwordRef.current.value = '';
-  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -22,7 +16,7 @@ function SignIn({onSubmit, login}) {
     onSubmit({
       email: loginRef.current.value,
       password: passwordRef.current.value,
-    }).then((status) => status === HttpCode.OK && clearFields());
+    });
   };
 
   return (
@@ -93,7 +87,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
-    return dispatch(loginAsync(authData));
+    dispatch(loginAsync(authData));
   },
 });
 
