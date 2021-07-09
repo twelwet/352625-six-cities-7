@@ -7,7 +7,7 @@ import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Status, HttpCode} from '../../../constants';
 
-const minCommentLength = 50;
+// const minCommentLength = 50;
 
 function CommentForm({saveReview, offer, userComment}) {
   const reviewTemplate = {
@@ -34,7 +34,7 @@ function CommentForm({saveReview, offer, userComment}) {
       method="post"
       onSubmit={handleSubmit}
     >
-      {userComment.status === Status.REJECTED ? <Notification message={'Mark the rating or write more characters'}/> : ''}
+      {userComment.status === Status.REJECTED ? <Notification message={'Mark the rating or write more characters'} position={{top: '5px', marginRight: '0px'}}/> : ''}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <RatingStarsList changeHandler={handleFieldChange} activeStar={parseInt(review.rating, 10)}/>
       <textarea
@@ -55,7 +55,7 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
+          // disabled={(review.comment.length < minCommentLength || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
         >
           Submit
         </button>

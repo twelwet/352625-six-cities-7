@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
 import {login} from '../../../store/api-actions.js';
 import {AppRoute} from '../../../constants.js';
+import Notification from '../../ui/notification/notification.jsx';
 
 function SignIn({onSubmit}) {
   const loginRef = useRef();
@@ -25,6 +26,7 @@ function SignIn({onSubmit}) {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
+            <Notification message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/>
             <h1 className="login__title">Sign in</h1>
             <form
               onSubmit={handleSubmit}
