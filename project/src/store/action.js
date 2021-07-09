@@ -25,7 +25,12 @@ export const ActionType = {
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
   REQUIRE_AUTH: 'user/require-auth',
-  LOGIN: 'user/login',
+
+  LOGIN_IDLE: `user/login_${Status.IDLE}`,
+  LOGIN_PENDING: `user/login_${Status.PENDING}`,
+  LOGIN_FULFILLED: `user/login_${Status.FULFILLED}`,
+  LOGIN_REJECTED: `user/login_${Status.REJECTED}`,
+
   LOGOUT: 'user/logout',
   SAVE_COMMENTS: 'room/save-comments',
 };
@@ -109,10 +114,24 @@ export const ActionCreator = {
     type: ActionType.REQUIRE_AUTH,
     payload: status,
   }),
-  login: (data) => ({
-    type: ActionType.LOGIN,
-    payload: data,
+
+  loginIdle: () => ({
+    type: ActionType.LOGIN_IDLE,
+    payload: { status: Status.IDLE },
   }),
+  loginPending: () => ({
+    type: ActionType.LOGIN_PENDING,
+    payload: { status: Status.PENDING },
+  }),
+  loginFulfilled: (authData) => ({
+    type: ActionType.LOGIN,
+    payload: { login: {status: Status.FULFILLED}, authData },
+  }),
+  loginRejected: () => ({
+    type: ActionType.LOGIN,
+    payload: { status: Status.REJECTED },
+  }),
+
   logout: () => ({
     type: ActionType.LOGOUT,
   }),
