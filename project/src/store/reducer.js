@@ -36,6 +36,9 @@ const initialState = {
   userComment: {
     status: Status.IDLE,
   },
+  login: {
+    status: Status.IDLE,
+  },
   authInfo: {},
   authorizationStatus: AuthorizationStatus.UNKNOWN,
 };
@@ -182,11 +185,30 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload,
       };
-    case ActionType.LOGIN:
+
+    case ActionType.LOGIN_IDLE:
       return {
         ...state,
-        authInfo: action.payload,
+        login: action.payload,
       };
+    case ActionType.LOGIN_PENDING:
+      return {
+        ...state,
+        login: action.payload,
+      };
+    case ActionType.LOGIN_FULFILLED:
+      return {
+        ...state,
+        login: action.payload.login,
+        authInfo: action.payload.authInfo,
+      };
+    case ActionType.LOGIN_REJECTED:
+      return {
+        ...state,
+        login: action.payload,
+        authInfo: {},
+      };
+
     case ActionType.LOGOUT:
       return {
         ...state,
