@@ -4,7 +4,7 @@ import './styles.css';
 
 const NOTIFICATION_SHOW_TIMEOUT = 5000;
 
-function Notification({message}) {
+function Notification({message, position}) {
   const [compClass, setCompClass] = useState('alert show');
   const hideMe = (timeout) =>
     setTimeout(() => setCompClass('alert hide'), timeout);
@@ -18,7 +18,7 @@ function Notification({message}) {
 
   return (
     <div style={{position: 'relative'}}>
-      <div className={compClass}>
+      <div className={compClass} style={position}>
         <span className={'msg'}>{message}</span>
       </div>
     </div>
@@ -27,6 +27,10 @@ function Notification({message}) {
 
 Notification.propTypes = {
   message: PropTypes.string.isRequired,
+  position: PropTypes.shape({
+    top: PropTypes.string.isRequired,
+    marginRight: PropTypes.string.isRequired,
+  }).isRequired,
 };
 
 export default Notification;
