@@ -25,7 +25,7 @@ export const ActionType = {
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
   REQUIRE_AUTH: 'user/require-auth',
-  SAVE_AUTH_INFO: 'user/save-auth-info',
+  LOGIN: 'user/login',
   LOGOUT: 'user/logout',
   SAVE_COMMENTS: 'room/save-comments',
 };
@@ -109,8 +109,8 @@ export const ActionCreator = {
     type: ActionType.REQUIRE_AUTH,
     payload: status,
   }),
-  saveAuthInfo: (data) => ({
-    type: ActionType.SAVE_AUTH_INFO,
+  login: (data) => ({
+    type: ActionType.LOGIN,
     payload: data,
   }),
   logout: () => ({

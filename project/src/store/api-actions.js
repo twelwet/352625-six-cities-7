@@ -81,7 +81,7 @@ const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.saveAuthInfo(getUserAdapter(data)));
+      dispatch(ActionCreator.login(getUserAdapter(data)));
     })
     .catch(() => {})
 );
@@ -90,7 +90,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => (
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      dispatch(ActionCreator.saveAuthInfo(getUserAdapter(data)));
+      dispatch(ActionCreator.login(getUserAdapter(data)));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
     .catch(() => {})

@@ -182,7 +182,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         authorizationStatus: action.payload,
       };
-    case ActionType.SAVE_AUTH_INFO:
+    case ActionType.LOGIN:
       return {
         ...state,
         authInfo: action.payload,
