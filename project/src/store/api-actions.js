@@ -81,20 +81,23 @@ const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
       dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
-      dispatch(ActionCreator.login(getUserAdapter(data)));
+      dispatch(ActionCreator.loginFulfilled(getUserAdapter(data)));
     })
     .catch(() => {})
 );
 
-const login = ({email, password}) => (dispatch, _getState, api) => (
+const login = ({email, password}) => (dispatch, _getState, api) => {
+  dispatch(ActionCreator.loginPending());
   api.post(APIRoute.LOGIN, {email, password})
     .then(({data}) => {
       localStorage.setItem('token', data.token);
-      dispatch(ActionCreator.login(getUserAdapter(data)));
+      dispatch(ActionCreator.loginFulfilled(getUserAdapter(data)));
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
-    .catch(() => {})
-);
+    .catch((error) => {
+      dispatch(ActionCreator.loginRejected());
+    });
+};
 
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
