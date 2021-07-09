@@ -3,19 +3,25 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
 import {login as loginAsync} from '../../../store/api-actions.js';
-import {AppRoute, Status} from '../../../constants.js';
+import {AppRoute, Status, HttpCode} from '../../../constants.js';
 import Notification from '../../ui/notification/notification.jsx';
 
 function SignIn({onSubmit, login}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
+  const clearFields = () => {
+    loginRef.current.value = '';
+    passwordRef.current.value = '';
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
+
     onSubmit({
       email: loginRef.current.value,
       password: passwordRef.current.value,
-    });
+    }).then((status) => status === HttpCode.OK && clearFields());
   };
 
   return (
@@ -25,7 +31,7 @@ function SignIn({onSubmit, login}) {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            <Notification message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/>
+            {login.status === Status.REJECTED ? <Notification message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/> : ''}
             <h1 className="login__title">Sign in</h1>
             <form
               onSubmit={handleSubmit}
@@ -86,7 +92,7 @@ const mapStateToProps = (state) => ({
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
-    dispatch(loginAsync(authData));
+    return dispatch(loginAsync(authData));
   },
 });
 

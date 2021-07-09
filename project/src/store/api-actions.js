@@ -88,10 +88,11 @@ const checkAuth = () => (dispatch, _getState, api) => (
 
 const login = ({email, password}) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.loginPending());
-  api.post(APIRoute.LOGIN, {email, password})
-    .then(({data}) => {
-      localStorage.setItem('token', data.token);
-      dispatch(ActionCreator.loginFulfilled(getUserAdapter(data)));
+  return api.post(APIRoute.LOGIN, {email, password})
+    .then((response) => {
+      localStorage.setItem('token', response.data.token);
+      dispatch(ActionCreator.loginFulfilled(getUserAdapter(response.data)));
+      return response.status;
     })
     .then(() => dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH)))
     .catch((error) => {
