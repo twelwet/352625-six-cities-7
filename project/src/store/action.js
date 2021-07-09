@@ -134,6 +134,7 @@ export const ActionCreator = {
 
   logout: () => ({
     type: ActionType.LOGOUT,
+    payload: { status: Status.IDLE },
   }),
   saveComments: (comments) => ({
     type: ActionType.SAVE_COMMENTS,
