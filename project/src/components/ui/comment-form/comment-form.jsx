@@ -19,11 +19,7 @@ function CommentForm({saveReview, offer, userComment}) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    // TODO вернуть промис из асинхронного действия и привязать очистку формы к его выполнению
-    // TODO saveReview(review) почему-то возвращает пустой объект {}, а должна статус-код ответа сервера HttpCode.OK
-    if (saveReview(review) === HttpCode.OK) {
-      setReview(reviewTemplate);
-    }
+    saveReview(review).then((status) => status === HttpCode.OK && setReview(reviewTemplate));
   };
 
   const handleFieldChange = (evt) => {
