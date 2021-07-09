@@ -186,11 +186,6 @@ const reducer = (state = initialState, action) => {
         authorizationStatus: action.payload,
       };
 
-    case ActionType.LOGIN_IDLE:
-      return {
-        ...state,
-        login: action.payload,
-      };
     case ActionType.LOGIN_PENDING:
       return {
         ...state,
