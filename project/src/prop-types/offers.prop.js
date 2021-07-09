@@ -1,4 +1,10 @@
 import PropTypes from 'prop-types';
-import offerPropTypes from './offer.prop.js';
+import offerDataPropTypes from './offer-data.prop.js';
 
-export default PropTypes.arrayOf(offerPropTypes).isRequired;
+export default PropTypes.shape({
+  status: PropTypes.string.isRequired,
+  data: PropTypes.arrayOf(offerDataPropTypes).isRequired,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }).isRequired,
+});

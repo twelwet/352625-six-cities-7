@@ -1,5 +1,5 @@
 import React from 'react';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import ListFavourites from '../../ui/offers-list/list-favourites/list-favourites.jsx';
 import Header from '../../ui/header/header.jsx';
 import {AppRoute} from '../../../constants.js';
@@ -52,7 +52,7 @@ function Favourites({offers}) {
 }
 
 Favourites.propTypes = {
-  offers: offersPropTypes,
+  offers: offersDataPropTypes,
 };
 
 export default Favourites;

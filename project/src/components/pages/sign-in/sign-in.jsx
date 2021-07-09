@@ -2,10 +2,11 @@ import React, {useRef} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Header from '../../ui/header/header.jsx';
-import {login} from '../../../store/api-actions.js';
-import {AppRoute} from '../../../constants.js';
+import {login as loginAsync} from '../../../store/api-actions.js';
+import {AppRoute, Status} from '../../../constants.js';
+import Notification from '../../ui/notification/notification.jsx';
 
-function SignIn({onSubmit}) {
+function SignIn({onSubmit, login}) {
   const loginRef = useRef();
   const passwordRef = useRef();
 
@@ -16,9 +17,6 @@ function SignIn({onSubmit}) {
       email: loginRef.current.value,
       password: passwordRef.current.value,
     });
-
-    loginRef.current.value = '';
-    passwordRef.current.value = '';
   };
 
   return (
@@ -28,6 +26,7 @@ function SignIn({onSubmit}) {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
+            {login.status === Status.REJECTED ? <Notification message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/> : ''}
             <h1 className="login__title">Sign in</h1>
             <form
               onSubmit={handleSubmit}
@@ -44,6 +43,7 @@ function SignIn({onSubmit}) {
                   name="email"
                   placeholder="Email"
                   required=""
+                  disabled={login.status === Status.PENDING}
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -55,9 +55,10 @@ function SignIn({onSubmit}) {
                   name="password"
                   placeholder="Password"
                   required=""
+                  disabled={login.status === Status.PENDING}
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button className="login__submit form__submit button" type="submit" disabled={login.status === Status.PENDING}>Sign in</button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
@@ -75,13 +76,20 @@ function SignIn({onSubmit}) {
 
 SignIn.propTypes = {
   onSubmit: PropTypes.func.isRequired,
+  login: PropTypes.shape({
+    status: PropTypes.string.isRequired,
+  }).isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  login: state.login,
+});
 
 const mapDispatchToProps = (dispatch) => ({
   onSubmit(authData) {
-    dispatch(login(authData));
+    dispatch(loginAsync(authData));
   },
 });
 
 export {SignIn};
-export default connect(null, mapDispatchToProps)(SignIn);
+export default connect(mapStateToProps, mapDispatchToProps)(SignIn);

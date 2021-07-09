@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import offerPropTypes from '../../../../prop-types/offer.prop.js';
+import offerDataPropTypes from '../../../../prop-types/offer-data.prop.js';
 import OfferCard from '../offer-card.jsx';
 
 function CardMain(props) {
@@ -21,7 +21,7 @@ function CardMain(props) {
 }
 
 CardMain.propTypes = {
-  data: offerPropTypes,
+  data: offerDataPropTypes,
   setActiveOfferId: PropTypes.func.isRequired,
 };
 

@@ -2,7 +2,7 @@ import React, {useRef, useEffect} from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import useMap from '../../../hooks/useMap.js';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import PropTypes from 'prop-types';
 import {icon, iconActive} from './utils.js';
 
@@ -30,7 +30,7 @@ function Map({offers, activeOfferId}) {
 }
 
 Map.propTypes = {
-  offers: offersPropTypes,
+  offers: offersDataPropTypes,
   activeOfferId: PropTypes.number,
 };
 

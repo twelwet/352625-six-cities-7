@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
-import reviewPropTypes from './review-data.prop.js';
+import offerDataOptionalPropTypes from './offer-data-optional.prop.js';
 
 export default PropTypes.shape({
   status: PropTypes.string.isRequired,
-  data: PropTypes.arrayOf(reviewPropTypes).isRequired,
+  data: offerDataOptionalPropTypes,
   error: PropTypes.shape({
     message: PropTypes.string,
   }).isRequired,

@@ -25,6 +25,7 @@ const REQUEST_TIMEOUT = 5000;
 
 const APIRoute = {
   HOTELS: '/hotels',
+  COMMENTS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
 };
@@ -37,8 +38,20 @@ const AppRoute = {
 };
 
 const HttpCode = {
+  OK: 200,
+  CREATED: 201,
+  BAD_REQUEST: 400,
+  NOT_FOUND: 404,
+  INTERNAL_SERVER_ERROR: 500,
+  FORBIDDEN: 403,
   UNAUTHORIZED: 401,
 };
 
+const Status = {
+  IDLE: 'IDLE',
+  PENDING: 'PENDING',
+  FULFILLED: 'FULFILLED',
+  REJECTED: 'REJECTED',
+};
 
-export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, HttpCode};
+export {CityName, StayType, AuthorizationStatus, BACKEND_URL, REQUEST_TIMEOUT, APIRoute, AppRoute, HttpCode, Status};

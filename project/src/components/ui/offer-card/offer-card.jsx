@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import offerPropTypes from '../../../prop-types/offer.prop.js';
+import offerDataPropTypes from '../../../prop-types/offer-data.prop.js';
 import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
 import {Link} from 'react-router-dom';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
@@ -77,7 +77,7 @@ function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
 
 OfferCard.propTypes = {
   viewData: offerViewDataTypes,
-  data: offerPropTypes,
+  data: offerDataPropTypes,
   setActiveOfferId: PropTypes.func,
 };
 

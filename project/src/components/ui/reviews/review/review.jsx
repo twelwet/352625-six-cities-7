@@ -1,14 +1,19 @@
 import React from 'react';
-import reviewPropTypes from '../../../../prop-types/review.prop.js';
+import reviewDataPropTypes from '../../../../prop-types/review-data.prop.js';
 
-function Review({author, rating, description, date}) {
+function Review({user, rating, comment, date}) {
+  const year = (new Date(date)).toLocaleString('en-US', {year: 'numeric'});
+  const month = (new Date(date)).toLocaleString('en-US', {month: '2-digit'});
+  const day = (new Date(date)).toLocaleString('en-US', {day: '2-digit'});
+  const commentDate = (new Date(date)).toLocaleString('en-US', {month: 'long', year: 'numeric'});
+
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
         <div className="reviews__avatar-wrapper user__avatar-wrapper">
-          <img className="reviews__avatar user__avatar" src={author.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
+          <img className="reviews__avatar user__avatar" src={user.avatarUrl} width="54" height="54" alt="Reviews avatar"/>
         </div>
-        <span className="reviews__user-name">{author.name}</span>
+        <span className="reviews__user-name">{user.name}</span>
       </div>
       <div className="reviews__info">
         <div className="reviews__rating rating">
@@ -17,13 +22,13 @@ function Review({author, rating, description, date}) {
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
-        <p className="reviews__text">{description}</p>
-        <time className="reviews__time" dateTime="2019-04-24">{date}</time>
+        <p className="reviews__text">{comment}</p>
+        <time className="reviews__time" dateTime={`${year}-${month}-${day}`}>{commentDate}</time>
       </div>
     </li>
   );
 }
 
-Review.propTypes = reviewPropTypes;
+Review.propTypes = reviewDataPropTypes;
 
 export default Review;

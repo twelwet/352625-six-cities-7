@@ -1,19 +1,72 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import offerPropTypes from '../../../prop-types/offer.prop.js';
+import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
 import Map from '../../ui/map/map';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
+import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
+import {Status, AuthorizationStatus} from '../../../constants.js';
+import ErrorInfo from '../error-info/error-info';
 
-function Room({offer, offers, reviews, authorizationStatus}) {
-  const neighborOffers = offers
-    .filter((item) => item.city.name === offer.city.name && item.id !== offer.id)
-    .slice(0, 3);
+function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
+  const {
+    status: offerStatus,
+    data: offerData,
+    error: offerError,
+  } = offer;
+  const {
+    status: neighborOffersStatus,
+    data: neighborOffersData,
+    error: neighborOffersError,
+  } = neighborOffers;
+  const {
+    status: reviewsStatus,
+    data: reviewsData,
+    error: reviewsError,
+  } = reviews;
+
+  const [isErrorsExist, setIsErrorsExist] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    getOfferById(roomId);
+    getNeighborOffersById(roomId);
+    getCommentsByOfferId(roomId);
+  }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
+
+  useEffect(() => {
+    if (offerError.message !== null || neighborOffersError.message !== null || reviewsError.message !== null) {
+      setIsErrorsExist(true);
+    }
+  }, [offerError.message, neighborOffersError.message, reviewsError.message]);
+
+  useEffect(() => {
+    // TODO Надо как-то упростить
+    if ((offerStatus === Status.PENDING || offerStatus === Status.IDLE)
+      || (neighborOffersStatus === Status.PENDING || neighborOffersStatus === Status.IDLE)
+      || (reviewsStatus === Status.PENDING || reviewsStatus === Status.IDLE)
+      || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+      setIsLoading(true);
+    } else {
+      setIsLoading(false);
+    }
+  }, [authorizationStatus, neighborOffersStatus, offerStatus, reviewsStatus]);
+
+  if (isErrorsExist) {
+    const errors = [offerError, neighborOffersError, reviewsError];
+    return <ErrorInfo errors={errors}/>;
+  }
+
+  if (isLoading) {
+    return <Spinner/>;
+  }
+
   const {
     id,
     title,
@@ -26,9 +79,10 @@ function Room({offer, offers, reviews, authorizationStatus}) {
     maxAdults,
     goods,
     host,
+    city,
     isPremium,
     isFavourite,
-  } = offer;
+  } = offerData;
 
   return (
     <div className="page">
@@ -124,17 +178,17 @@ function Room({offer, offers, reviews, authorizationStatus}) {
                   </p>
                 </div>
               </div>
-              <Reviews offerId={offer.id} reviews={reviews} authorizationStatus={authorizationStatus}/>
+              <Reviews reviews={reviewsData} authorizationStatus={authorizationStatus}/>
             </div>
           </div>
           <section className="property__map map">
-            <Map offers={neighborOffers.concat(offer)} city={offer.city} activeOfferId={id}/>
+            <Map offers={neighborOffersData.concat(offerData)} city={city} activeOfferId={id}/>
           </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <ListNeighborhood offers={neighborOffers} />
+            <ListNeighborhood offers={neighborOffersData} />
           </section>
         </div>
       </main>
@@ -143,17 +197,35 @@ function Room({offer, offers, reviews, authorizationStatus}) {
 }
 
 Room.propTypes = {
-  offer: offerPropTypes,
-  offers: offersPropTypes,
+  roomId: PropTypes.number.isRequired,
+  offer: offerOptionalPropTypes,
+  neighborOffers: offersPropTypes,
   reviews: reviewsPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
+  getOfferById: PropTypes.func.isRequired,
+  getNeighborOffersById: PropTypes.func.isRequired,
+  getCommentsByOfferId: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offer: state.offer,
+  neighborOffers: state.neighborOffers,
   reviews: state.reviews,
   authorizationStatus: state.authorizationStatus,
+  isLoading: state.isLoading,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getOfferById (id) {
+    dispatch(fetchOfferById(id));
+  },
+  getNeighborOffersById (id) {
+    dispatch(fetchNeighborOffers(id));
+  },
+  getCommentsByOfferId (id) {
+    dispatch(fetchComments(id));
+  },
 });
 
 export {Room};
-export default connect(mapStateToProps, null)(Room);
+export default connect(mapStateToProps, mapDispatchToProps)(Room);

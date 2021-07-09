@@ -10,10 +10,16 @@ import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
 import offersPropTypes from '../../prop-types/offers.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
-import {AuthorizationStatus, AppRoute} from '../../constants.js';
+import ErrorInfo from '../pages/error-info/error-info.jsx';
+import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 
 function App({offers, authorizationStatus}) {
-  if (offers.length === 0 || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  const {status, data: offersData, error} = offers;
+  if (status === Status.REJECTED && error.message !== null) {
+    return <ErrorInfo errors={[error]}/>;
+  }
+
+  if (status === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
@@ -31,7 +37,7 @@ function App({offers, authorizationStatus}) {
         <PrivateRoute
           path={AppRoute.FAVOURITES}
           exact
-          render={() => <Favourites offers={offers}/>}
+          render={() => <Favourites offers={offersData}/>}
         />
 
         <Route
@@ -40,13 +46,13 @@ function App({offers, authorizationStatus}) {
           render={
             (localProps) => {
               const id = parseInt(localProps.match.params.id, 10);
-              const offer = offers.find((item) => item.id === id);
+              const offer = offersData.find((item) => item.id === id);
 
               if (!offer) {
                 return <NotFound/>;
               }
 
-              return (<Room offer={offer}/>);
+              return (<Room roomId={id}/>);
             }
           }
         />

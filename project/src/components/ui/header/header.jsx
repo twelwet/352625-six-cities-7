@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import {AuthorizationStatus, AppRoute} from '../../../constants.js';
 import {logout} from '../../../store/api-actions.js';
 
-function Header({authorizationStatus, userEmail, onSignOut}) {
+function Header({authorizationStatus, authInfo, onSignOut}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
 
   const handleSignOut = (evt) => {
@@ -28,7 +28,7 @@ function Header({authorizationStatus, userEmail, onSignOut}) {
                 <Link className="header__nav-link header__nav-link--profile" to={isAuth ? '/favourites' : '/login'}>
                   <div className="header__avatar-wrapper user__avatar-wrapper">
                   </div>
-                  <span className="header__user-name user__name">{isAuth ? userEmail : 'Sign in'}</span>
+                  <span className="header__user-name user__name">{isAuth ? authInfo.email : 'Sign in'}</span>
                 </Link>
               </li>
               {
@@ -54,11 +54,19 @@ function Header({authorizationStatus, userEmail, onSignOut}) {
 
 Header.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string,
+  authInfo: PropTypes.shape({
+    id: PropTypes.number,
+    email: PropTypes.string,
+    name: PropTypes.string,
+    avatarUrl: PropTypes.string,
+    isPro: PropTypes.bool,
+    token: PropTypes.string,
+  }),
   onSignOut: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => ({
+  authInfo: state.authInfo,
   authorizationStatus: state.authorizationStatus,
   userEmail: state.userEmail,
 });
