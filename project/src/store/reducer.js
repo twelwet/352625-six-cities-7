@@ -64,7 +64,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: {
           ...state.offers,
-          ...action.payload,
+          status: Status.FULFILLED,
+          data: action.payload,
         },
       };
     case ActionType.LOAD_OFFERS_REJECTED:
@@ -72,7 +73,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         offers: {
           ...state.offers,
-          ...action.payload,
+          status: Status.REJECTED,
+          error: {
+            message: action.payload,
+          },
         },
       };
 
