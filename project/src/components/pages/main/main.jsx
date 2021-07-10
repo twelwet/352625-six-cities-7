@@ -11,7 +11,7 @@ import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 function Main({city, offers}) {
   const {data: offersData} = offers;
   const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
-  const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData]);
+  const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData, city]);
   const placesCount = cityOffers.length;
 
   const [activeOfferId, setActiveOfferId] = useState(null);
