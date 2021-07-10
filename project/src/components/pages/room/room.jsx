@@ -31,7 +31,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     error: reviewsError,
   } = reviews;
 
-  const [isErrorsExist, setIsErrorsExist] = useState(false);
+  const errors = [offerError, neighborOffersError, reviewsError].filter((item) => item.message !== null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -39,12 +39,6 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
-
-  useEffect(() => {
-    if (offerError.message !== null || neighborOffersError.message !== null || reviewsError.message !== null) {
-      setIsErrorsExist(true);
-    }
-  }, [offerError.message, neighborOffersError.message, reviewsError.message]);
 
   useEffect(() => {
     // TODO Надо как-то упростить
@@ -58,8 +52,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     }
   }, [authorizationStatus, neighborOffersStatus, offerStatus, reviewsStatus]);
 
-  if (isErrorsExist) {
-    const errors = [offerError, neighborOffersError, reviewsError];
+  if (errors.length > 0) {
     return <ErrorInfo errors={errors}/>;
   }
 
