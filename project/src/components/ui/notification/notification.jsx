@@ -12,7 +12,7 @@ function Notification({message, position}) {
     () => {
       const id = hideMe(NOTIFICATION_SHOW_TIMEOUT);
       return () => clearTimeout(id);
-    },
+    }, [],
   );
 
   return (
