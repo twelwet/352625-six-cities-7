@@ -90,19 +90,15 @@ export const ActionCreator = {
 
   pushCommentIdle: () => ({
     type: ActionType.PUSH_COMMENT_IDLE,
-    payload: { status: Status.IDLE },
   }),
   pushCommentPending: () => ({
     type: ActionType.PUSH_COMMENT_PENDING,
-    payload: { status: Status.PENDING },
   }),
   pushCommentFulfilled: () => ({
     type: ActionType.PUSH_COMMENT_FULFILLED,
-    payload: { status: Status.FULFILLED },
   }),
   pushCommentRejected: () => ({
     type: ActionType.PUSH_COMMENT_REJECTED,
-    payload: { status: Status.REJECTED },
   }),
 
   requireAuth: (status) => ({
