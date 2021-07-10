@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {connect} from 'react-redux';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
@@ -10,7 +10,7 @@ import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 
 function Main({city, offers}) {
   const {data: offersData} = offers;
-  const cities = [...new Set(offersData.map((offer) => offer.city.name))];
+  const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
   const cityOffers = offersData.filter((offer) => offer.city.name === city);
   const placesCount = cityOffers.length;
 

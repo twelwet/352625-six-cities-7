@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import citiesPropTypes from '../../../prop-types/cities.prop.js';
@@ -44,4 +44,4 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export {CitiesList};
-export default connect(null, mapDispatchToProps)(CitiesList);
+export default memo(connect(null, mapDispatchToProps)(CitiesList));
