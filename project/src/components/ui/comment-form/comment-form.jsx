@@ -5,9 +5,8 @@ import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
-import {Status, HttpCode} from '../../../constants';
-
-const minCommentLength = 50;
+import {Status, HttpCode} from '../../../constants.js';
+import {MIN_COMMENT_LENGTH} from '../../../settings.js';
 
 function CommentForm({saveReview, offer, userComment, authInfo}) {
   const reviewTemplate = {
@@ -55,7 +54,7 @@ function CommentForm({saveReview, offer, userComment, authInfo}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
+          disabled={(review.comment.length < MIN_COMMENT_LENGTH || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
         >
           Submit
         </button>
