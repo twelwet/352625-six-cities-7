@@ -54,11 +54,10 @@ export const ActionCreator = {
 
   loadOfferPending: () => ({
     type: ActionType.LOAD_OFFER_PENDING,
-    payload: { status: Status.PENDING },
   }),
   loadOfferFulfilled: (offer) => ({
     type: ActionType.LOAD_OFFER_FULFILLED,
-    payload: { status: Status.FULFILLED, data: offer },
+    payload: offer,
   }),
   loadOfferRejected: (errorMessage) => ({
     type: ActionType.LOAD_OFFER_REJECTED,
