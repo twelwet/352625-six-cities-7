@@ -78,15 +78,14 @@ export const ActionCreator = {
 
   loadCommentsPending: () => ({
     type: ActionType.LOAD_COMMENTS_PENDING,
-    payload: { status: Status.PENDING },
   }),
   loadCommentsFulfilled: (comments) => ({
     type: ActionType.LOAD_COMMENTS_FULFILLED,
-    payload: { status: Status.FULFILLED, data: comments },
+    payload: comments,
   }),
   loadCommentsRejected: (errorMessage) => ({
     type: ActionType.LOAD_COMMENTS_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
+    payload: errorMessage,
   }),
 
   pushCommentIdle: () => ({

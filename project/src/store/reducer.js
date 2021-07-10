@@ -151,7 +151,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         reviews: {
           ...state.reviews,
-          ...action.payload,
+          status: Status.FULFILLED,
+          data: action.payload,
         },
       };
     case ActionType.LOAD_COMMENTS_REJECTED:
@@ -159,7 +160,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         reviews: {
           ...state.reviews,
-          ...action.payload,
+          status: Status.REJECTED,
+          error: {
+            message: action.payload,
+          },
         },
       };
 
