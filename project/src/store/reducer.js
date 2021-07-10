@@ -205,18 +205,24 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOGIN_PENDING:
       return {
         ...state,
-        login: action.payload,
+        login: {
+          status: Status.PENDING,
+        },
       };
     case ActionType.LOGIN_FULFILLED:
       return {
         ...state,
-        login: action.payload.login,
-        authInfo: action.payload.authInfo,
+        login: {
+          status: Status.FULFILLED,
+        },
+        authInfo: action.payload,
       };
     case ActionType.LOGIN_REJECTED:
       return {
         ...state,
-        login: action.payload,
+        login: {
+          status: Status.REJECTED,
+        },
         authInfo: {},
       };
 

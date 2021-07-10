@@ -108,15 +108,13 @@ export const ActionCreator = {
 
   loginPending: () => ({
     type: ActionType.LOGIN_PENDING,
-    payload: { status: Status.PENDING },
   }),
   loginFulfilled: (authData) => ({
     type: ActionType.LOGIN_FULFILLED,
-    payload: { login: {status: Status.FULFILLED}, authInfo: authData },
+    payload: authData,
   }),
   loginRejected: () => ({
     type: ActionType.LOGIN_REJECTED,
-    payload: { status: Status.REJECTED },
   }),
 
   logout: () => ({
