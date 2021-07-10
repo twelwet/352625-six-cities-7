@@ -1,7 +1,7 @@
 import {Status} from '../constants.js';
 
 export const ActionType = {
-  CHANGE_CITY: 'main/change-city',
+  CHANGE_CITY: 'app/change-city',
 
   LOAD_OFFERS_PENDING: `api/load-offers_${Status.PENDING}`,
   LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
@@ -24,14 +24,14 @@ export const ActionType = {
   PUSH_COMMENT_FULFILLED: `api/push-comment_${Status.FULFILLED}`,
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
-  REQUIRE_AUTH: 'user/require-auth',
+  REQUIRE_AUTH: 'api/require-auth',
 
-  LOGIN_PENDING: `user/login_${Status.PENDING}`,
-  LOGIN_FULFILLED: `user/login_${Status.FULFILLED}`,
-  LOGIN_REJECTED: `user/login_${Status.REJECTED}`,
+  LOGIN_PENDING: `api/login_${Status.PENDING}`,
+  LOGIN_FULFILLED: `api/login_${Status.FULFILLED}`,
+  LOGIN_REJECTED: `api/login_${Status.REJECTED}`,
 
-  LOGOUT: 'user/logout',
-  SAVE_COMMENTS: 'room/save-comments',
+  LOGOUT: 'app/logout',
+  SAVE_COMMENTS: 'app/save-comments',
 };
 
 export const ActionCreator = {
