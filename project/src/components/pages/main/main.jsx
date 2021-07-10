@@ -11,7 +11,7 @@ import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 function Main({city, offers}) {
   const {data: offersData} = offers;
   const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
-  const cityOffers = offersData.filter((offer) => offer.city.name === city);
+  const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData]);
   const placesCount = cityOffers.length;
 
   const [activeOfferId, setActiveOfferId] = useState(null);
@@ -67,7 +67,7 @@ function Main({city, offers}) {
                   }
                 </ul>
               </form>
-              <ListMain offers={sortOffers(cityOffers, activeSort)} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort])} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
