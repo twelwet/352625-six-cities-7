@@ -229,7 +229,7 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOGOUT:
       return {
         ...state,
-        login: action.payload,
+        login: { status: Status.IDLE },
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
       };
