@@ -66,15 +66,14 @@ export const ActionCreator = {
 
   loadNeighborOffersPending: () => ({
     type: ActionType.LOAD_NEIGHBOR_OFFERS_PENDING,
-    payload: { status: Status.PENDING },
   }),
   loadNeighborOffersFulfilled: (neighborOffers) => ({
     type: ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED,
-    payload: { status: Status.FULFILLED, data: neighborOffers },
+    payload: neighborOffers,
   }),
   loadNeighborOffersRejected: (errorMessage) => ({
     type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
+    payload: errorMessage,
   }),
 
   loadCommentsPending: () => ({

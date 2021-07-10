@@ -122,7 +122,8 @@ const reducer = (state = initialState, action) => {
         ...state,
         neighborOffers: {
           ...state.neighborOffers,
-          ...action.payload,
+          status: Status.FULFILLED,
+          data: action.payload,
         },
       };
     case ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED:
@@ -130,7 +131,10 @@ const reducer = (state = initialState, action) => {
         ...state,
         neighborOffers: {
           ...state.neighborOffers,
-          ...action.payload,
+          status: Status.REJECTED,
+          error: {
+            message: action.payload,
+          },
         },
       };
 
