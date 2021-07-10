@@ -18,7 +18,7 @@ function App({offers, authorizationStatus}) {
   if (status === Status.REJECTED && error.message !== null) {
     return <ErrorInfo errors={[error]}/>;
   }
-
+  // TODO переделать логику спинера, убрать загрузку fetchOffersList из index
   if (status === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
@@ -45,6 +45,7 @@ function App({offers, authorizationStatus}) {
           exact
           render={
             (localProps) => {
+              // TODO обрабатывать только fetchOfferById и тп., можно порефакторить, если время позволяет
               const id = parseInt(localProps.match.params.id, 10);
               const offer = offersData.find((item) => item.id === id);
 
