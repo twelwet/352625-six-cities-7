@@ -9,7 +9,7 @@ import {Status, HttpCode} from '../../../constants';
 
 const minCommentLength = 50;
 
-function CommentForm({saveReview, offer, userComment}) {
+function CommentForm({saveReview, offer, userComment, authInfo}) {
   const reviewTemplate = {
     offerId: offer.data.id,
     rating: null,
@@ -19,7 +19,7 @@ function CommentForm({saveReview, offer, userComment}) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    saveReview(review).then((status) => status === HttpCode.OK && setReview(reviewTemplate));
+    saveReview(review, authInfo.token).then((status) => status === HttpCode.OK && setReview(reviewTemplate));
   };
 
   const handleFieldChange = (evt) => {
@@ -70,16 +70,18 @@ CommentForm.propTypes = {
     status: PropTypes.string.isRequired,
   }),
   saveReview: PropTypes.func.isRequired,
+  authInfo: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
   offer: state.offer,
   userComment: state.userComment,
+  authInfo: state.authInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveReview(data) {
-    return dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId));
+  saveReview(data, token) {
+    return dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId, token));
   },
 });
 

@@ -63,9 +63,10 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
     .catch((error) => handleError(error, dispatch, ActionCreator.loadCommentsRejected));
 };
 
-const pushComment = (review, offerId) => (dispatch, _getState, api) => {
+const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
   dispatch(ActionCreator.pushCommentPending());
-  return api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
+  const config = { headers: { 'x-token': token } };
+  return api.post(`${APIRoute.COMMENTS}/${offerId}`, review, config)
     .then((response) => {
       dispatch(ActionCreator.saveComments(getAdaptedData(response.data, getCommentAdapter)));
       return response.status;
