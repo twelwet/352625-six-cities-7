@@ -19,9 +19,7 @@ export const ActionType = {
   LOAD_COMMENTS_FULFILLED: `api/load-comments_${Status.FULFILLED}`,
   LOAD_COMMENTS_REJECTED: `api/load-comments_${Status.REJECTED}`,
 
-  PUSH_COMMENT_IDLE: `api/push-comment_${Status.IDLE}`,
   PUSH_COMMENT_PENDING: `api/push-comment_${Status.PENDING}`,
-  PUSH_COMMENT_FULFILLED: `api/push-comment_${Status.FULFILLED}`,
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
   REQUIRE_AUTH: 'api/require-auth',
@@ -88,14 +86,8 @@ export const ActionCreator = {
     payload: errorMessage,
   }),
 
-  pushCommentIdle: () => ({
-    type: ActionType.PUSH_COMMENT_IDLE,
-  }),
   pushCommentPending: () => ({
     type: ActionType.PUSH_COMMENT_PENDING,
-  }),
-  pushCommentFulfilled: () => ({
-    type: ActionType.PUSH_COMMENT_FULFILLED,
   }),
   pushCommentRejected: () => ({
     type: ActionType.PUSH_COMMENT_REJECTED,

@@ -68,8 +68,6 @@ const pushComment = (review, offerId) => (dispatch, _getState, api) => {
   return api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
     .then((response) => {
       dispatch(ActionCreator.saveComments(getAdaptedData(response.data, getCommentAdapter)));
-      dispatch(ActionCreator.pushCommentFulfilled());
-      dispatch(ActionCreator.pushCommentIdle());
       return response.status;
     })
     .catch((error) => {

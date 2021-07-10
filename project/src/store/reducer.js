@@ -236,6 +236,9 @@ const reducer = (state = initialState, action) => {
     case ActionType.SAVE_COMMENTS:
       return {
         ...state,
+        userComment: {
+          status: Status.IDLE,
+        },
         reviews: {
           ...state.reviews,
           data: action.payload,
