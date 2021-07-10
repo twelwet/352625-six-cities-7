@@ -5,6 +5,7 @@ import Header from '../../ui/header/header.jsx';
 import {login as loginAsync} from '../../../store/api-actions.js';
 import {AppRoute, Status} from '../../../constants.js';
 import Notification from '../../ui/notification/notification.jsx';
+import {DEFAULT_CITY} from '../../../settings.js';
 
 function SignIn({onSubmit, login}) {
   const loginRef = useRef();
@@ -64,7 +65,7 @@ function SignIn({onSubmit, login}) {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href={AppRoute.MAIN}>
-                <span>Amsterdam</span>
+                <span>{DEFAULT_CITY}</span>
               </a>
             </div>
           </section>
