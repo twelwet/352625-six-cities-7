@@ -167,25 +167,11 @@ const reducer = (state = initialState, action) => {
         },
       };
 
-    case ActionType.PUSH_COMMENT_IDLE:
-      return {
-        ...state,
-        userComment: {
-          status: Status.IDLE,
-        },
-      };
     case ActionType.PUSH_COMMENT_PENDING:
       return {
         ...state,
         userComment: {
           status: Status.PENDING,
-        },
-      };
-    case ActionType.PUSH_COMMENT_FULFILLED:
-      return {
-        ...state,
-        userComment: {
-          status: Status.FULFILLED,
         },
       };
     case ActionType.PUSH_COMMENT_REJECTED:
