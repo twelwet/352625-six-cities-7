@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
@@ -32,31 +32,20 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
   } = reviews;
 
   const errors = [offerError, neighborOffersError, reviewsError].filter((item) => item.message !== null);
-  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     getOfferById(roomId);
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
+    /* eslint-disable no-console */
+    console.log('Mount');
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
-
-  useEffect(() => {
-    // TODO Надо как-то упростить
-    if ((offerStatus === Status.PENDING || offerStatus === Status.IDLE)
-      || (neighborOffersStatus === Status.PENDING || neighborOffersStatus === Status.IDLE)
-      || (reviewsStatus === Status.PENDING || reviewsStatus === Status.IDLE)
-      || authorizationStatus === AuthorizationStatus.UNKNOWN) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [authorizationStatus, neighborOffersStatus, offerStatus, reviewsStatus]);
 
   if (errors.length > 0) {
     return <ErrorInfo errors={errors}/>;
   }
 
-  if (isLoading) {
+  if (offerStatus === Status.PENDING || neighborOffersStatus === Status.PENDING || reviewsStatus === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
