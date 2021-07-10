@@ -37,15 +37,19 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     getOfferById(roomId);
     getNeighborOffersById(roomId);
     getCommentsByOfferId(roomId);
-    /* eslint-disable no-console */
-    console.log('Mount');
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
   if (errors.length > 0) {
     return <ErrorInfo errors={errors}/>;
   }
 
-  if (offerStatus === Status.PENDING || neighborOffersStatus === Status.PENDING || reviewsStatus === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+  if (offerStatus === Status.PENDING
+    || offerStatus === Status.IDLE
+    || neighborOffersStatus === Status.PENDING
+    || neighborOffersStatus === Status.IDLE
+    || reviewsStatus === Status.PENDING
+    || reviewsStatus === Status.IDLE
+    || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
