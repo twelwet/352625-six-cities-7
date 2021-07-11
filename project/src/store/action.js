@@ -32,88 +32,98 @@ export const ActionType = {
   SAVE_COMMENTS: 'app/save-comments',
 };
 
-export const ActionCreator = {
-  changeCity: (cityName) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: cityName,
-  }),
+export const changeCity = (cityName) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: cityName,
+});
 
-  loadOffersPending: () => ({
-    type: ActionType.LOAD_OFFERS_PENDING,
-  }),
-  loadOffersFulfilled: (offers) => ({
-    type: ActionType.LOAD_OFFERS_FULFILLED,
-    payload: offers,
-  }),
-  loadOffersRejected: (errorMessage) => ({
-    type: ActionType.LOAD_OFFERS_REJECTED,
-    payload: errorMessage,
-  }),
+export const loadOffersPending = () => ({
+  type: ActionType.LOAD_OFFERS_PENDING,
+})
 
-  loadOfferPending: () => ({
-    type: ActionType.LOAD_OFFER_PENDING,
-  }),
-  loadOfferFulfilled: (offer) => ({
-    type: ActionType.LOAD_OFFER_FULFILLED,
-    payload: offer,
-  }),
-  loadOfferRejected: (errorMessage) => ({
-    type: ActionType.LOAD_OFFER_REJECTED,
-    payload: errorMessage,
-  }),
+export const loadOffersFulfilled = (offers) => ({
+  type: ActionType.LOAD_OFFERS_FULFILLED,
+  payload: offers,
+});
 
-  loadNeighborOffersPending: () => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_PENDING,
-  }),
-  loadNeighborOffersFulfilled: (neighborOffers) => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED,
-    payload: neighborOffers,
-  }),
-  loadNeighborOffersRejected: (errorMessage) => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
-    payload: errorMessage,
-  }),
+export const loadOffersRejected = (errorMessage) => ({
+  type: ActionType.LOAD_OFFERS_REJECTED,
+  payload: errorMessage,
+});
 
-  loadCommentsPending: () => ({
-    type: ActionType.LOAD_COMMENTS_PENDING,
-  }),
-  loadCommentsFulfilled: (comments) => ({
-    type: ActionType.LOAD_COMMENTS_FULFILLED,
-    payload: comments,
-  }),
-  loadCommentsRejected: (errorMessage) => ({
-    type: ActionType.LOAD_COMMENTS_REJECTED,
-    payload: errorMessage,
-  }),
+export const loadOfferPending = () => ({
+  type: ActionType.LOAD_OFFER_PENDING,
+});
 
-  pushCommentPending: () => ({
-    type: ActionType.PUSH_COMMENT_PENDING,
-  }),
-  pushCommentRejected: () => ({
-    type: ActionType.PUSH_COMMENT_REJECTED,
-  }),
+export const loadOfferFulfilled = (offer) => ({
+  type: ActionType.LOAD_OFFER_FULFILLED,
+  payload: offer,
+});
 
-  requireAuth: (status) => ({
-    type: ActionType.REQUIRE_AUTH,
-    payload: status,
-  }),
+export const loadOfferRejected = (errorMessage) => ({
+  type: ActionType.LOAD_OFFER_REJECTED,
+  payload: errorMessage,
+});
 
-  loginPending: () => ({
-    type: ActionType.LOGIN_PENDING,
-  }),
-  loginFulfilled: (authData) => ({
-    type: ActionType.LOGIN_FULFILLED,
-    payload: authData,
-  }),
-  loginRejected: () => ({
-    type: ActionType.LOGIN_REJECTED,
-  }),
+export const loadNeighborOffersPending = () => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_PENDING,
+});
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  saveComments: (comments) => ({
-    type: ActionType.SAVE_COMMENTS,
-    payload: comments,
-  }),
-};
+export const loadNeighborOffersFulfilled = (neighborOffers) => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED,
+  payload: neighborOffers,
+});
+
+export const loadNeighborOffersRejected = (errorMessage) => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
+  payload: errorMessage,
+});
+
+export const loadCommentsPending = () => ({
+  type: ActionType.LOAD_COMMENTS_PENDING,
+});
+
+export const loadCommentsFulfilled = (comments) => ({
+  type: ActionType.LOAD_COMMENTS_FULFILLED,
+  payload: comments,
+});
+
+export const loadCommentsRejected = (errorMessage) => ({
+  type: ActionType.LOAD_COMMENTS_REJECTED,
+  payload: errorMessage,
+});
+
+export const pushCommentPending = () => ({
+  type: ActionType.PUSH_COMMENT_PENDING,
+});
+
+export const pushCommentRejected = () => ({
+  type: ActionType.PUSH_COMMENT_REJECTED,
+});
+
+export const requireAuth = (status) => ({
+  type: ActionType.REQUIRE_AUTH,
+  payload: status,
+});
+
+export const loginPending = () => ({
+  type: ActionType.LOGIN_PENDING,
+});
+
+export const loginFulfilled = (authData) => ({
+  type: ActionType.LOGIN_FULFILLED,
+  payload: authData,
+});
+
+export const loginRejected = () => ({
+  type: ActionType.LOGIN_REJECTED,
+});
+
+export const logout = () => ({
+  type: ActionType.LOGOUT,
+});
+
+export const saveComments = (comments) => ({
+  type: ActionType.SAVE_COMMENTS,
+  payload: comments,
+});
