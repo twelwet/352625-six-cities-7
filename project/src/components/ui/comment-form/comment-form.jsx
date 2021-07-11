@@ -77,10 +77,10 @@ CommentForm.propTypes = {
   authInfo: PropTypes.object,
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  userComment: state.userComment,
-  authInfo: state.authInfo,
+const mapStateToProps = ({OFFER, USER}) => ({
+  offer: OFFER.offer,
+  userComment: USER.userComment,
+  authInfo: USER.authInfo,
 });
 
 const mapDispatchToProps = (dispatch) => ({

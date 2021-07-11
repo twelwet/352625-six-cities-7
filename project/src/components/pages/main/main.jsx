@@ -86,9 +86,9 @@ Main.propTypes = {
   offers: offersPropTypes,
 };
 
-const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
+const mapStateToProps = ({CITY, OFFERS}) => ({
+  city: CITY.city,
+  offers: OFFERS.offers,
 });
 
 export {Main};

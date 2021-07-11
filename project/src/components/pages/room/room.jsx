@@ -193,12 +193,11 @@ Room.propTypes = {
   getCommentsByOfferId: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  offer: state.offer,
-  neighborOffers: state.neighborOffers,
-  reviews: state.reviews,
-  authorizationStatus: state.authorizationStatus,
-  isLoading: state.isLoading,
+const mapStateToProps = ({OFFER, NEIGHBOR_OFFERS, REVIEWS, USER}) => ({
+  offer: OFFER.offer,
+  neighborOffers: NEIGHBOR_OFFERS.neighborOffers,
+  reviews: REVIEWS.reviews,
+  authorizationStatus: USER.authorizationStatus,
 });
 
 const mapDispatchToProps = (dispatch) => ({
