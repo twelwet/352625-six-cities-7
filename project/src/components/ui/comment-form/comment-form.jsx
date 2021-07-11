@@ -77,8 +77,8 @@ CommentForm.propTypes = {
   authInfo: PropTypes.object,
 };
 
-const mapStateToProps = ({OFFER, USER}) => ({
-  offer: OFFER.offer,
+const mapStateToProps = ({ROOM, USER}) => ({
+  offer: ROOM.offer,
   userComment: USER.userComment,
   authInfo: USER.authInfo,
 });
