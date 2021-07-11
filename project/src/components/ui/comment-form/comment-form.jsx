@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
@@ -9,21 +9,26 @@ import {Status, HttpCode} from '../../../constants.js';
 import {MIN_COMMENT_LENGTH} from '../../../settings.js';
 
 function CommentForm({saveReview, offer, userComment, authInfo}) {
-  const reviewTemplate = {
-    offerId: offer.data.id,
-    rating: null,
-    comment: '',
+  const commentRef = useRef();
+  const [rating, setRating] = useState(null);
+
+  const clearFormFields = () => {
+    setRating(null);
+    commentRef.current.value = '';
   };
-  const [review, setReview] = useState(reviewTemplate);
+
+  const handleRating = (evt) => {
+    const {value} = evt.target;
+    setRating(parseInt(value, 10));
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    saveReview(review, authInfo.token).then((status) => status === HttpCode.OK && setReview(reviewTemplate));
-  };
-
-  const handleFieldChange = (evt) => {
-    const {name, value} = evt.target;
-    setReview({...review, [name]: name === 'rating' ? parseInt(value, 10) : value});
+    saveReview({
+      offerId: offer.data.id,
+      rating,
+      comment: commentRef.current.value,
+    }, authInfo.token).then((status) => status === HttpCode.OK && clearFormFields());
   };
 
   return (
@@ -35,14 +40,14 @@ function CommentForm({saveReview, offer, userComment, authInfo}) {
     >
       {userComment.status === Status.REJECTED ? <Notification message={'Mark the rating or write more characters'} position={{top: '5px', marginRight: '0px'}}/> : ''}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <RatingStarsList changeHandler={handleFieldChange} activeStar={parseInt(review.rating, 10)}/>
+      <RatingStarsList changeHandler={handleRating} activeStar={parseInt(rating, 10)}/>
       <textarea
+        ref={commentRef}
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
-        value={review.comment}
+        minLength={MIN_COMMENT_LENGTH}
         maxLength={'300'}
         disabled={userComment.status === Status.PENDING}
       />
@@ -54,7 +59,7 @@ function CommentForm({saveReview, offer, userComment, authInfo}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < MIN_COMMENT_LENGTH || review.rating === null || userComment.status === Status.PENDING)}
+          disabled={(rating === null || userComment.status === Status.PENDING)}
         >
           Submit
         </button>
