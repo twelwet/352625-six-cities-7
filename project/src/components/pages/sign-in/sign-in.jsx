@@ -6,6 +6,7 @@ import {login as loginAsync} from '../../../store/api-actions.js';
 import {AppRoute, Status} from '../../../constants.js';
 import Notification from '../../ui/notification/notification.jsx';
 import {DEFAULT_CITY} from '../../../settings.js';
+import {getLogin} from '../../../store/user/selectors.js';
 
 function SignIn({onSubmit, login}) {
   const loginRef = useRef();
@@ -82,8 +83,8 @@ SignIn.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  login: USER.login,
+const mapStateToProps = (state) => ({
+  login: getLogin(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

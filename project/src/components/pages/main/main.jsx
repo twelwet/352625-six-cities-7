@@ -7,6 +7,8 @@ import Map from '../../ui/map/map.jsx';
 import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
+import {getOffersData} from '../../../store/offers/selectors.js';
+import {getCity} from '../../../store/city/selectors.js';
 
 function Main({city, data: offersData}) {
   const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
@@ -85,9 +87,9 @@ Main.propTypes = {
   data: offersDataPropTypes,
 };
 
-const mapStateToProps = ({CITY, OFFERS}) => ({
-  city: CITY.city,
-  data: OFFERS.data,
+const mapStateToProps = (state) => ({
+  city: getCity(state),
+  data: getOffersData(state),
 });
 
 export {Main};

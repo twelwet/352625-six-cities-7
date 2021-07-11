@@ -12,6 +12,8 @@ import offersDataPropTypes from '../../prop-types/offers-data.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import ErrorInfo from '../pages/error-info/error-info.jsx';
 import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
+import {getOffersData, getOffersStatus, getOffersError} from '../../store/offers/selectors.js';
+import {getAuthStatus} from '../../store/user/selectors.js';
 
 function App({status, data: offersData, error, authorizationStatus}) {
   if (status === Status.REJECTED && error.message !== null) {
@@ -74,11 +76,11 @@ App.propTypes = {
   authorizationStatus: PropTypes.string.isRequired,
 };
 
-const mapStateToProps = ({OFFERS, USER}) => ({
-  status: OFFERS.status,
-  data: OFFERS.data,
-  error: OFFERS.error,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  status: getOffersStatus(state),
+  data: getOffersData(state),
+  error: getOffersError(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 export {App};

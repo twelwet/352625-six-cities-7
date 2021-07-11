@@ -13,6 +13,8 @@ import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
 import {Status, AuthorizationStatus} from '../../../constants.js';
 import ErrorInfo from '../error-info/error-info';
+import {getOffer, getNeighborOffers, getReviews} from '../../../store/room/selectors.js';
+import {getAuthStatus} from '../../../store/user/selectors.js';
 
 function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
   const {
@@ -193,11 +195,11 @@ Room.propTypes = {
   getCommentsByOfferId: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({ROOM, USER}) => ({
-  offer: ROOM.offer,
-  neighborOffers: ROOM.neighborOffers,
-  reviews: ROOM.reviews,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  offer: getOffer(state),
+  neighborOffers: getNeighborOffers(state),
+  reviews: getReviews(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

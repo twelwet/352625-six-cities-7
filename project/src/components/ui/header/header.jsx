@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import {AuthorizationStatus, AppRoute} from '../../../constants.js';
 import {logout} from '../../../store/api-actions.js';
+import {getAuthInfo, getAuthStatus} from '../../../store/user/selectors.js';
 
 function Header({authorizationStatus, authInfo, onSignOut}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
@@ -65,9 +66,9 @@ Header.propTypes = {
   onSignOut: PropTypes.func.isRequired,
 };
 
-const mapStateToProps = ({USER}) => ({
-  authInfo: USER.authInfo,
-  authorizationStatus: USER.authorizationStatus,
+const mapStateToProps = (state) => ({
+  authInfo: getAuthInfo(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({

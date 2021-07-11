@@ -7,6 +7,8 @@ import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Status, HttpCode} from '../../../constants.js';
 import {MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH} from '../../../settings.js';
+import {getOffer} from '../../../store/room/selectors.js';
+import {getAuthInfo, getUserComment} from '../../../store/user/selectors';
 
 function CommentForm({saveReview, offer, userComment, authInfo}) {
   const commentRef = useRef();
@@ -77,10 +79,10 @@ CommentForm.propTypes = {
   authInfo: PropTypes.object,
 };
 
-const mapStateToProps = ({ROOM, USER}) => ({
-  offer: ROOM.offer,
-  userComment: USER.userComment,
-  authInfo: USER.authInfo,
+const mapStateToProps = (state) => ({
+  offer: getOffer(state),
+  userComment: getUserComment(state),
+  authInfo: getAuthInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
