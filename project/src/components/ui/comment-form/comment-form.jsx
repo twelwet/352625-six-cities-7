@@ -6,7 +6,7 @@ import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
 import {Status, HttpCode} from '../../../constants.js';
-import {MIN_COMMENT_LENGTH} from '../../../settings.js';
+import {MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH} from '../../../settings.js';
 
 function CommentForm({saveReview, offer, userComment, authInfo}) {
   const commentRef = useRef();
@@ -48,7 +48,7 @@ function CommentForm({saveReview, offer, userComment, authInfo}) {
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
         minLength={MIN_COMMENT_LENGTH}
-        maxLength={'300'}
+        maxLength={MAX_COMMENT_LENGTH}
         disabled={userComment.status === Status.PENDING}
       />
       <div className="reviews__button-wrapper">
