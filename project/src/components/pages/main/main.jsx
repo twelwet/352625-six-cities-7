@@ -4,12 +4,11 @@ import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 
-function Main({city, offers}) {
-  const {data: offersData} = offers;
+function Main({city, data: offersData}) {
   const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
   const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData, city]);
   const placesCount = cityOffers.length;
@@ -83,12 +82,12 @@ function Main({city, offers}) {
 
 Main.propTypes = {
   city: cityPropTypes,
-  offers: offersPropTypes,
+  data: offersDataPropTypes,
 };
 
 const mapStateToProps = ({CITY, OFFERS}) => ({
   city: CITY.city,
-  offers: OFFERS.offers,
+  data: OFFERS.data,
 });
 
 export {Main};

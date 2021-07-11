@@ -15,30 +15,21 @@ export const offers = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS_PENDING:
       return {
-        ...state,
-        offers: {
-          ...state.offers,
-          status: Status.PENDING,
-        },
+        ...state.offers,
+        status: Status.PENDING,
       };
     case ActionType.LOAD_OFFERS_FULFILLED:
       return {
         ...state,
-        offers: {
-          ...state.offers,
-          status: Status.FULFILLED,
-          data: action.payload,
-        },
+        status: Status.FULFILLED,
+        data: action.payload,
       };
     case ActionType.LOAD_OFFERS_REJECTED:
       return {
         ...state,
-        offers: {
-          ...state.offers,
-          status: Status.REJECTED,
-          error: {
-            message: action.payload,
-          },
+        status: Status.REJECTED,
+        error: {
+          message: action.payload,
         },
       };
     default:

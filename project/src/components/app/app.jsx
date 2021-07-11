@@ -8,13 +8,12 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import PrivateRoute from '../ui/private-route/private-route.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
-import offersPropTypes from '../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../prop-types/offers-data.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import ErrorInfo from '../pages/error-info/error-info.jsx';
 import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 
-function App({offers, authorizationStatus}) {
-  const {status, data: offersData, error} = offers;
+function App({status, data: offersData, error, authorizationStatus}) {
   if (status === Status.REJECTED && error.message !== null) {
     return <ErrorInfo errors={[error]}/>;
   }
@@ -67,12 +66,18 @@ function App({offers, authorizationStatus}) {
 }
 
 App.propTypes = {
-  offers: offersPropTypes,
+  status: PropTypes.string.isRequired,
+  data: offersDataPropTypes,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = ({OFFERS, USER}) => ({
-  offers: OFFERS.offers,
+  status: OFFERS.status,
+  data: OFFERS.data,
+  error: OFFERS.error,
   authorizationStatus: USER.authorizationStatus,
 });
 
