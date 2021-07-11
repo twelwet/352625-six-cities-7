@@ -4,7 +4,7 @@ import {Status} from '../../constants.js';
 const initialState = {
   offer: {
     status: Status.IDLE,
-    data: [],
+    data: {},
     error: {
       message: null,
     },
