@@ -15,6 +15,7 @@ import {
   loadCommentsFulfilled,
   loadCommentsRejected,
 
+  pushCommentIdle,
   pushCommentPending,
   pushCommentRejected,
 
@@ -97,6 +98,7 @@ const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
   return api.post(`${APIRoute.COMMENTS}/${offerId}`, review, config)
     .then((response) => {
       dispatch(saveComments(getAdaptedData(response.data, getCommentAdapter)));
+      dispatch(pushCommentIdle());
       return response.status;
     })
     .catch((error) => {

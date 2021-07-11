@@ -19,6 +19,7 @@ export const ActionType = {
   LOAD_COMMENTS_FULFILLED: `api/load-comments_${Status.FULFILLED}`,
   LOAD_COMMENTS_REJECTED: `api/load-comments_${Status.REJECTED}`,
 
+  PUSH_COMMENT_IDLE: `api/push-comment_${Status.IDLE}`,
   PUSH_COMMENT_PENDING: `api/push-comment_${Status.PENDING}`,
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
@@ -91,6 +92,10 @@ export const loadCommentsFulfilled = (comments) => ({
 export const loadCommentsRejected = (errorMessage) => ({
   type: ActionType.LOAD_COMMENTS_REJECTED,
   payload: errorMessage,
+});
+
+export const pushCommentIdle = () => ({
+  type: ActionType.PUSH_COMMENT_IDLE,
 });
 
 export const pushCommentPending = () => ({

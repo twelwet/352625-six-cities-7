@@ -40,6 +40,14 @@ export const reviews = (state = initialState, action) => {
           },
         },
       };
+    case ActionType.SAVE_COMMENTS:
+      return {
+        ...state,
+        reviews: {
+          ...state.reviews,
+          data: action.payload,
+        },
+      };
     default:
       return state;
   }

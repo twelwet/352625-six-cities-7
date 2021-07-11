@@ -28,6 +28,13 @@ export const user = (state = initialState, action) => {
           status: Status.REJECTED,
         },
       };
+    case ActionType.PUSH_COMMENT_IDLE:
+      return {
+        ...state,
+        userComment: {
+          status: Status.IDLE,
+        },
+      };
 
     case ActionType.REQUIRE_AUTH:
       return {
@@ -65,17 +72,6 @@ export const user = (state = initialState, action) => {
         login: { status: Status.IDLE },
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
-      };
-    case ActionType.SAVE_COMMENTS:
-      return {
-        ...state,
-        userComment: {
-          status: Status.IDLE,
-        },
-        reviews: {
-          ...state.reviews,
-          data: action.payload,
-        },
       };
     default:
       return state;
