@@ -82,8 +82,8 @@ SignIn.propTypes = {
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  login: state.login,
+const mapStateToProps = ({USER}) => ({
+  login: USER.login,
 });
 
 const mapDispatchToProps = (dispatch) => ({
