@@ -39,7 +39,7 @@ export const changeCity = (cityName) => ({
 
 export const loadOffersPending = () => ({
   type: ActionType.LOAD_OFFERS_PENDING,
-})
+});
 
 export const loadOffersFulfilled = (offers) => ({
   type: ActionType.LOAD_OFFERS_FULFILLED,

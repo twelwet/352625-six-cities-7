@@ -24,7 +24,7 @@ import {
 
   saveComments,
   requireAuth,
-  logout as closeSession,
+  logout as closeSession
 } from './action.js';
 
 import getOfferAdapter from '../utils/get-offer-adapter.js';
