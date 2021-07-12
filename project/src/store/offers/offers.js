@@ -22,7 +22,7 @@ export const offers = (state = initialState, action) => {
       return {
         ...state,
         status: Status.FULFILLED,
-        data: [],
+        data: action.payload,
       };
     case ActionType.LOAD_OFFERS_REJECTED:
       return {
