@@ -3,10 +3,11 @@ import {connect} from 'react-redux';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import CitiesList from '../../ui/cities-list/cities-list.jsx';
+import SortMenu from '../../ui/sort-menu/sort-menu.jsx';
 import Map from '../../ui/map/map.jsx';
 import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
-import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
+import {sortOffers, SortType} from '../../../utils/sort-offers.js';
 import {getOffersData} from '../../../store/offers/selectors.js';
 import {getCity} from '../../../store/city/selectors.js';
 import {CityName} from '../../../constants.js';
@@ -36,39 +37,7 @@ function Main({city, data: offersData}) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{`${placesCount} places to stay in ${city}`}</b>
-              <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
-                <span
-                  onClick={() => setIsSortMenuOpen(!isSortMenuOpen)}
-                  className="places__sorting-type" tabIndex="0"
-                >
-                  {activeSort}
-                  <svg className="places__sorting-arrow" width="7" height="4">
-                    <use xlinkHref="#icon-arrow-select"/>
-                  </svg>
-                </span>
-                <ul className={isSortMenuOpen ? 'places__options places__options--custom places__options--opened' : 'places__options places__options--custom'}>
-                  {
-                    sorts.map(
-                      (sortType) => (
-                        <li
-                          key={sortType}
-                          className={sortType === activeSort ? 'places__option places places__option--active' : 'places__option places'}
-                          tabIndex="0"
-                          onClick={
-                            () => {
-                              setActiveSort(sortType);
-                              setIsSortMenuOpen(false);
-                            }
-                          }
-                        >
-                          {sortType}
-                        </li>
-                      ),
-                    )
-                  }
-                </ul>
-              </form>
+              <SortMenu setActiveSort={setActiveSort} activeSort={activeSort} isSortMenuOpen={isSortMenuOpen} setIsSortMenuOpen={setIsSortMenuOpen}/>
               <ListMain offers={useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort])} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
