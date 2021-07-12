@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
+import React, {useState, useMemo} from 'react';
 import {connect} from 'react-redux';
 import ListMain from '../../ui/offers-list/list-main/list-main.jsx';
 import Header from '../../ui/header/header.jsx';
 import CitiesList from '../../ui/cities-list/cities-list.jsx';
 import Map from '../../ui/map/map.jsx';
-import offersPropTypes from '../../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
+import {getOffersData} from '../../../store/offers/selectors.js';
+import {getCity} from '../../../store/city/selectors.js';
 
-function Main({city, offers}) {
-  const {data: offersData} = offers;
-  const cities = [...new Set(offersData.map((offer) => offer.city.name))];
-  const cityOffers = offersData.filter((offer) => offer.city.name === city);
+function Main({city, data: offersData}) {
+  const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
+  const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData, city]);
   const placesCount = cityOffers.length;
 
   const [activeOfferId, setActiveOfferId] = useState(null);
@@ -67,7 +68,7 @@ function Main({city, offers}) {
                   }
                 </ul>
               </form>
-              <ListMain offers={sortOffers(cityOffers, activeSort)} setActiveOfferId={setActiveOfferId}/>
+              <ListMain offers={useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort])} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map">
@@ -83,12 +84,12 @@ function Main({city, offers}) {
 
 Main.propTypes = {
   city: cityPropTypes,
-  offers: offersPropTypes,
+  data: offersDataPropTypes,
 };
 
 const mapStateToProps = (state) => ({
-  city: state.city,
-  offers: state.offers,
+  city: getCity(state),
+  data: getOffersData(state),
 });
 
 export {Main};

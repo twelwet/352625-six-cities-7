@@ -1,7 +1,7 @@
 import {Status} from '../constants.js';
 
 export const ActionType = {
-  CHANGE_CITY: 'main/change-city',
+  CHANGE_CITY: 'app/change-city',
 
   LOAD_OFFERS_PENDING: `api/load-offers_${Status.PENDING}`,
   LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
@@ -21,118 +21,114 @@ export const ActionType = {
 
   PUSH_COMMENT_IDLE: `api/push-comment_${Status.IDLE}`,
   PUSH_COMMENT_PENDING: `api/push-comment_${Status.PENDING}`,
-  PUSH_COMMENT_FULFILLED: `api/push-comment_${Status.FULFILLED}`,
   PUSH_COMMENT_REJECTED: `api/push-comment_${Status.REJECTED}`,
 
-  REQUIRE_AUTH: 'user/require-auth',
+  REQUIRE_AUTH: 'api/require-auth',
 
-  LOGIN_PENDING: `user/login_${Status.PENDING}`,
-  LOGIN_FULFILLED: `user/login_${Status.FULFILLED}`,
-  LOGIN_REJECTED: `user/login_${Status.REJECTED}`,
+  LOGIN_PENDING: `api/login_${Status.PENDING}`,
+  LOGIN_FULFILLED: `api/login_${Status.FULFILLED}`,
+  LOGIN_REJECTED: `api/login_${Status.REJECTED}`,
 
-  LOGOUT: 'user/logout',
-  SAVE_COMMENTS: 'room/save-comments',
+  LOGOUT: 'app/logout',
+  SAVE_COMMENTS: 'app/save-comments',
 };
 
-export const ActionCreator = {
-  changeCity: (cityName) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: cityName,
-  }),
+export const changeCity = (cityName) => ({
+  type: ActionType.CHANGE_CITY,
+  payload: cityName,
+});
 
-  loadOffersPending: () => ({
-    type: ActionType.LOAD_OFFERS_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  loadOffersFulfilled: (offers) => ({
-    type: ActionType.LOAD_OFFERS_FULFILLED,
-    payload: { status: Status.FULFILLED, data: offers },
-  }),
-  loadOffersRejected: (errorMessage) => ({
-    type: ActionType.LOAD_OFFERS_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
-  }),
+export const loadOffersPending = () => ({
+  type: ActionType.LOAD_OFFERS_PENDING,
+});
 
-  loadOfferPending: () => ({
-    type: ActionType.LOAD_OFFER_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  loadOfferFulfilled: (offer) => ({
-    type: ActionType.LOAD_OFFER_FULFILLED,
-    payload: { status: Status.FULFILLED, data: offer },
-  }),
-  loadOfferRejected: (errorMessage) => ({
-    type: ActionType.LOAD_OFFER_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
-  }),
+export const loadOffersFulfilled = (offers) => ({
+  type: ActionType.LOAD_OFFERS_FULFILLED,
+  payload: offers,
+});
 
-  loadNeighborOffersPending: () => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  loadNeighborOffersFulfilled: (neighborOffers) => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED,
-    payload: { status: Status.FULFILLED, data: neighborOffers },
-  }),
-  loadNeighborOffersRejected: (errorMessage) => ({
-    type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
-  }),
+export const loadOffersRejected = (errorMessage) => ({
+  type: ActionType.LOAD_OFFERS_REJECTED,
+  payload: errorMessage,
+});
 
-  loadCommentsPending: () => ({
-    type: ActionType.LOAD_COMMENTS_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  loadCommentsFulfilled: (comments) => ({
-    type: ActionType.LOAD_COMMENTS_FULFILLED,
-    payload: { status: Status.FULFILLED, data: comments },
-  }),
-  loadCommentsRejected: (errorMessage) => ({
-    type: ActionType.LOAD_COMMENTS_REJECTED,
-    payload: { status: Status.REJECTED, error: {message: errorMessage} },
-  }),
+export const loadOfferPending = () => ({
+  type: ActionType.LOAD_OFFER_PENDING,
+});
 
-  pushCommentIdle: () => ({
-    type: ActionType.PUSH_COMMENT_IDLE,
-    payload: { status: Status.IDLE },
-  }),
-  pushCommentPending: () => ({
-    type: ActionType.PUSH_COMMENT_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  pushCommentFulfilled: () => ({
-    type: ActionType.PUSH_COMMENT_FULFILLED,
-    payload: { status: Status.FULFILLED },
-  }),
-  pushCommentRejected: () => ({
-    type: ActionType.PUSH_COMMENT_REJECTED,
-    payload: { status: Status.REJECTED },
-  }),
+export const loadOfferFulfilled = (offer) => ({
+  type: ActionType.LOAD_OFFER_FULFILLED,
+  payload: offer,
+});
 
-  requireAuth: (status) => ({
-    type: ActionType.REQUIRE_AUTH,
-    payload: status,
-  }),
+export const loadOfferRejected = (errorMessage) => ({
+  type: ActionType.LOAD_OFFER_REJECTED,
+  payload: errorMessage,
+});
 
-  loginPending: () => ({
-    type: ActionType.LOGIN_PENDING,
-    payload: { status: Status.PENDING },
-  }),
-  loginFulfilled: (authData) => ({
-    type: ActionType.LOGIN_FULFILLED,
-    payload: { login: {status: Status.FULFILLED}, authInfo: authData },
-  }),
-  loginRejected: () => ({
-    type: ActionType.LOGIN_REJECTED,
-    payload: { status: Status.REJECTED },
-  }),
+export const loadNeighborOffersPending = () => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_PENDING,
+});
 
-  logout: () => ({
-    type: ActionType.LOGOUT,
-    payload: { status: Status.IDLE },
-  }),
-  saveComments: (comments) => ({
-    type: ActionType.SAVE_COMMENTS,
-    payload: comments,
-  }),
-};
+export const loadNeighborOffersFulfilled = (neighborOffers) => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_FULFILLED,
+  payload: neighborOffers,
+});
+
+export const loadNeighborOffersRejected = (errorMessage) => ({
+  type: ActionType.LOAD_NEIGHBOR_OFFERS_REJECTED,
+  payload: errorMessage,
+});
+
+export const loadCommentsPending = () => ({
+  type: ActionType.LOAD_COMMENTS_PENDING,
+});
+
+export const loadCommentsFulfilled = (comments) => ({
+  type: ActionType.LOAD_COMMENTS_FULFILLED,
+  payload: comments,
+});
+
+export const loadCommentsRejected = (errorMessage) => ({
+  type: ActionType.LOAD_COMMENTS_REJECTED,
+  payload: errorMessage,
+});
+
+export const pushCommentIdle = () => ({
+  type: ActionType.PUSH_COMMENT_IDLE,
+});
+
+export const pushCommentPending = () => ({
+  type: ActionType.PUSH_COMMENT_PENDING,
+});
+
+export const pushCommentRejected = () => ({
+  type: ActionType.PUSH_COMMENT_REJECTED,
+});
+
+export const requireAuth = (status) => ({
+  type: ActionType.REQUIRE_AUTH,
+  payload: status,
+});
+
+export const loginPending = () => ({
+  type: ActionType.LOGIN_PENDING,
+});
+
+export const loginFulfilled = (authData) => ({
+  type: ActionType.LOGIN_FULFILLED,
+  payload: authData,
+});
+
+export const loginRejected = () => ({
+  type: ActionType.LOGIN_REJECTED,
+});
+
+export const logout = () => ({
+  type: ActionType.LOGOUT,
+});
+
+export const saveComments = (comments) => ({
+  type: ActionType.SAVE_COMMENTS,
+  payload: comments,
+});

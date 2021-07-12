@@ -8,17 +8,18 @@ import Favourites from '../pages/favourites/favourites.jsx';
 import PrivateRoute from '../ui/private-route/private-route.jsx';
 import Room from '../pages/room/room.jsx';
 import NotFound from '../pages/not-found/not-found.jsx';
-import offersPropTypes from '../../prop-types/offers.prop.js';
+import offersDataPropTypes from '../../prop-types/offers-data.prop.js';
 import Spinner from '../ui/spinner/spinner.jsx';
 import ErrorInfo from '../pages/error-info/error-info.jsx';
 import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
+import {getOffersData, getOffersStatus, getOffersError} from '../../store/offers/selectors.js';
+import {getAuthStatus} from '../../store/user/selectors.js';
 
-function App({offers, authorizationStatus}) {
-  const {status, data: offersData, error} = offers;
+function App({status, data: offersData, error, authorizationStatus}) {
   if (status === Status.REJECTED && error.message !== null) {
     return <ErrorInfo errors={[error]}/>;
   }
-
+  // TODO переделать логику спинера, убрать загрузку fetchOffersList из index
   if (status === Status.PENDING || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
@@ -45,6 +46,7 @@ function App({offers, authorizationStatus}) {
           exact
           render={
             (localProps) => {
+              // TODO обрабатывать только fetchOfferById и тп., можно порефакторить, если время позволяет
               const id = parseInt(localProps.match.params.id, 10);
               const offer = offersData.find((item) => item.id === id);
 
@@ -66,13 +68,19 @@ function App({offers, authorizationStatus}) {
 }
 
 App.propTypes = {
-  offers: offersPropTypes,
+  status: PropTypes.string.isRequired,
+  data: offersDataPropTypes,
+  error: PropTypes.shape({
+    message: PropTypes.string,
+  }),
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
-  authorizationStatus: state.authorizationStatus,
+  status: getOffersStatus(state),
+  data: getOffersData(state),
+  error: getOffersError(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 export {App};

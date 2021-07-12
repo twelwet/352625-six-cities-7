@@ -1,30 +1,36 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
-import {Status, HttpCode} from '../../../constants';
+import {Status, HttpCode} from '../../../constants.js';
+import {MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH} from '../../../settings.js';
+import {getOffer} from '../../../store/room/selectors.js';
+import {getAuthInfo, getUserComment} from '../../../store/user/selectors';
 
-const minCommentLength = 50;
+function CommentForm({saveReview, offer, userComment, authInfo}) {
+  const commentRef = useRef();
+  const [rating, setRating] = useState(null);
 
-function CommentForm({saveReview, offer, userComment}) {
-  const reviewTemplate = {
-    offerId: offer.data.id,
-    rating: null,
-    comment: '',
+  const clearFormFields = () => {
+    setRating(null);
+    commentRef.current.value = '';
   };
-  const [review, setReview] = useState(reviewTemplate);
+
+  const handleRating = (evt) => {
+    const {value} = evt.target;
+    setRating(parseInt(value, 10));
+  };
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    saveReview(review).then((status) => status === HttpCode.OK && setReview(reviewTemplate));
-  };
-
-  const handleFieldChange = (evt) => {
-    const {name, value} = evt.target;
-    setReview({...review, [name]: name === 'rating' ? parseInt(value, 10) : value});
+    saveReview({
+      offerId: offer.data.id,
+      rating,
+      comment: commentRef.current.value,
+    }, authInfo.token).then((status) => status === HttpCode.OK && clearFormFields());
   };
 
   return (
@@ -36,15 +42,15 @@ function CommentForm({saveReview, offer, userComment}) {
     >
       {userComment.status === Status.REJECTED ? <Notification message={'Mark the rating or write more characters'} position={{top: '5px', marginRight: '0px'}}/> : ''}
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
-      <RatingStarsList changeHandler={handleFieldChange} activeStar={parseInt(review.rating, 10)}/>
+      <RatingStarsList changeHandler={handleRating} activeStar={parseInt(rating, 10)}/>
       <textarea
+        ref={commentRef}
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={handleFieldChange}
-        value={review.comment}
-        maxLength={'300'}
+        minLength={MIN_COMMENT_LENGTH}
+        maxLength={MAX_COMMENT_LENGTH}
         disabled={userComment.status === Status.PENDING}
       />
       <div className="reviews__button-wrapper">
@@ -55,7 +61,7 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(review.comment.length < minCommentLength || review.rating === null || userComment.status === Status.PENDING) ? true : ''}
+          disabled={(rating === null || userComment.status === Status.PENDING)}
         >
           Submit
         </button>
@@ -70,16 +76,18 @@ CommentForm.propTypes = {
     status: PropTypes.string.isRequired,
   }),
   saveReview: PropTypes.func.isRequired,
+  authInfo: PropTypes.object,
 };
 
 const mapStateToProps = (state) => ({
-  offer: state.offer,
-  userComment: state.userComment,
+  offer: getOffer(state),
+  userComment: getUserComment(state),
+  authInfo: getAuthInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  saveReview(data) {
-    return dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId));
+  saveReview(data, token) {
+    return dispatch(pushComment({comment: data.comment, rating: data.rating}, data.offerId, token));
   },
 });
 

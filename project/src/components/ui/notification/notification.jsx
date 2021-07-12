@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
-
-const NOTIFICATION_SHOW_TIMEOUT = 5000;
+import {NOTIFICATION_SHOW_TIMEOUT} from '../../../settings.js';
 
 function Notification({message, position}) {
   const [compClass, setCompClass] = useState('alert show');
@@ -13,7 +12,7 @@ function Notification({message, position}) {
     () => {
       const id = hideMe(NOTIFICATION_SHOW_TIMEOUT);
       return () => clearTimeout(id);
-    },
+    }, [],
   );
 
   return (

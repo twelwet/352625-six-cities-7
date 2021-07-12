@@ -1,4 +1,33 @@
-import {ActionCreator} from './action.js';
+import {
+  loadOffersPending,
+  loadOffersFulfilled,
+  loadOffersRejected,
+
+  loadOfferPending,
+  loadOfferFulfilled,
+  loadOfferRejected,
+
+  loadNeighborOffersPending,
+  loadNeighborOffersFulfilled,
+  loadNeighborOffersRejected,
+
+  loadCommentsPending,
+  loadCommentsFulfilled,
+  loadCommentsRejected,
+
+  pushCommentIdle,
+  pushCommentPending,
+  pushCommentRejected,
+
+  loginPending,
+  loginFulfilled,
+  loginRejected,
+
+  saveComments,
+  requireAuth,
+  logout as closeSession
+} from './action.js';
+
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
@@ -36,74 +65,83 @@ const handleError = (error, dispatch, action) => {
 };
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.loadOffersPending());
+  dispatch(loadOffersPending());
   api.get(APIRoute.HOTELS)
-    .then(({data}) => dispatch(ActionCreator.loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
-    .catch((error) => handleError(error, dispatch, ActionCreator.loadOffersRejected));
+    .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
+    .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.loadOfferPending());
+  dispatch(loadOfferPending());
   api.get(`${APIRoute.HOTELS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadOfferFulfilled(getOfferAdapter(data))))
-    .catch((error) => handleError(error, dispatch, ActionCreator.loadOfferRejected));
+    .then(({data}) => dispatch(loadOfferFulfilled(getOfferAdapter(data))))
+    .catch((error) => handleError(error, dispatch, loadOfferRejected));
 };
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.loadNeighborOffersPending());
+  dispatch(loadNeighborOffersPending());
   api.get(`${APIRoute.HOTELS}/${id}/nearby`)
-    .then(({data}) => dispatch(ActionCreator.loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
-    .catch((error) => handleError(error, dispatch, ActionCreator.loadNeighborOffersRejected));
+    .then(({data}) => dispatch(loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
+    .catch((error) => handleError(error, dispatch, loadNeighborOffersRejected));
 };
 
 const fetchComments = (id) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.loadCommentsPending());
+  dispatch(loadCommentsPending());
   api.get(`${APIRoute.COMMENTS}/${id}`)
-    .then(({data}) => dispatch(ActionCreator.loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
-    .catch((error) => handleError(error, dispatch, ActionCreator.loadCommentsRejected));
+    .then(({data}) => dispatch(loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
+    .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
 
-const pushComment = (review, offerId) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.pushCommentPending());
-  return api.post(`${APIRoute.COMMENTS}/${offerId}`, review)
+const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
+  dispatch(pushCommentPending());
+  const config = { headers: { 'x-token': token } };
+  return api.post(`${APIRoute.COMMENTS}/${offerId}`, review, config)
     .then((response) => {
-      dispatch(ActionCreator.saveComments(getAdaptedData(response.data, getCommentAdapter)));
-      dispatch(ActionCreator.pushCommentFulfilled());
-      dispatch(ActionCreator.pushCommentIdle());
+      dispatch(saveComments(getAdaptedData(response.data, getCommentAdapter)));
+      dispatch(pushCommentIdle());
       return response.status;
     })
     .catch((error) => {
-      dispatch(ActionCreator.pushCommentRejected());
+      dispatch(pushCommentRejected());
     });
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
-      dispatch(ActionCreator.loginFulfilled(getUserAdapter(data)));
-      dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
+      dispatch(loginFulfilled(getUserAdapter(data)));
+      dispatch(requireAuth(AuthorizationStatus.AUTH));
     })
     .catch(() => {})
 );
 
 const login = ({email, password}) => (dispatch, _getState, api) => {
-  dispatch(ActionCreator.loginPending());
+  dispatch(loginPending());
   api.post(APIRoute.LOGIN, {email, password})
     .then((response) => {
       localStorage.setItem('token', response.data.token);
-      dispatch(ActionCreator.loginFulfilled(getUserAdapter(response.data)));
-      dispatch(ActionCreator.requireAuth(AuthorizationStatus.AUTH));
+      dispatch(loginFulfilled(getUserAdapter(response.data)));
+      dispatch(requireAuth(AuthorizationStatus.AUTH));
     })
     .catch((error) => {
-      dispatch(ActionCreator.loginRejected());
+      dispatch(loginRejected());
     });
 };
 
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(ActionCreator.logout()))
+    .then(() => dispatch(closeSession()))
     .catch(() => {})
 );
 
-export {fetchOffersList, fetchOfferById, fetchNeighborOffers, fetchComments, pushComment, checkAuth, login, logout, ErrorInfoMessage};
+export {
+  fetchOffersList,
+  fetchOfferById,
+  fetchNeighborOffers,
+  fetchComments,
+  pushComment,
+  checkAuth,
+  login,
+  logout
+};

@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
@@ -13,6 +13,8 @@ import ucFirstChar from '../../../utils/upper-case-first-char.js';
 import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store/api-actions.js';
 import {Status, AuthorizationStatus} from '../../../constants.js';
 import ErrorInfo from '../error-info/error-info';
+import {getOffer, getNeighborOffers, getReviews} from '../../../store/room/selectors.js';
+import {getAuthStatus} from '../../../store/user/selectors.js';
 
 function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
   const {
@@ -31,8 +33,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     error: reviewsError,
   } = reviews;
 
-  const [isErrorsExist, setIsErrorsExist] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
+  const errors = [offerError, neighborOffersError, reviewsError].filter((item) => item.message !== null);
 
   useEffect(() => {
     getOfferById(roomId);
@@ -40,30 +41,17 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
     getCommentsByOfferId(roomId);
   }, [getOfferById, getNeighborOffersById, getCommentsByOfferId, roomId]);
 
-  useEffect(() => {
-    if (offerError.message !== null || neighborOffersError.message !== null || reviewsError.message !== null) {
-      setIsErrorsExist(true);
-    }
-  }, [offerError.message, neighborOffersError.message, reviewsError.message]);
-
-  useEffect(() => {
-    // TODO Надо как-то упростить
-    if ((offerStatus === Status.PENDING || offerStatus === Status.IDLE)
-      || (neighborOffersStatus === Status.PENDING || neighborOffersStatus === Status.IDLE)
-      || (reviewsStatus === Status.PENDING || reviewsStatus === Status.IDLE)
-      || authorizationStatus === AuthorizationStatus.UNKNOWN) {
-      setIsLoading(true);
-    } else {
-      setIsLoading(false);
-    }
-  }, [authorizationStatus, neighborOffersStatus, offerStatus, reviewsStatus]);
-
-  if (isErrorsExist) {
-    const errors = [offerError, neighborOffersError, reviewsError];
+  if (errors.length > 0) {
     return <ErrorInfo errors={errors}/>;
   }
 
-  if (isLoading) {
+  if (offerStatus === Status.PENDING
+    || offerStatus === Status.IDLE
+    || neighborOffersStatus === Status.PENDING
+    || neighborOffersStatus === Status.IDLE
+    || reviewsStatus === Status.PENDING
+    || reviewsStatus === Status.IDLE
+    || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
 
@@ -208,11 +196,10 @@ Room.propTypes = {
 };
 
 const mapStateToProps = (state) => ({
-  offer: state.offer,
-  neighborOffers: state.neighborOffers,
-  reviews: state.reviews,
-  authorizationStatus: state.authorizationStatus,
-  isLoading: state.isLoading,
+  offer: getOffer(state),
+  neighborOffers: getNeighborOffers(state),
+  reviews: getReviews(state),
+  authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
