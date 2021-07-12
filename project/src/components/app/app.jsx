@@ -2,7 +2,8 @@ import React from 'react';
 import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import Main from '../pages/main/main.jsx';
+// import Main from '../pages/main/main.jsx';
+import MainEmpty from '../pages/main-empty/main-empty.jsx';
 import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
 import PrivateRoute from '../ui/private-route/private-route.jsx';
@@ -28,7 +29,7 @@ function App({status, data: offersData, error, authorizationStatus}) {
     <BrowserRouter>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
-          <Main/>
+          <MainEmpty/>
         </Route>
 
         <Route path={AppRoute.LOGIN} exact>
