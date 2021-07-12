@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, memo} from 'react';
 import PropTypes from 'prop-types';
 import {sorts} from '../../../utils/sort-offers';
 
@@ -43,4 +43,4 @@ SortMenu.propTypes = {
   setActiveSort: PropTypes.func.isRequired,
 };
 
-export default SortMenu;
+export default memo(SortMenu);
