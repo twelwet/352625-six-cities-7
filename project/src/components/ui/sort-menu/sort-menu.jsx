@@ -39,8 +39,6 @@ function SortMenu({activeSort, setActiveSort}) {
 }
 
 SortMenu.propTypes = {
-  // isSortMenuOpen: PropTypes.bool.isRequired,
-  // setIsSortMenuOpen: PropTypes.func.isRequired,
   activeSort: PropTypes.string.isRequired,
   setActiveSort: PropTypes.func.isRequired,
 };
