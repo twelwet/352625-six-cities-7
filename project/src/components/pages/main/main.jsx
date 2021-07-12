@@ -9,9 +9,10 @@ import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, sorts, SortType} from '../../../utils/sort-offers.js';
 import {getOffersData} from '../../../store/offers/selectors.js';
 import {getCity} from '../../../store/city/selectors.js';
+import {CityName} from '../../../constants.js';
 
 function Main({city, data: offersData}) {
-  const cities = useMemo(() => [...new Set(offersData.map((offer) => offer.city.name))], [offersData]);
+  const cities = useMemo(() => Object.values(CityName), []);
   const cityOffers = useMemo(() => offersData.filter((offer) => offer.city.name === city), [offersData, city]);
   const placesCount = cityOffers.length;
 

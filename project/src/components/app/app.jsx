@@ -3,7 +3,6 @@ import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Main from '../pages/main/main.jsx';
-// import MainEmpty from '../pages/main-empty/main-empty.jsx';
 import SignIn from '../pages/sign-in/sign-in.jsx';
 import Favourites from '../pages/favourites/favourites.jsx';
 import PrivateRoute from '../ui/private-route/private-route.jsx';
