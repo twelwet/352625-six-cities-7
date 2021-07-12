@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {sorts} from '../../../utils/sort-offers';
 
-function SortMenu({isSortMenuOpen, setIsSortMenuOpen, activeSort, setActiveSort}) {
+function SortMenu({activeSort, setActiveSort}) {
+  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption">Sort by</span>
@@ -38,8 +39,8 @@ function SortMenu({isSortMenuOpen, setIsSortMenuOpen, activeSort, setActiveSort}
 }
 
 SortMenu.propTypes = {
-  isSortMenuOpen: PropTypes.bool.isRequired,
-  setIsSortMenuOpen: PropTypes.func.isRequired,
+  // isSortMenuOpen: PropTypes.bool.isRequired,
+  // setIsSortMenuOpen: PropTypes.func.isRequired,
   activeSort: PropTypes.string.isRequired,
   setActiveSort: PropTypes.func.isRequired,
 };

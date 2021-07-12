@@ -18,7 +18,6 @@ function Main({city, data: offersData}) {
   const placesCount = cityOffers.length;
 
   const [activeOfferId, setActiveOfferId] = useState(null);
-  const [isSortMenuOpen, setIsSortMenuOpen] = useState(false);
   const [activeSort, setActiveSort] = useState(SortType.POPULAR);
 
   return (
@@ -37,7 +36,7 @@ function Main({city, data: offersData}) {
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
               <b className="places__found">{`${placesCount} places to stay in ${city}`}</b>
-              <SortMenu setActiveSort={setActiveSort} activeSort={activeSort} isSortMenuOpen={isSortMenuOpen} setIsSortMenuOpen={setIsSortMenuOpen}/>
+              <SortMenu setActiveSort={setActiveSort} activeSort={activeSort}/>
               <ListMain offers={useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort])} setActiveOfferId={setActiveOfferId}/>
             </section>
             <div className="cities__right-section">
