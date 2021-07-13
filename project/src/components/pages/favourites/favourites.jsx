@@ -17,7 +17,7 @@ function Favourites({favourites, getFavourites, authInfo, authorizationStatus}) 
 
   useEffect(() => {
     getFavourites(authInfo.token);
-  }, []);
+  }, [getFavourites, authInfo.token]);
 
   if (error.message !== null) {
     return <ErrorInfo errors={[error]}/>;
