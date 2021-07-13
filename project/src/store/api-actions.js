@@ -106,6 +106,13 @@ const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
     });
 };
 
+const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, api) => {
+  const config = { headers: { 'x-token': token } };
+  return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, config)
+    .then((response) => response.status)
+    .catch(() => {});
+};
+
 const checkAuth = () => (dispatch, _getState, api) => (
   api.get(APIRoute.LOGIN)
     .then(({data}) => {
@@ -141,6 +148,7 @@ export {
   fetchNeighborOffers,
   fetchComments,
   pushComment,
+  pushFavouriteStatus,
   checkAuth,
   login,
   logout
