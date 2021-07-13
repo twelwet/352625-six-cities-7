@@ -3,6 +3,10 @@ import {
   loadOffersFulfilled,
   loadOffersRejected,
 
+  loadFavouritesPending,
+  loadFavouritesFulfilled,
+  loadFavouritesRejected,
+
   loadOfferPending,
   loadOfferFulfilled,
   loadOfferRejected,
@@ -69,6 +73,14 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
   api.get(APIRoute.HOTELS)
     .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
+};
+
+const fetchFavourites = (token) => (dispatch, _getState, api) => {
+  dispatch(loadFavouritesPending());
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.FAVORITE}`, config)
+    .then(({data}) => dispatch(loadFavouritesFulfilled(getAdaptedData(data, getOfferAdapter))))
+    .catch((error) => handleError(error, dispatch, loadFavouritesRejected))
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
@@ -144,6 +156,7 @@ const logout = () => (dispatch, _getState, api) => (
 
 export {
   fetchOffersList,
+  fetchFavourites,
   fetchOfferById,
   fetchNeighborOffers,
   fetchComments,
