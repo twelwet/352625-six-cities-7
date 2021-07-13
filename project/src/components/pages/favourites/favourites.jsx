@@ -1,20 +1,41 @@
-import React from 'react';
-import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
+import React, {useEffect} from 'react';
+import {connect} from 'react-redux';
+import PropTypes from 'prop-types';
 import ListFavourites from '../../ui/offers-list/list-favourites/list-favourites.jsx';
 import Header from '../../ui/header/header.jsx';
-import {AppRoute} from '../../../constants.js';
-import getFavouritesOffers from '../../../utils/get-favourites-offers';
+import {AppRoute, Status, AuthorizationStatus} from '../../../constants.js';
 import getOffersByAllCities from '../../../utils/get-offers-by-all-cities';
+import {fetchFavourites} from '../../../store/api-actions.js';
+import ErrorInfo from '../error-info/error-info.jsx';
+import Spinner from '../../ui/spinner/spinner.jsx';
+import {getAuthInfo, getAuthStatus, getFavouritesOffers} from '../../../store/user/selectors.js';
+import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
+import offersPropTypes from '../../../prop-types/offers.prop.js';
 
-function Favourites({offers}) {
-  const favouritesOffers = getFavouritesOffers(offers);
-  const offersByCities = getOffersByAllCities(favouritesOffers);
+function Favourites({favourites, getFavourites, authInfo, authorizationStatus}) {
+  const { status, data, error } = favourites;
+
+  useEffect(() => {
+    getFavourites(authInfo.token);
+  }, []);
+
+  if (error.message !== null) {
+    return <ErrorInfo errors={[error]}/>;
+  }
+
+  if (status === Status.PENDING
+    || status === Status.IDLE
+    || authorizationStatus === AuthorizationStatus.UNKNOWN) {
+    return <Spinner/>;
+  }
+
+  const offersByCities = getOffersByAllCities(data);
 
   return (
     <div className="page">
       <Header/>
       {
-        favouritesOffers.length
+        data.length
           ? (
             <main className="page__main page__main--favorites">
               <div className="page__favorites-container container">
@@ -52,7 +73,23 @@ function Favourites({offers}) {
 }
 
 Favourites.propTypes = {
-  offers: offersDataPropTypes,
+  favourites: offersPropTypes,
+  getFavourites: PropTypes.func.isRequired,
+  authInfo: authInfoPropTypes,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export default Favourites;
+const mapStateToProps = (state) => ({
+  favourites: getFavouritesOffers(state),
+  authInfo: getAuthInfo(state),
+  authorizationStatus: getAuthStatus(state),
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  getFavourites (token) {
+    dispatch(fetchFavourites(token));
+  },
+});
+
+export {Favourites};
+export default connect(mapStateToProps, mapDispatchToProps)(Favourites);

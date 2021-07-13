@@ -38,7 +38,7 @@ function App({status, data: offersData, error, authorizationStatus}) {
         <PrivateRoute
           path={AppRoute.FAVOURITES}
           exact
-          render={() => <Favourites offers={offersData}/>}
+          render={() => <Favourites/>}
         />
 
         <Route

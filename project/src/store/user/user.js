@@ -112,7 +112,7 @@ export const user = (state = initialState, action) => {
             message: null,
           },
         },
-          login: { status: Status.IDLE },
+        login: { status: Status.IDLE },
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
       };
