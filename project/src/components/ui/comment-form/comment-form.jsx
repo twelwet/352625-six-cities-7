@@ -5,6 +5,7 @@ import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
 import Notification from '../notification/notification.jsx';
 import {pushComment} from '../../../store/api-actions.js';
 import offerPropTypes from '../../../prop-types/offer.prop.js';
+import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
 import {Status, HttpCode} from '../../../constants.js';
 import {MIN_COMMENT_LENGTH, MAX_COMMENT_LENGTH} from '../../../settings.js';
 import {getOffer} from '../../../store/room/selectors.js';
@@ -76,8 +77,7 @@ CommentForm.propTypes = {
     status: PropTypes.string.isRequired,
   }),
   saveReview: PropTypes.func.isRequired,
-  // TODO уточнить PropTypes
-  authInfo: PropTypes.object,
+  authInfo: authInfoPropTypes,
 };
 
 const mapStateToProps = (state) => ({
