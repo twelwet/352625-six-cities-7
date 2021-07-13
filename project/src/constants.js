@@ -28,11 +28,12 @@ const APIRoute = {
   COMMENTS: '/comments',
   LOGIN: '/login',
   LOGOUT: '/logout',
+  FAVORITE: '/favorite',
 };
 
 const AppRoute = {
   MAIN: '/',
-  FAVOURITES: '/favourites',
+  FAVOURITES: '/favorites',
   LOGIN: '/login',
   OFFER: '/offer',
 };
