@@ -1,9 +1,15 @@
 import React, {useState} from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
+import {pushFavouriteStatus} from '../../../store/api-actions.js';
+import {HttpCode} from '../../../constants.js';
 
-function FavouriteButton({status, viewData}) {
+function FavouriteButton({onClick, offerId, status, authInfo, viewData}) {
   const [favFlag, setFavFlag] = useState(status);
-  const handleFavFlag = () => setFavFlag(!favFlag);
+  const handleFavFlag = () => {
+    onClick(offerId, (!favFlag ? 1 : 0), authInfo.token).then((statusCode) => statusCode === HttpCode.OK && setFavFlag(!favFlag));
+  };
 
   return (
     <button
@@ -22,7 +28,10 @@ function FavouriteButton({status, viewData}) {
 }
 
 FavouriteButton.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  offerId: PropTypes.number.isRequired,
   status: PropTypes.bool.isRequired,
+  authInfo: authInfoPropTypes,
   viewData: PropTypes.shape({
     width: PropTypes.string.isRequired,
     height: PropTypes.string.isRequired,
@@ -30,4 +39,10 @@ FavouriteButton.propTypes = {
   }).isRequired,
 };
 
-export default FavouriteButton;
+const mapDispatchToProps = (dispatch) => ({
+  onClick(offerId, status, token) {
+    return dispatch(pushFavouriteStatus(offerId, status, token));
+  },
+});
+
+export default connect(null, mapDispatchToProps)(FavouriteButton);

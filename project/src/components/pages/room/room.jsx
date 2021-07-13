@@ -3,6 +3,7 @@ import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
 import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
 import FavouriteButton from '../../ui/favourite-button/property-button/property-button.jsx';
@@ -15,9 +16,9 @@ import {fetchOfferById, fetchNeighborOffers, fetchComments} from '../../../store
 import {Status, AuthorizationStatus} from '../../../constants.js';
 import ErrorInfo from '../error-info/error-info';
 import {getOffer, getNeighborOffers, getReviews} from '../../../store/room/selectors.js';
-import {getAuthStatus} from '../../../store/user/selectors.js';
+import {getAuthStatus, getAuthInfo} from '../../../store/user/selectors.js';
 
-function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus}) {
+function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId, offer, neighborOffers, reviews, authorizationStatus, authInfo}) {
   const {
     status: offerStatus,
     data: offerData,
@@ -101,7 +102,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <FavouriteButton status={isFavourite}/>
+                <FavouriteButton status={isFavourite} offerId={id} authInfo={authInfo}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
@@ -189,6 +190,7 @@ Room.propTypes = {
   getOfferById: PropTypes.func.isRequired,
   getNeighborOffersById: PropTypes.func.isRequired,
   getCommentsByOfferId: PropTypes.func.isRequired,
+  authInfo: authInfoPropTypes,
 };
 
 const mapStateToProps = (state) => ({
@@ -196,6 +198,7 @@ const mapStateToProps = (state) => ({
   neighborOffers: getNeighborOffers(state),
   reviews: getReviews(state),
   authorizationStatus: getAuthStatus(state),
+  authInfo: getAuthInfo(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
