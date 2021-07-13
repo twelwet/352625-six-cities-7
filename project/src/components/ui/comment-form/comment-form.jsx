@@ -76,6 +76,7 @@ CommentForm.propTypes = {
     status: PropTypes.string.isRequired,
   }),
   saveReview: PropTypes.func.isRequired,
+  // TODO уточнить PropTypes
   authInfo: PropTypes.object,
 };
 
