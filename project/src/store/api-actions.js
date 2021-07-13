@@ -80,7 +80,7 @@ const fetchFavourites = (token) => (dispatch, _getState, api) => {
   const config = { headers: { 'x-token': token } };
   api.get(`${APIRoute.FAVORITE}`, config)
     .then(({data}) => dispatch(loadFavouritesFulfilled(getAdaptedData(data, getOfferAdapter))))
-    .catch((error) => handleError(error, dispatch, loadFavouritesRejected))
+    .catch((error) => handleError(error, dispatch, loadFavouritesRejected));
 };
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
