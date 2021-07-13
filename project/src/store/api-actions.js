@@ -120,7 +120,7 @@ const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
 
 const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, api) => {
   const config = { headers: { 'x-token': token } };
-  return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, config)
+  return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
     .then((response) => response.status)
     .catch(() => {});
 };
