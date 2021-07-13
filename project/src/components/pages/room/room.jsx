@@ -5,6 +5,7 @@ import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
+import FavouriteButton from '../../ui/favourite-button/favourite-button.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
@@ -100,12 +101,7 @@ function Room({roomId, getOfferById, getNeighborOffersById, getCommentsByOfferId
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={isFavourite ? 'property__bookmark-button property__bookmark-button--active button' : 'property__bookmark-button button'} type="button">
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"/>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavouriteButton status={isFavourite}/>
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
