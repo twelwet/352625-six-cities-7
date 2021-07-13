@@ -5,7 +5,7 @@ import offerOptionalPropTypes from '../../../prop-types/offer-optional.prop.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 import Spinner from '../../ui/spinner/spinner.jsx';
 import Header from '../../ui/header/header.jsx';
-import FavouriteButton from '../../ui/favourite-button/favourite-button.jsx';
+import FavouriteButton from '../../ui/favourite-button/property-button/property-button.jsx';
 import Reviews from '../../ui/reviews/reviews.jsx';
 import ListNeighborhood from '../../ui/offers-list/list-neighborhood/list-neighborhood.jsx';
 import reviewsPropTypes from '../../../prop-types/reviews.prop';
