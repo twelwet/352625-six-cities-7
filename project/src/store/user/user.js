@@ -5,6 +5,13 @@ const initialState = {
   userComment: {
     status: Status.IDLE,
   },
+  favourites: {
+    status: Status.IDLE,
+    data: [],
+    error: {
+      message: null,
+    },
+  },
   login: {
     status: Status.IDLE,
   },
@@ -33,6 +40,35 @@ export const user = (state = initialState, action) => {
         ...state,
         userComment: {
           status: Status.IDLE,
+        },
+      };
+
+    case ActionType.LOAD_FAVOURITES_PENDING:
+      return {
+        ...state,
+        favourites: {
+          ...state.favourites,
+          status: Status.PENDING,
+        },
+      };
+    case ActionType.LOAD_FAVOURITES_FULFILLED:
+      return {
+        ...state,
+        favourites: {
+          ...state.favourites,
+          status: Status.FULFILLED,
+          data: action.payload,
+        },
+      };
+    case ActionType.LOAD_FAVOURITES_REJECTED:
+      return {
+        ...state,
+        favourites: {
+          ...state.favourites,
+          status: Status.REJECTED,
+          error: {
+            message: action.payload,
+          },
         },
       };
 
@@ -69,7 +105,14 @@ export const user = (state = initialState, action) => {
     case ActionType.LOGOUT:
       return {
         ...state,
-        login: { status: Status.IDLE },
+        favourites: {
+          status: Status.IDLE,
+          data: [],
+          error: {
+            message: null,
+          },
+        },
+          login: { status: Status.IDLE },
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         authInfo: {},
       };
