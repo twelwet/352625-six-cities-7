@@ -13,7 +13,7 @@ const sorts = [
 ];
 
 const SortFunction = {
-  [SortType.POPULAR] : (offers) => offers,
+  [SortType.POPULAR] : (offers) => offers.slice().sort((a, b) => a.popularity - b.popularity),
   [SortType.PRICE_LOW_TO_HIGH]: (offers) => offers.slice().sort((a, b) => a.price - b.price),
   [SortType.PRICE_HIGH_TO_LOW]: (offers) => offers.slice().sort((a, b) => b.price - a.price),
   [SortType.TOP_RATED]: (offers) => offers.slice().sort((a, b) => b.rating - a.rating),
