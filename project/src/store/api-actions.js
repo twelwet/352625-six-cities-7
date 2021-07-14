@@ -76,7 +76,9 @@ const handleError = (error, dispatch, action) => {
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(loadOffersPending());
-  api.get(APIRoute.HOTELS)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(APIRoute.HOTELS, config)
     .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
@@ -92,21 +94,27 @@ const fetchFavourites = () => (dispatch, _getState, api) => {
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
   dispatch(loadOfferPending());
-  api.get(`${APIRoute.HOTELS}/${id}`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.HOTELS}/${id}`, config)
     .then(({data}) => dispatch(loadOfferFulfilled(getOfferAdapter(data))))
     .catch((error) => handleError(error, dispatch, loadOfferRejected));
 };
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
   dispatch(loadNeighborOffersPending());
-  api.get(`${APIRoute.HOTELS}/${id}/nearby`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.HOTELS}/${id}/nearby`, config)
     .then(({data}) => dispatch(loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadNeighborOffersRejected));
 };
 
 const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(loadCommentsPending());
-  api.get(`${APIRoute.COMMENTS}/${id}`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.COMMENTS}/${id}`, config)
     .then(({data}) => dispatch(loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
     .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
