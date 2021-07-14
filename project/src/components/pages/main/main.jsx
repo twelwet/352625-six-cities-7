@@ -9,10 +9,10 @@ import Map from '../../ui/map/map.jsx';
 import offersDataPropTypes from '../../../prop-types/offers-data.prop.js';
 import cityPropTypes from '../../../prop-types/city.prop.js';
 import {sortOffers, SortType} from '../../../utils/sort-offers.js';
+import {cities} from '../../../utils/get-cities-list.js';
 import {getOffersData, getOffersStatus, getOffersError} from '../../../store/offers/selectors.js';
 import {getAuthStatus} from '../../../store/user/selectors.js';
 import {getCity} from '../../../store/city/selectors.js';
-import {CityName} from '../../../constants.js';
 import {AuthorizationStatus, Status} from '../../../constants.js';
 import ErrorInfo from '../error-info/error-info.jsx';
 import Spinner from '../../ui/spinner/spinner.jsx';
@@ -26,7 +26,6 @@ function Main({city, status, data, error, authorizationStatus, getOffers}) {
   const [activeOfferId, setActiveOfferId] = useState(null);
   const [activeSort, setActiveSort] = useState(SortType.POPULAR);
 
-  const cities = useMemo(() => Object.values(CityName), []);
   const cityOffers = useMemo(() => data.filter((offer) => offer.city.name === city), [data, city]);
   const sortedOffers = useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort]);
   const placesCount = cityOffers.length;
