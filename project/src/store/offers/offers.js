@@ -36,7 +36,7 @@ export const offers = (state = initialState, action) => {
     case ActionType.SAVE_OFFER:
       return {
         ...state,
-        data: [...state.data.filter((offer) => offer.id !== action.payload.id), action.payload],
+        data: [action.payload, ...state.data.filter((offer) => offer.id !== action.payload.id)],
       };
     default:
       return state;
