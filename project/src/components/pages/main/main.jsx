@@ -27,6 +27,9 @@ function Main({city, status, data, error, authorizationStatus, getOffers}) {
   const [activeSort, setActiveSort] = useState(SortType.POPULAR);
 
   const cities = useMemo(() => Object.values(CityName), []);
+  const cityOffers = useMemo(() => data.filter((offer) => offer.city.name === city), [data, city]);
+  const sortedOffers = useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort]);
+  const placesCount = cityOffers.length;
 
   if (status === Status.REJECTED) {
     return <ErrorInfo errors={[error]}/>;
@@ -37,16 +40,6 @@ function Main({city, status, data, error, authorizationStatus, getOffers}) {
     || authorizationStatus === AuthorizationStatus.UNKNOWN) {
     return <Spinner/>;
   }
-
-  // TODO непонятно как использовать useMemo
-  // const cityOffers = useMemo(() => data.filter((offer) => offer.city.name === city), [data, city]);
-  const cityOffers = data.filter((offer) => offer.city.name === city);
-
-  // TODO непонятно как использовать useMemo
-  // const sortedOffers = useMemo(() => sortOffers(cityOffers, activeSort), [cityOffers, activeSort]);
-  const sortedOffers = sortOffers(cityOffers, activeSort);
-
-  const placesCount = cityOffers.length;
 
   return (
     <div className="page page--gray page--main">
