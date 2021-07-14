@@ -31,13 +31,14 @@ import {
 
   saveComments,
   requireAuth,
-  logout as closeSession
+  logout as closeSession,
+  redirectToRoute
 } from './action.js';
 
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
-import {AuthorizationStatus, APIRoute, HttpCode} from '../constants.js';
+import {AuthorizationStatus, APIRoute, AppRoute, HttpCode} from '../constants.js';
 
 const ErrorInfoMessage = {
   DEFAULT_MESSAGE: 'Something went wrong',
@@ -58,6 +59,9 @@ const handleError = (error, dispatch, action) => {
         break;
       case HttpCode.BAD_REQUEST:
         dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
+        break;
+      case HttpCode.UNAUTHORIZED:
+        dispatch(redirectToRoute(AppRoute.LOGIN));
         break;
       default:
         dispatch(action(`${status}. ${ErrorInfoMessage.UNHANDLED}: ${config.url}`));
@@ -127,7 +131,7 @@ const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, ap
       dispatch(saveOffer(getOfferAdapter(response.data)));
       return response.status;
     })
-    .catch(() => {});
+    .catch((error) => handleError(error, dispatch, null));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (

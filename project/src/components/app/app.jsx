@@ -1,5 +1,5 @@
 import React from 'react';
-import {BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
+import {Router as BrowserRouter, Switch, Route, Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
 import Main from '../pages/main/main.jsx';
@@ -14,6 +14,7 @@ import ErrorInfo from '../pages/error-info/error-info.jsx';
 import {AuthorizationStatus, AppRoute, Status} from '../../constants.js';
 import {getOffersData, getOffersStatus, getOffersError} from '../../store/offers/selectors.js';
 import {getAuthStatus} from '../../store/user/selectors.js';
+import browserHistory from '../../browser-history.js';
 
 function App({status, data: offersData, error, authorizationStatus}) {
   if (status === Status.REJECTED && error.message !== null) {
@@ -25,7 +26,7 @@ function App({status, data: offersData, error, authorizationStatus}) {
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route path={AppRoute.MAIN} exact>
           <Main/>

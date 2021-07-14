@@ -37,6 +37,7 @@ export const ActionType = {
 
   LOGOUT: 'app/logout',
   SAVE_COMMENTS: 'app/save-comments',
+  REDIRECT_TO_ROUTE: 'app/redirect-to-route',
 };
 
 export const changeCity = (cityName) => ({
@@ -156,4 +157,9 @@ export const logout = () => ({
 export const saveComments = (comments) => ({
   type: ActionType.SAVE_COMMENTS,
   payload: comments,
+});
+
+export const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url,
 });
