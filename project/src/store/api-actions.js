@@ -171,7 +171,8 @@ const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
-    .then(() => dispatch(fetchOffersList()))
+    // TODO сделать сброс в initialState
+    // .then(() => dispatch(fetchOffersList()))
     .catch(() => {})
 );
 
