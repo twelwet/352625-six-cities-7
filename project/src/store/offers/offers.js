@@ -32,6 +32,12 @@ export const offers = (state = initialState, action) => {
           message: action.payload,
         },
       };
+
+    case ActionType.SAVE_OFFER:
+      return {
+        ...state,
+        data: [...state.data.filter((offer) => offer.id !== action.payload.id), action.payload],
+      };
     default:
       return state;
   }
