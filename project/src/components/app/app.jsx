@@ -47,18 +47,15 @@ function App({status, data: offersData, error, authorizationStatus}) {
           exact
           render={
             (localProps) => {
-              // TODO обрабатывать только fetchOfferById и тп., можно порефакторить, если время позволяет
               const id = parseInt(localProps.match.params.id, 10);
-              const offer = offersData.find((item) => item.id === id);
-
-              if (!offer) {
-                return <NotFound/>;
-              }
-
               return (<Room roomId={id}/>);
             }
           }
         />
+
+        <Route path={AppRoute.NOT_FOUND}>
+          <NotFound/>
+        </Route>
 
         <Route>
           <NotFound/>

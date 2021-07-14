@@ -55,7 +55,7 @@ const handleError = (error, dispatch, action) => {
     const {status, config} = error.response;
     switch (status) {
       case HttpCode.NOT_FOUND:
-        dispatch(action(`${status}. ${ErrorInfoMessage.NOT_FOUND}: ${config.url}`));
+        dispatch(redirectToRoute(AppRoute.NOT_FOUND));
         break;
       case HttpCode.BAD_REQUEST:
         dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
