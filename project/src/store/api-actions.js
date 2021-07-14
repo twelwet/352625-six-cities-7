@@ -111,8 +111,9 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
     .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
 
-const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
+const pushComment = (review, offerId) => (dispatch, _getState, api) => {
   dispatch(pushCommentPending());
+  const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.COMMENTS}/${offerId}`, review, config)
     .then((response) => {
