@@ -33,7 +33,7 @@ export const offers = (state = initialState, action) => {
         },
       };
 
-    case ActionType.SAVE_OFFER:
+    case ActionType.UPDATE_OFFERs:
       return {
         ...state,
         data: [action.payload, ...state.data.filter((offer) => offer.id !== action.payload.id)],

@@ -11,7 +11,7 @@ export const ActionType = {
   LOAD_FAVOURITES_FULFILLED: `api/load-favourites_${Status.FULFILLED}`,
   LOAD_FAVOURITES_REJECTED: `api/load-favourites_${Status.REJECTED}`,
 
-  SAVE_OFFER: 'app/save-offer',
+  UPDATE_OFFER: 'app/update-offer',
 
   LOAD_OFFER_PENDING: `api/load-offer_${Status.PENDING}`,
   LOAD_OFFER_FULFILLED: `api/load-offer_${Status.FULFILLED}`,
@@ -73,8 +73,8 @@ export const loadFavouritesRejected = (errorMessage) => ({
   payload: errorMessage,
 });
 
-export const saveOffer = (offer) => ({
-  type: ActionType.SAVE_OFFER,
+export const updateOffer = (offer) => ({
+  type: ActionType.UPDATE_OFFER,
   payload: offer,
 });
 

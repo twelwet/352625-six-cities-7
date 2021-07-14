@@ -7,7 +7,7 @@ import {
   loadFavouritesFulfilled,
   loadFavouritesRejected,
 
-  saveOffer,
+  updateOffer,
 
   loadOfferPending,
   loadOfferFulfilled,
@@ -128,7 +128,7 @@ const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, ap
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
     .then((response) => {
-      dispatch(saveOffer(getOfferAdapter(response.data)));
+      dispatch(updateOffer(getOfferAdapter(response.data)));
       return response.status;
     })
     .catch((error) => handleError(error, dispatch, null));
