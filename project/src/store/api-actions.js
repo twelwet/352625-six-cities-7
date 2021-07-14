@@ -126,7 +126,8 @@ const pushComment = (review, offerId) => (dispatch, _getState, api) => {
     });
 };
 
-const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, api) => {
+const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
+  const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
     .then((response) => {
