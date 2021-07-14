@@ -7,6 +7,8 @@ import {
   loadFavouritesFulfilled,
   loadFavouritesRejected,
 
+  saveOffer,
+
   loadOfferPending,
   loadOfferFulfilled,
   loadOfferRejected,
@@ -121,7 +123,10 @@ const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
 const pushFavouriteStatus = (offerId, status, token) => (dispatch, _getState, api) => {
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
-    .then((response) => response.status)
+    .then((response) => {
+      dispatch(saveOffer(getOfferAdapter(response.data)));
+      return response.status;
+    })
     .catch(() => {});
 };
 
