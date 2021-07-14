@@ -81,8 +81,9 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
 
-const fetchFavourites = (token) => (dispatch, _getState, api) => {
+const fetchFavourites = () => (dispatch, _getState, api) => {
   dispatch(loadFavouritesPending());
+  const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
   api.get(`${APIRoute.FAVORITE}`, config)
     .then(({data}) => dispatch(loadFavouritesFulfilled(getAdaptedData(data, getOfferAdapter))))

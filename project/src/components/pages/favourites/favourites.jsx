@@ -8,16 +8,15 @@ import getOffersByAllCities from '../../../utils/get-offers-by-all-cities';
 import {fetchFavourites} from '../../../store/api-actions.js';
 import ErrorInfo from '../error-info/error-info.jsx';
 import Spinner from '../../ui/spinner/spinner.jsx';
-import {getAuthInfo, getAuthStatus, getFavouritesOffers} from '../../../store/user/selectors.js';
-import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
+import {getAuthStatus, getFavouritesOffers} from '../../../store/user/selectors.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
 
-function Favourites({favourites, getFavourites, authInfo, authorizationStatus}) {
+function Favourites({favourites, getFavourites, authorizationStatus}) {
   const { status, data, error } = favourites;
 
   useEffect(() => {
-    getFavourites(authInfo.token);
-  }, [getFavourites, authInfo.token]);
+    getFavourites();
+  }, [getFavourites]);
 
   if (error.message !== null) {
     return <ErrorInfo errors={[error]}/>;
@@ -75,19 +74,17 @@ function Favourites({favourites, getFavourites, authInfo, authorizationStatus}) 
 Favourites.propTypes = {
   favourites: offersPropTypes,
   getFavourites: PropTypes.func.isRequired,
-  authInfo: authInfoPropTypes,
   authorizationStatus: PropTypes.string.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   favourites: getFavouritesOffers(state),
-  authInfo: getAuthInfo(state),
   authorizationStatus: getAuthStatus(state),
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getFavourites (token) {
-    dispatch(fetchFavourites(token));
+  getFavourites () {
+    dispatch(fetchFavourites());
   },
 });
 
