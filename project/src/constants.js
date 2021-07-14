@@ -36,6 +36,7 @@ const AppRoute = {
   FAVOURITES: '/favorites',
   LOGIN: '/login',
   OFFER: '/offer',
+  NOT_FOUND: '/404',
 };
 
 const HttpCode = {
