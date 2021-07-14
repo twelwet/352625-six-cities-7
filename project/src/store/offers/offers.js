@@ -2,12 +2,10 @@ import {ActionType} from '../action.js';
 import {Status} from '../../constants.js';
 
 const initialState = {
-  offers: {
-    status: Status.IDLE,
-    data: [],
-    error: {
-      message: null,
-    },
+  status: Status.IDLE,
+  data: [],
+  error: {
+    message: null,
   },
 };
 
@@ -15,7 +13,7 @@ export const offers = (state = initialState, action) => {
   switch (action.type) {
     case ActionType.LOAD_OFFERS_PENDING:
       return {
-        ...state.offers,
+        ...state,
         status: Status.PENDING,
       };
     case ActionType.LOAD_OFFERS_FULFILLED:
@@ -33,7 +31,7 @@ export const offers = (state = initialState, action) => {
         },
       };
 
-    case ActionType.UPDATE_OFFERs:
+    case ActionType.UPDATE_OFFER:
       return {
         ...state,
         data: [action.payload, ...state.data.filter((offer) => offer.id !== action.payload.id)],
