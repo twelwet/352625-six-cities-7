@@ -17,6 +17,7 @@ const getOfferAdapter = (offerFromServer) => {
 
   return {
     id,
+    popularity: id,
     title,
     description,
     type,

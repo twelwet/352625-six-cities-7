@@ -1,11 +1,15 @@
 import React from 'react';
+import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
+import FavouriteButton from '../favourite-button/card-button/card-button.jsx';
 import offerDataPropTypes from '../../../prop-types/offer-data.prop.js';
 import offerViewDataTypes from '../../../prop-types/offer-view-data.prop.js';
+import authInfoPropTypes from '../../../prop-types/auth-info.prop.js';
 import {Link} from 'react-router-dom';
 import ucFirstChar from '../../../utils/upper-case-first-char.js';
+import {getAuthInfo} from '../../../store/user/selectors.js';
 
-function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
+function OfferCard({viewData, data, authInfo, setActiveOfferId = () => {}}) {
   const {
     cardWidth,
     cardHeight,
@@ -53,12 +57,7 @@ function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
             <b className="place-card__price-value">&euro;{price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={isFavourite ? 'place-card__bookmark-button place-card__bookmark-button--active button' : 'place-card__bookmark-button button'} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
-            </svg>
-            <span className="visually-hidden">To bookmarks</span>
-          </button>
+          <FavouriteButton status={isFavourite} offerId={id} authInfo={authInfo}/>
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">
@@ -78,7 +77,12 @@ function OfferCard({viewData, data, setActiveOfferId = () => {}}) {
 OfferCard.propTypes = {
   viewData: offerViewDataTypes,
   data: offerDataPropTypes,
+  authInfo: authInfoPropTypes,
   setActiveOfferId: PropTypes.func,
 };
 
-export default OfferCard;
+const mapStateToProps = (state) => ({
+  authInfo: getAuthInfo(state),
+});
+
+export default connect(mapStateToProps, null)(OfferCard);

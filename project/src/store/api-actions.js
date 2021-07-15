@@ -3,6 +3,12 @@ import {
   loadOffersFulfilled,
   loadOffersRejected,
 
+  loadFavouritesPending,
+  loadFavouritesFulfilled,
+  loadFavouritesRejected,
+
+  updateOffer,
+
   loadOfferPending,
   loadOfferFulfilled,
   loadOfferRejected,
@@ -25,13 +31,14 @@ import {
 
   saveComments,
   requireAuth,
-  logout as closeSession
+  logout as closeSession,
+  redirectToRoute
 } from './action.js';
 
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
-import {AuthorizationStatus, APIRoute, HttpCode} from '../constants.js';
+import {AuthorizationStatus, APIRoute, AppRoute, HttpCode} from '../constants.js';
 
 const ErrorInfoMessage = {
   DEFAULT_MESSAGE: 'Something went wrong',
@@ -48,10 +55,13 @@ const handleError = (error, dispatch, action) => {
     const {status, config} = error.response;
     switch (status) {
       case HttpCode.NOT_FOUND:
-        dispatch(action(`${status}. ${ErrorInfoMessage.NOT_FOUND}: ${config.url}`));
+        dispatch(redirectToRoute(AppRoute.NOT_FOUND));
         break;
       case HttpCode.BAD_REQUEST:
         dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
+        break;
+      case HttpCode.UNAUTHORIZED:
+        dispatch(redirectToRoute(AppRoute.LOGIN));
         break;
       default:
         dispatch(action(`${status}. ${ErrorInfoMessage.UNHANDLED}: ${config.url}`));
@@ -66,34 +76,52 @@ const handleError = (error, dispatch, action) => {
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(loadOffersPending());
-  api.get(APIRoute.HOTELS)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(APIRoute.HOTELS, config)
     .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
 
+const fetchFavourites = () => (dispatch, _getState, api) => {
+  dispatch(loadFavouritesPending());
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.FAVORITE}`, config)
+    .then(({data}) => dispatch(loadFavouritesFulfilled(getAdaptedData(data, getOfferAdapter))))
+    .catch((error) => handleError(error, dispatch, loadFavouritesRejected));
+};
+
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
   dispatch(loadOfferPending());
-  api.get(`${APIRoute.HOTELS}/${id}`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.HOTELS}/${id}`, config)
     .then(({data}) => dispatch(loadOfferFulfilled(getOfferAdapter(data))))
     .catch((error) => handleError(error, dispatch, loadOfferRejected));
 };
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
   dispatch(loadNeighborOffersPending());
-  api.get(`${APIRoute.HOTELS}/${id}/nearby`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.HOTELS}/${id}/nearby`, config)
     .then(({data}) => dispatch(loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadNeighborOffersRejected));
 };
 
 const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(loadCommentsPending());
-  api.get(`${APIRoute.COMMENTS}/${id}`)
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  api.get(`${APIRoute.COMMENTS}/${id}`, config)
     .then(({data}) => dispatch(loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
     .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
 
-const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
+const pushComment = (review, offerId) => (dispatch, _getState, api) => {
   dispatch(pushCommentPending());
+  const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.COMMENTS}/${offerId}`, review, config)
     .then((response) => {
@@ -104,6 +132,17 @@ const pushComment = (review, offerId, token) => (dispatch, _getState, api) => {
     .catch((error) => {
       dispatch(pushCommentRejected());
     });
+};
+
+const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
+  const token = _getState().USER.authInfo.token;
+  const config = { headers: { 'x-token': token } };
+  return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
+    .then((response) => {
+      dispatch(updateOffer(getOfferAdapter(response.data)));
+      return response.status;
+    })
+    .catch((error) => handleError(error, dispatch, null));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -132,15 +171,19 @@ const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
+    // TODO сделать сброс в initialState
+    // .then(() => dispatch(fetchOffersList()))
     .catch(() => {})
 );
 
 export {
   fetchOffersList,
+  fetchFavourites,
   fetchOfferById,
   fetchNeighborOffers,
   fetchComments,
   pushComment,
+  pushFavouriteStatus,
   checkAuth,
   login,
   logout

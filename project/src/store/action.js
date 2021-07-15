@@ -7,6 +7,12 @@ export const ActionType = {
   LOAD_OFFERS_FULFILLED: `api/load-offers_${Status.FULFILLED}`,
   LOAD_OFFERS_REJECTED: `api/load-offers_${Status.REJECTED}`,
 
+  LOAD_FAVOURITES_PENDING: `api/load-favourites_${Status.PENDING}`,
+  LOAD_FAVOURITES_FULFILLED: `api/load-favourites_${Status.FULFILLED}`,
+  LOAD_FAVOURITES_REJECTED: `api/load-favourites_${Status.REJECTED}`,
+
+  UPDATE_OFFER: 'app/update-offer',
+
   LOAD_OFFER_PENDING: `api/load-offer_${Status.PENDING}`,
   LOAD_OFFER_FULFILLED: `api/load-offer_${Status.FULFILLED}`,
   LOAD_OFFER_REJECTED: `api/load-offer_${Status.REJECTED}`,
@@ -31,6 +37,7 @@ export const ActionType = {
 
   LOGOUT: 'app/logout',
   SAVE_COMMENTS: 'app/save-comments',
+  REDIRECT_TO_ROUTE: 'app/redirect-to-route',
 };
 
 export const changeCity = (cityName) => ({
@@ -50,6 +57,25 @@ export const loadOffersFulfilled = (offers) => ({
 export const loadOffersRejected = (errorMessage) => ({
   type: ActionType.LOAD_OFFERS_REJECTED,
   payload: errorMessage,
+});
+
+export const loadFavouritesPending = () => ({
+  type: ActionType.LOAD_FAVOURITES_PENDING,
+});
+
+export const loadFavouritesFulfilled = (offers) => ({
+  type: ActionType.LOAD_FAVOURITES_FULFILLED,
+  payload: offers,
+});
+
+export const loadFavouritesRejected = (errorMessage) => ({
+  type: ActionType.LOAD_FAVOURITES_REJECTED,
+  payload: errorMessage,
+});
+
+export const updateOffer = (offer) => ({
+  type: ActionType.UPDATE_OFFER,
+  payload: offer,
 });
 
 export const loadOfferPending = () => ({
@@ -131,4 +157,9 @@ export const logout = () => ({
 export const saveComments = (comments) => ({
   type: ActionType.SAVE_COMMENTS,
   payload: comments,
+});
+
+export const redirectToRoute = (url) => ({
+  type: ActionType.REDIRECT_TO_ROUTE,
+  payload: url,
 });
