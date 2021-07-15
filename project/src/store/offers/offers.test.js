@@ -55,7 +55,7 @@ describe('Reducer: offers', () => {
     expect(offers(stateBefore, loadOffersFulfilled([
       {id: 1, title: 'offer1'},
       {id: 2, title: 'offer2'},
-      ]))).toEqual(state);
+    ]))).toEqual(state);
   });
 
   it('loadOffersRejected should add error and change status to REJECTED', () => {
@@ -75,7 +75,7 @@ describe('Reducer: offers', () => {
       },
     };
 
-    expect(offers(stateBefore, loadOffersRejected('Error message'))).toEqual(state)
+    expect(offers(stateBefore, loadOffersRejected('Error message'))).toEqual(state);
   });
 
   it('updateOffer should update one offer in data', () => {

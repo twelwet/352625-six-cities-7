@@ -181,8 +181,8 @@ describe('Reducer: room', () => {
 
     expect(room(stateBefore, loadCommentsFulfilled([
       {id: 1, title: 'comment1'},
-      {id: 2, title: 'comment2'}
-      ]))).toEqual(state);
+      {id: 2, title: 'comment2'},
+    ]))).toEqual(state);
   });
 
   it('loadCommentsRejected should add error and change status to REJECTED', () => {

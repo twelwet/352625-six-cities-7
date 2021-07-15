@@ -13,7 +13,6 @@ import {
   logout
 } from '../action';
 import {AuthorizationStatus, Status} from '../../constants';
-import {room} from '../room/room';
 
 describe('Reducer: user', () => {
   it('without additional parameters should return initial state', () => {
@@ -289,7 +288,7 @@ describe('Reducer: user', () => {
       name: 'name',
       token: '12345qwerthbvgh',
       isPro: true,
-      avatarUrl: 'https://example.com/avatar.svg'
+      avatarUrl: 'https://example.com/avatar.svg',
     }))).toEqual(state);
   });
 
