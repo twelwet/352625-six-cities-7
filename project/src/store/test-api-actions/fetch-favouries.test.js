@@ -105,7 +105,7 @@ describe('Async operation fetchFavourites()', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(4, {
           type: ActionType.LOAD_FAVOURITES_REJECTED,
-          payload: '401. Incorrect request: /favorite',
+          payload: '401. Unauthorized access: /favorite',
         });
       });
   });

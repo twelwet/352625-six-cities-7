@@ -45,6 +45,7 @@ const ErrorInfoMessage = {
   DEFAULT_MESSAGE: 'Something went wrong',
   NOT_FOUND: 'Resource not found',
   BAD_REQUEST: 'Incorrect request',
+  UNAUTHORIZED: 'Unauthorized access',
   UNHANDLED: 'Unhandled response code',
   REQUEST_PROBLEM: 'Something went wrong with request',
 };
@@ -64,7 +65,7 @@ const handleError = (error, dispatch, action) => {
       case HttpCode.UNAUTHORIZED:
         dispatch(requireAuth(AuthorizationStatus.NO_AUTH));
         dispatch(redirectToRoute(AppRoute.LOGIN));
-        dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
+        dispatch(action(`${status}. ${ErrorInfoMessage.UNAUTHORIZED}: ${config.url}`));
         break;
       default:
         dispatch(action(`${status}. ${ErrorInfoMessage.UNHANDLED}: ${config.url}`));
