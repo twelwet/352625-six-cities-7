@@ -78,7 +78,7 @@ const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(loadOffersPending());
   const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
-  api.get(APIRoute.HOTELS, config)
+  return api.get(APIRoute.HOTELS, config)
     .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
@@ -87,7 +87,7 @@ const fetchFavourites = () => (dispatch, _getState, api) => {
   dispatch(loadFavouritesPending());
   const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
-  api.get(`${APIRoute.FAVORITE}`, config)
+  return api.get(`${APIRoute.FAVORITE}`, config)
     .then(({data}) => dispatch(loadFavouritesFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadFavouritesRejected));
 };
@@ -96,7 +96,7 @@ const fetchOfferById = (id) => (dispatch, _getState, api) => {
   dispatch(loadOfferPending());
   const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
-  api.get(`${APIRoute.HOTELS}/${id}`, config)
+  return api.get(`${APIRoute.HOTELS}/${id}`, config)
     .then(({data}) => dispatch(loadOfferFulfilled(getOfferAdapter(data))))
     .catch((error) => handleError(error, dispatch, loadOfferRejected));
 };
@@ -105,7 +105,7 @@ const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
   dispatch(loadNeighborOffersPending());
   const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
-  api.get(`${APIRoute.HOTELS}/${id}/nearby`, config)
+  return api.get(`${APIRoute.HOTELS}/${id}/nearby`, config)
     .then(({data}) => dispatch(loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadNeighborOffersRejected));
 };
@@ -114,7 +114,7 @@ const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(loadCommentsPending());
   const token = _getState().USER.authInfo.token;
   const config = { headers: { 'x-token': token } };
-  api.get(`${APIRoute.COMMENTS}/${id}`, config)
+  return api.get(`${APIRoute.COMMENTS}/${id}`, config)
     .then(({data}) => dispatch(loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
     .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
@@ -156,7 +156,7 @@ const checkAuth = () => (dispatch, _getState, api) => (
 
 const login = ({email, password}) => (dispatch, _getState, api) => {
   dispatch(loginPending());
-  api.post(APIRoute.LOGIN, {email, password})
+  return api.post(APIRoute.LOGIN, {email, password})
     .then((response) => {
       localStorage.setItem('token', response.data.token);
       dispatch(loginFulfilled(getUserAdapter(response.data)));
