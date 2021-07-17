@@ -61,6 +61,7 @@ const handleError = (error, dispatch, action) => {
         dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
         break;
       case HttpCode.UNAUTHORIZED:
+        dispatch(requireAuth(AuthorizationStatus.NO_AUTH));
         dispatch(redirectToRoute(AppRoute.LOGIN));
         break;
       default:
