@@ -22,7 +22,7 @@ describe('Async operation pushComment(offerId)', () => {
     const commentPusher = pushComment(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -65,7 +65,7 @@ describe('Async operation pushComment(offerId)', () => {
     const commentPusher = pushComment(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {}}
+      USER: {authInfo: {}},
     });
 
     apiMock

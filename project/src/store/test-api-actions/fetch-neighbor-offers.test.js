@@ -20,7 +20,7 @@ describe('Async operation fetchOffersList()', () => {
     const neighborOffersLoader = fetchNeighborOffers(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -52,7 +52,7 @@ describe('Async operation fetchOffersList()', () => {
     const neighborOffersLoader = fetchNeighborOffers(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: ''}}
+      USER: {authInfo: {token: ''}},
     });
 
     apiMock
@@ -79,7 +79,7 @@ describe('Async operation fetchOffersList()', () => {
     const neighborOffersLoader = fetchNeighborOffers(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock

@@ -20,7 +20,7 @@ describe('Async operation fetchComments(offerId)', () => {
     const commentsLoader = fetchComments(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -52,7 +52,7 @@ describe('Async operation fetchComments(offerId)', () => {
     const commentsLoader = fetchComments(1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -79,7 +79,7 @@ describe('Async operation fetchComments(offerId)', () => {
     const commentsLoader = fetchComments('wrong1d');
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock

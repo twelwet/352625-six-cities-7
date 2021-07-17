@@ -20,7 +20,7 @@ describe('Async operation fetchFavourites()', () => {
     const favouriteOffersLoader = fetchFavourites();
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -52,7 +52,7 @@ describe('Async operation fetchFavourites()', () => {
     const favouriteOffersLoader = fetchFavourites();
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: ''}}
+      USER: {authInfo: {token: ''}},
     });
 
     apiMock
@@ -79,7 +79,7 @@ describe('Async operation fetchFavourites()', () => {
     const favouriteOffersLoader = fetchFavourites();
 
     const getState = () => ({
-      [`USER`]: {authInfo: {}}
+      USER: {authInfo: {}},
     });
 
     apiMock
@@ -116,7 +116,7 @@ describe('Async operation fetchFavourites()', () => {
     const favouriteOffersLoader = fetchFavourites();
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock

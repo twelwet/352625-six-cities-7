@@ -21,7 +21,7 @@ describe('Async operation pushFavouriteStatus(offerId, status)', () => {
     const favStatusPusher = pushFavouriteStatus(1, 1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {token: '12345'}}
+      USER: {authInfo: {token: '12345'}},
     });
 
     apiMock
@@ -56,7 +56,7 @@ describe('Async operation pushFavouriteStatus(offerId, status)', () => {
     const favStatusPusher = pushFavouriteStatus(1, 1);
 
     const getState = () => ({
-      [`USER`]: {authInfo: {}}
+      USER: {authInfo: {}},
     });
 
     apiMock
