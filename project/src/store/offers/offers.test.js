@@ -1,5 +1,5 @@
 import {offers} from './offers.js';
-import {loadOffersPending, loadOffersFulfilled, loadOffersRejected, updateOffer} from '../action.js';
+import {loadOffersPending, loadOffersFulfilled, loadOffersRejected, updateOfferFulfilled, updateOfferRejected} from '../action.js';
 import {Status} from '../../constants';
 
 describe('Reducer: offers', () => {
@@ -78,7 +78,7 @@ describe('Reducer: offers', () => {
     expect(offers(stateBefore, loadOffersRejected('Error message'))).toEqual(state);
   });
 
-  it('updateOffer should update one offer in data', () => {
+  it('updateOfferFulfilled should update one offer in data', () => {
     const updatedOffer = {id: 2, title: 'Updated title'};
 
     const stateBefore = {
@@ -97,6 +97,21 @@ describe('Reducer: offers', () => {
       },
     };
 
-    expect(offers(stateBefore, updateOffer(updatedOffer))).toEqual(state);
+    expect(offers(stateBefore, updateOfferFulfilled(updatedOffer))).toEqual(state);
   });
+
+  it('updateOfferRejected should not update offer', () => {
+    const stateBefore = {
+      status: Status.FULFILLED,
+      data: [{id: 1, title: 'offer1'}, {id: 2, title: 'offer2'}, {id: 3, title: 'offer3'}],
+      error: {
+        message: null,
+      },
+    };
+
+    const stateAfter = {...stateBefore};
+
+    expect(offers(stateBefore, updateOfferRejected())).toEqual(stateAfter);
+  });
+
 });

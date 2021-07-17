@@ -7,7 +7,8 @@ import {
   loadFavouritesFulfilled,
   loadFavouritesRejected,
 
-  updateOffer,
+  updateOfferFulfilled,
+  updateOfferRejected,
 
   loadOfferPending,
   loadOfferFulfilled,
@@ -63,6 +64,7 @@ const handleError = (error, dispatch, action) => {
       case HttpCode.UNAUTHORIZED:
         dispatch(requireAuth(AuthorizationStatus.NO_AUTH));
         dispatch(redirectToRoute(AppRoute.LOGIN));
+        dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
         break;
       default:
         dispatch(action(`${status}. ${ErrorInfoMessage.UNHANDLED}: ${config.url}`));
@@ -130,9 +132,7 @@ const pushComment = (review, offerId) => (dispatch, _getState, api) => {
       dispatch(pushCommentIdle());
       return response.status;
     })
-    .catch((error) => {
-      dispatch(pushCommentRejected());
-    });
+    .catch((error) => dispatch(pushCommentRejected()));
 };
 
 const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
@@ -140,10 +140,10 @@ const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
   const config = { headers: { 'x-token': token } };
   return api.post(`${APIRoute.FAVORITE}/${offerId}/${status}`, null, config)
     .then((response) => {
-      dispatch(updateOffer(getOfferAdapter(response.data)));
+      dispatch(updateOfferFulfilled(getOfferAdapter(response.data)));
       return response.status;
     })
-    .catch((error) => handleError(error, dispatch, null));
+    .catch((error) => dispatch(updateOfferRejected()));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -163,9 +163,7 @@ const login = ({email, password}) => (dispatch, _getState, api) => {
       dispatch(loginFulfilled(getUserAdapter(response.data)));
       dispatch(requireAuth(AuthorizationStatus.AUTH));
     })
-    .catch((error) => {
-      dispatch(loginRejected());
-    });
+    .catch((error) => dispatch(loginRejected()));
 };
 
 const logout = () => (dispatch, _getState, api) => (
@@ -173,7 +171,6 @@ const logout = () => (dispatch, _getState, api) => (
     .then(() => localStorage.removeItem('token'))
     .then(() => dispatch(closeSession()))
     // TODO сделать сброс в initialState
-    // .then(() => dispatch(fetchOffersList()))
     .catch(() => {})
 );
 

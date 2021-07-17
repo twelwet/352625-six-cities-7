@@ -7,7 +7,8 @@ import {
   loadFavouritesPending,
   loadFavouritesFulfilled,
   loadFavouritesRejected,
-  updateOffer,
+  updateOfferFulfilled,
+  updateOfferRejected,
   loadOfferPending,
   loadOfferFulfilled,
   loadOfferRejected,
@@ -104,15 +105,26 @@ describe('Action `loadFavourites`', () => {
 });
 
 
-describe('Action `updateOffer`', () => {
-  it(`action creator ${ActionType.UPDATE_OFFER} returns correct action`, () => {
+describe('Action `updateOfferFulfilled`', () => {
+  it(`action creator ${ActionType.UPDATE_OFFER_FULFILLED} returns correct action`, () => {
     const offer = {id: 1, title: 'offer1', isFavourite: true};
     const expectedAction = {
-      type: ActionType.UPDATE_OFFER,
+      type: ActionType.UPDATE_OFFER_FULFILLED,
       payload: offer,
     };
 
-    expect(updateOffer(offer)).toEqual(expectedAction);
+    expect(updateOfferFulfilled(offer)).toEqual(expectedAction);
+  });
+});
+
+
+describe('Action `updateOfferRejected`', () => {
+  it(`action creator ${ActionType.UPDATE_OFFER_REJECTED} returns correct action`, () => {
+    const expectedAction = {
+      type: ActionType.UPDATE_OFFER_REJECTED,
+    };
+
+    expect(updateOfferRejected()).toEqual(expectedAction);
   });
 });
 
