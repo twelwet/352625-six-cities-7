@@ -7,17 +7,24 @@ import {createMemoryHistory} from 'history';
 import OfferCard from './offer-card.jsx';
 import {Status, StayType, CityName} from '../../../constants.js';
 
-// TODO Не удается протестировать компонент, подключенный к mockStore
 const mockStore = configureStore({});
 
 describe('Component: OfferCard', () => {
   it('should render correctly', () => {
-    const viewData = {cardWidth: '', cardHeight: '', classNames: {mainBlock: '', imageBlock: '', infoBlock: ''}};
+    const viewData = {
+      cardWidth: '260',
+      cardHeight: '200',
+      classNames: {
+        mainBlock: 'cities__place-card',
+        imageBlock: 'cities__image-wrapper',
+        infoBlock: '',
+      },
+    };
     const offer = {
       status: Status.IDLE,
       data: {
         id: 1,
-        title: 'title',
+        title: 'Offer title example',
         description: 'description',
         type: StayType.HOUSE,
         price: 100,
@@ -66,12 +73,11 @@ describe('Component: OfferCard', () => {
     const history = createMemoryHistory();
 
     const {getByText} = render(
-      <Provider store={mockStore({})} >
+      <Provider store={mockStore({USER: authInfo})} >
         <Router history={history}>
           <OfferCard
             viewData={viewData}
             data={offer.data}
-            authInfo={authInfo}
             setActiveOfferId={() => {}}
           />
         </Router>
@@ -79,5 +85,8 @@ describe('Component: OfferCard', () => {
     );
 
     expect(getByText('Rating')).toBeInTheDocument();
+    expect(getByText('Offer title example')).toBeInTheDocument();
+    expect(getByText('House')).toBeInTheDocument();
+    expect(getByText(/€100/)).toBeInTheDocument();
   });
 });
