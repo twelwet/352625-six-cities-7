@@ -85,4 +85,5 @@ const mapStateToProps = (state) => ({
   authInfo: getAuthInfo(state),
 });
 
+export {OfferCard};
 export default connect(mapStateToProps, null)(OfferCard);
