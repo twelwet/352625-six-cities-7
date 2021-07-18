@@ -32,4 +32,5 @@ Notification.propTypes = {
   }).isRequired,
 };
 
+export {Notification};
 export default Notification;
