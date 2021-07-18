@@ -55,7 +55,7 @@ describe('Component: CommentForm', () => {
     render(
       <Router history={history}>
         <CommentForm saveReview={() => {}} offer={offer} userComment={userComment} />
-      </Router>
+      </Router>,
     );
 
     const reviewLabel = screen.getByText('Your review');

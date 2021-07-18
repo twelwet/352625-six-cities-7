@@ -7,12 +7,11 @@ import {Notification} from './notification.jsx';
 describe('Component: Notification', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
-    const authorizationStatus = 'AUTH';
 
     const {getByText} = render(
       <Router history={history}>
         <Notification message={'Some kind of message'} position={{top: '', marginRight: ''}}/>
-      </Router>
+      </Router>,
     );
 
     expect(getByText('Some kind of message')).toBeInTheDocument();
