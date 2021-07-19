@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {Router as BrowserRouter} from 'react-router-dom';
 import {createStore, applyMiddleware} from 'redux';
 import thunk from 'redux-thunk';
 import createAPI from './services/api.js';
@@ -11,6 +12,7 @@ import {checkAuth} from './store/api-actions.js';
 import {requireAuth} from './store/action.js';
 import {AuthorizationStatus} from './constants.js';
 import {redirect} from './middlewares/redirect.js';
+import browserHistory from './browser-history';
 
 const api = createAPI(
   () => store.dispatch(requireAuth(AuthorizationStatus.NO_AUTH)),
@@ -29,7 +31,9 @@ store.dispatch(checkAuth());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App />
+      <BrowserRouter history={browserHistory}>
+        <App />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));
