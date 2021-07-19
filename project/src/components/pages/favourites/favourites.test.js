@@ -3,7 +3,7 @@ import {render} from '@testing-library/react';
 import {Router} from 'react-router-dom';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk';
 import {createMemoryHistory} from 'history';
 import Favourites from './favourites.jsx';
 import {Status, StayType, CityName} from '../../../constants.js';
@@ -104,8 +104,8 @@ describe('Component: Favourites', () => {
       <Provider store={ mockStore({USER: {favourites}}) }>
         <Router history={history}>
           <Favourites
-          getFavourites={() => {}}
-          authorizationStatus={'NO_AUTH'}
+            getFavourites={() => {}}
+            authorizationStatus={'NO_AUTH'}
           />
         </Router>
       </Provider>,

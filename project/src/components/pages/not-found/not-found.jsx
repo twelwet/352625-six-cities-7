@@ -9,9 +9,9 @@ function NotFound() {
       <h1 style={{textAlign: 'center'}}>
         404.
         <br />
-        <small>Страница не найдена</small>
+        <small>Page not found</small>
       </h1>
-      <a href={AppRoute.MAIN} style={{textAlign: 'center'}}>На главную</a>
+      <a href={AppRoute.MAIN} style={{textAlign: 'center'}}>Go to main</a>
     </div>
   );
 }
