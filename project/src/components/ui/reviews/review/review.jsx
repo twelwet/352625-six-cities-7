@@ -18,7 +18,7 @@ function Review({user, rating, comment, date}) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: `${100 * rating / 5}%`}}/>
+            <span data-testid="rating-bar" style={{width: `${100 * rating / 5}%`}}/>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
