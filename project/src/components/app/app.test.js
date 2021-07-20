@@ -14,7 +14,7 @@ let store = null;
 let fakeApp = null;
 
 const mockApi = {
-  get: jest.fn(() => Promise.resolve()),
+  get: jest.fn(() => Promise.resolve(42)),
 };
 
 // const thunk = () => (next) => () => next({ type: "mock" });
@@ -87,30 +87,34 @@ describe('Application Routing, AUTH mode', () => {
 
   it('should render `MainScreen` when user navigate to `/`', () => {
     history.push(AppRoute.MAIN);
+    mockApi.get.mockImplementation(() => Promise.resolve(42));
     const { getByText } = render(fakeApp);
 
     expect(getByText('No places to stay available')).toBeInTheDocument();
     expect(getByText('We could not find any property available at the moment in Paris')).toBeInTheDocument();
   });
 
-  it.skip('should render `FavouritesScreen` when user navigate to `/favorites`', () => {
+  it('should render `FavouritesScreen` when user navigate to `/favorites`', () => {
     history.push(AppRoute.FAVOURITES);
+    mockApi.get.mockImplementation(() => Promise.resolve(42));
     const { getByText } = render(fakeApp);
 
     expect(getByText('Nothing yet saved.')).toBeInTheDocument();
     expect(getByText('Save properties to narrow down search or plan your future trips.')).toBeInTheDocument();
   });
 
-  it.skip('should render `RoomScreen` when user navigate to `/offer/1`', () => {
+  it('should render `RoomScreen` when user navigate to `/offer/1`', () => {
     history.push(`${AppRoute.OFFER}/1`);
+    mockApi.get.mockImplementation(() => Promise.resolve(42));
     const { getByText } = render(fakeApp);
 
     expect(getByText('Offer title example')).toBeInTheDocument();
     expect(getByText('Some description about offer')).toBeInTheDocument();
   });
 
-  it.skip('should render `NotFoundScreen` when user navigate to `/404`', () => {
+  it('should render `NotFoundScreen` when user navigate to `/404`', () => {
     history.push(AppRoute.NOT_FOUND);
+    mockApi.get.mockImplementation(() => Promise.resolve(42));
     const { getByText } = render(fakeApp);
 
     expect(getByText('404.')).toBeInTheDocument();
@@ -152,6 +156,7 @@ describe('Application Routing, NO_AUTH mode', () => {
 
   it('should render `SignInScreen` when user navigate to `/login`', () => {
     history.push(AppRoute.LOGIN);
+    mockApi.get.mockImplementation(() => Promise.resolve(42));
     const { getByText, getAllByText } = render(fakeApp);
 
     expect(getAllByText(/Sign in/i)).toHaveLength(3);
