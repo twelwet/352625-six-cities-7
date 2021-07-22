@@ -3,6 +3,8 @@ import createAPI from '../../services/api.js';
 import {ActionType} from '../action.js';
 import {fetchComments} from '../api-actions.js';
 import {APIRoute, HttpCode} from '../../constants.js';
+import getCommentAdapter from '../../utils/get-comment-adapter.js';
+import getAdaptedData from '../../utils/get-adapted-data.js';
 
 let api = null;
 
@@ -12,8 +14,19 @@ describe('Async operation fetchComments(offerId)', () => {
   });
 
   it(`should make a correct API call to GET '/comments/1' (statusCode: ${HttpCode.OK})`, () => {
-    // TODO не пойму почему тест не проходит
-    const comments = [{id: 1, title: 'comment1'}, {id: 2, title: 'comment2'}];
+    const comments = [{
+      id: 1,
+      date: '2021-06-30T16:51:35.215Z',
+      rating: 4,
+      comment: 'Some comment text 1',
+      user: {id: 1, name: '', ['is_pro']: true, ['avatar_url']: 'img/avatar1.png'},
+    }, {
+      id: 2,
+      date: '2021-05-06T14:00:06.215Z',
+      rating: 5,
+      comment: 'Some comment text 2',
+      user: {id: 4, name: '', ['is_pro']: false, ['avatar_url']: 'img/avatar4.png'},
+    }];
 
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -33,15 +46,9 @@ describe('Async operation fetchComments(offerId)', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_COMMENTS_PENDING,
         });
-        // TODO ожидаемое поведение:
-        // expect(dispatch).toHaveBeenNthCalledWith(2, {
-        //   type: ActionType.LOAD_COMMENTS_FULFILLED,
-        //   payload: comments,
-        // });
-        // TODO поведение по факту:
         expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.LOAD_COMMENTS_REJECTED,
-          payload: 'Something went wrong',
+          type: ActionType.LOAD_COMMENTS_FULFILLED,
+          payload: getAdaptedData(comments, getCommentAdapter),
         });
       });
   });

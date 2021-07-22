@@ -39,6 +39,7 @@ import {
 import getOfferAdapter from '../utils/get-offer-adapter.js';
 import getCommentAdapter from '../utils/get-comment-adapter.js';
 import getUserAdapter from '../utils/get-user-adapter.js';
+import getAdaptedData from '../utils/get-adapted-data.js';
 import {AuthorizationStatus, APIRoute, AppRoute, HttpCode} from '../constants.js';
 
 const ErrorInfoMessage = {
@@ -49,8 +50,6 @@ const ErrorInfoMessage = {
   UNHANDLED: 'Unhandled response code',
   REQUEST_PROBLEM: 'Something went wrong with request',
 };
-
-const getAdaptedData = (data, adapter) => data.map((item) => adapter(item));
 
 const handleError = (error, dispatch, action) => {
   if (error.response) {
