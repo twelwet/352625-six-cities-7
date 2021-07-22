@@ -98,8 +98,6 @@ describe('Async operation fetchOfferById()', () => {
           type: ActionType.LOAD_OFFER_REJECTED,
           payload: '400. Incorrect request: /hotels/1',
         });
-
-
       });
   });
 
