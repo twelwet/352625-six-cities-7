@@ -17,8 +17,6 @@ const mockApi = {
   get: jest.fn(() => Promise.resolve(42)),
 };
 
-// const thunk = () => (next) => () => next({ type: "mock" });
-
 describe('Application Routing, AUTH mode', () => {
   beforeAll(() => {
     const offerData = {
