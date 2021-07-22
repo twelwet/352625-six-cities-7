@@ -3,6 +3,7 @@ import createAPI from '../../services/api.js';
 import {ActionType} from '../action.js';
 import {login} from '../api-actions.js';
 import {APIRoute, HttpCode} from '../../constants.js';
+import getUserAdapter from '../../utils/get-user-adapter.js';
 
 let api = null;
 
@@ -17,8 +18,8 @@ describe('Async operation login({email, password})', () => {
       id: 1,
       email: 'name@example.com',
       name: 'name',
-      avatarUrl: undefined, // TODO не понятно почему тест проходит только с undefined (возможно из-зв avatarURL !== avatar_url)
-      isPro: undefined, // TODO не понятно почему тест проходит только с undefined (возможно из-зв isPro !== is_pro)
+      avatarUrl: 'img/avatar1.png',
+      isPro: true,
       token: 'randomString',
     };
 
@@ -39,7 +40,7 @@ describe('Async operation login({email, password})', () => {
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.LOGIN_FULFILLED,
-          payload: authInfo,
+          payload: getUserAdapter(authInfo),
         });
         expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.REQUIRE_AUTH,
