@@ -16,7 +16,7 @@ const mockApi = {
 };
 
 describe('Component: Favourites', () => {
-  it('should render corectly (Nothing yet saved)', () => {
+  it('should render correctly (Nothing yet saved)', () => {
     mockApi.get.mockImplementation(() => Promise.resolve(42));
 
     history = createMemoryHistory();
@@ -50,7 +50,7 @@ describe('Component: Favourites', () => {
     expect(getByText('Nothing yet saved.')).toBeInTheDocument();
   });
 
-  it('should render corectly (Some favourite offers are saved)', () => {
+  it('should render correctly (Some favourite offers are saved)', () => {
     mockApi.get.mockImplementation(() => Promise.resolve(42));
 
     const offer1 = {
