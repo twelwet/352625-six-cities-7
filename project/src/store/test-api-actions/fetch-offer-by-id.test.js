@@ -3,6 +3,8 @@ import createAPI from '../../services/api.js';
 import {ActionType} from '../action.js';
 import {fetchOfferById} from '../api-actions.js';
 import {APIRoute, HttpCode} from '../../constants.js';
+import getOfferAdapter from '../../utils/get-offer-adapter.js';
+import {StayType} from '../../constants';
 
 let api = null;
 
@@ -12,8 +14,40 @@ describe('Async operation fetchOfferById()', () => {
   });
 
   it(`should make a correct API call to GET '/offer/1' (statusCode: ${HttpCode.OK})`, () => {
-    // TODO не пойму почему тест не проходит
-    const offer = {id: 1, title: 'offer1'};
+    const offer = {
+      id: 1,
+      title: 'offer1',
+      description: 'Some description of offer1',
+      type: StayType.HOUSE,
+      price: 100,
+      previewImage: '/img/offer1-preview1.png',
+      images: ['/img/offer1-preview1.png', '/img/offer1-preview2.png', '/img/offer1-preview3.png'],
+      rating: 4,
+      bedrooms: 2,
+      maxAdults: 2,
+      goods: ['W-Fi', 'TV', 'Towels'],
+      host: {
+        id: 1,
+        name: 'John',
+        isPro: false,
+        avatarUrl: 'img/avatar1.png',
+      },
+      city: {
+        name: 'Paris',
+        location: {
+          latitude: 52,
+          longitude: 24,
+          zoom: 3,
+        },
+      },
+      location: {
+        latitude: 52,
+        longitude: 24,
+        zoom: 3,
+      },
+      isPremium: 'true',
+      isFavourite: true,
+    };
 
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -33,15 +67,9 @@ describe('Async operation fetchOfferById()', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_OFFER_PENDING,
         });
-        // TODO ожидаемое поведение:
-        // expect(dispatch).toHaveBeenNthCalledWith(2, {
-        //   type: ActionType.LOAD_OFFER_FULFILLED,
-        //   payload: offer,
-        // });
-        // TODO поведение по факту:
         expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.LOAD_OFFER_REJECTED,
-          payload: 'Something went wrong',
+          type: ActionType.LOAD_OFFER_FULFILLED,
+          payload: getOfferAdapter(offer),
         });
       });
   });
