@@ -3,6 +3,7 @@ import createAPI from '../../services/api.js';
 import {ActionType} from '../action.js';
 import {checkAuth} from '../api-actions.js';
 import {APIRoute, AuthorizationStatus, HttpCode} from '../../constants.js';
+import getUserAdapter from '../../utils/get-user-adapter.js';
 
 let api = null;
 
@@ -16,8 +17,8 @@ describe('Async operation checkAuth()', () => {
       id: 1,
       email: 'name@example.com',
       name: 'name',
-      avatarUrl: undefined, // TODO не понятно почему тест проходит только с undefined (возможно из-зв avatarURL !== avatar_url)
-      isPro: undefined, // TODO не понятно почему тест проходит только с undefined (возможно из-зв isPro !== is_pro)
+      avatarUrl: 'img/avatar.png',
+      isPro: true,
       token: 'randomString',
     };
     const apiMock = new MockAdapter(api);
@@ -34,7 +35,7 @@ describe('Async operation checkAuth()', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGIN_FULFILLED,
-          payload: data,
+          payload: getUserAdapter(data),
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(2, {
