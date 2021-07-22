@@ -147,7 +147,7 @@ describe('Component: RoomScreen', () => {
     });
 
     const {getByText} = render(
-      <Provider store={store}>s
+      <Provider store={store}>
         <Router history={history}>
           <Room roomId={1}/>
         </Router>
