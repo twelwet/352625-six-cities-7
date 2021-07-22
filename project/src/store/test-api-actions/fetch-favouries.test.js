@@ -2,7 +2,9 @@ import MockAdapter from 'axios-mock-adapter';
 import createAPI from '../../services/api.js';
 import {ActionType} from '../action.js';
 import {fetchFavourites} from '../api-actions.js';
-import {APIRoute, HttpCode} from '../../constants.js';
+import {APIRoute, HttpCode, StayType} from '../../constants.js';
+import getAdaptedData from '../../utils/get-adapted-data.js';
+import getOfferAdapter from '../../utils/get-offer-adapter.js';
 
 let api = null;
 
@@ -12,8 +14,73 @@ describe('Async operation fetchFavourites()', () => {
   });
 
   it(`should make a correct API call to GET '/favorites' (statusCode: ${HttpCode.OK})`, () => {
-    // TODO не пойму почему тест не проходит
-    const favoriteOffers = [{id: 1, title: 'offer1'}, {id: 2, title: 'offer2'}];
+    const favoriteOffers = [{
+      id: 1,
+      title: 'offer1',
+      description: 'Some description of offer1',
+      type: StayType.HOUSE,
+      price: 100,
+      previewImage: '/img/offer1-preview1.png',
+      images: ['/img/offer1-preview1.png', '/img/offer1-preview2.png', '/img/offer1-preview3.png'],
+      rating: 4,
+      bedrooms: 2,
+      maxAdults: 2,
+      goods: ['W-Fi', 'TV', 'Towels'],
+      host: {
+        id: 1,
+        name: 'John',
+        isPro: false,
+        avatarUrl: 'img/avatar1.png',
+      },
+      city: {
+        name: 'Paris',
+        location: {
+          latitude: 52,
+          longitude: 24,
+          zoom: 3,
+        },
+      },
+      location: {
+        latitude: 52,
+        longitude: 24,
+        zoom: 3,
+      },
+      isPremium: 'true',
+      isFavourite: true,
+    }, {
+      id: 2,
+      title: 'offer2',
+      description: 'Some description of offer2',
+      type: StayType.HOTEL,
+      price: 150,
+      previewImage: '/img/offer2-preview1.png',
+      images: ['/img/offer2-preview1.png', '/img/offer2-preview2.png'],
+      rating: 5,
+      bedrooms: 1,
+      maxAdults: 2,
+      goods: ['W-Fi', 'TV', 'Towels'],
+      host: {
+        id: 2,
+        name: 'Monika',
+        isPro: true,
+        avatarUrl: 'img/avatar2.png',
+      },
+      city: {
+        name: 'Amsterdam',
+        location: {
+          latitude: 52,
+          longitude: 24,
+          zoom: 3,
+        },
+      },
+      location: {
+        latitude: 52,
+        longitude: 24,
+        zoom: 3,
+      },
+      isPremium: false,
+      isFavourite: true,
+    }];
 
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -33,15 +100,9 @@ describe('Async operation fetchFavourites()', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FAVOURITES_PENDING,
         });
-        // TODO ожидаемое поведение:
-        // expect(dispatch).toHaveBeenNthCalledWith(2, {
-        //   type: ActionType.LOAD_FAVOURITES_FULFILLED,
-        //   payload: favoriteOffers,
-        // });
-        // TODO поведение по факту:
         expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.LOAD_FAVOURITES_REJECTED,
-          payload: 'Something went wrong',
+          type: ActionType.LOAD_FAVOURITES_FULFILLED,
+          payload: getAdaptedData(favoriteOffers, getOfferAdapter),
         });
       });
   });
