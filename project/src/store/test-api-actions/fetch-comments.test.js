@@ -19,13 +19,13 @@ describe('Async operation fetchComments(offerId)', () => {
       date: '2021-06-30T16:51:35.215Z',
       rating: 4,
       comment: 'Some comment text 1',
-      user: {id: 1, name: '', ['is_pro']: true, ['avatar_url']: 'img/avatar1.png'},
+      user: {id: 1, name: '', isPro: true, avatarUrl: 'img/avatar1.png'},
     }, {
       id: 2,
       date: '2021-05-06T14:00:06.215Z',
       rating: 5,
       comment: 'Some comment text 2',
-      user: {id: 4, name: '', ['is_pro']: false, ['avatar_url']: 'img/avatar4.png'},
+      user: {id: 4, name: '', isPro: false, avatarUrl: 'img/avatar4.png'},
     }];
 
     const apiMock = new MockAdapter(api);
