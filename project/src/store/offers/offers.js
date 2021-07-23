@@ -31,11 +31,14 @@ export const offers = (state = initialState, action) => {
         },
       };
 
-    case ActionType.UPDATE_OFFER:
+    case ActionType.UPDATE_OFFER_FULFILLED:
       return {
         ...state,
         data: [action.payload, ...state.data.filter((offer) => offer.id !== action.payload.id)],
       };
+    case ActionType.UPDATE_OFFER_REJECTED:
+      return state;
+
     default:
       return state;
   }

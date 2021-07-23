@@ -52,6 +52,7 @@ function CommentForm({saveReview, offer, userComment}) {
         minLength={MIN_COMMENT_LENGTH}
         maxLength={MAX_COMMENT_LENGTH}
         disabled={userComment.status === Status.PENDING}
+        data-testid="comment"
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
