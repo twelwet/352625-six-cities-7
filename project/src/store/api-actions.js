@@ -168,8 +168,10 @@ const login = ({email, password}) => (dispatch, _getState, api) => {
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(closeSession()))
-    // TODO сделать сброс в initialState
+    .then(() => {
+      dispatch(closeSession());
+      dispatch(redirectToRoute(AppRoute.LOGIN));
+    })
     .catch(() => {})
 );
 

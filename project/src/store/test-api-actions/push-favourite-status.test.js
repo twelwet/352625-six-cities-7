@@ -93,11 +93,11 @@ describe('Async operation pushFavouriteStatus(offerId, status)', () => {
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.REDIRECT_TO_ROUTE,
-          payload: '/login'
+          payload: '/login',
         });
         expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.UPDATE_OFFER_REJECTED,
-          payload: '401. Unauthorized access: /favorite/1/1'
+          payload: '401. Unauthorized access: /favorite/1/1',
         });
       });
   });
