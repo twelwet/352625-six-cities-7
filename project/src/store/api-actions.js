@@ -142,7 +142,7 @@ const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
       dispatch(updateOfferFulfilled(getOfferAdapter(response.data)));
       return response.status;
     })
-    .catch((error) => handleError(error, dispatch, updateOfferRejected)); // dispatch(updateOfferRejected()));
+    .catch((error) => handleError(error, dispatch, updateOfferRejected));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
