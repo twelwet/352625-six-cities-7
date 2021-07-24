@@ -25,7 +25,7 @@ jest.mock('../browser-history', () => fakeHistory);
 describe('Middleware: redirect', () => {
   it('action should passes to next middleware', () => {
     const {invoke, next} = mockRedux();
-    const action = redirectToRoute(AppRoute.ROOT);
+    const action = redirectToRoute(AppRoute.MAIN);
     invoke(action);
     expect(next).toHaveBeenCalledWith(action);
   });
@@ -35,8 +35,8 @@ describe('Middleware: redirect', () => {
     invoke(redirectToRoute(AppRoute.LOGIN));
     expect(fakeHistory.location.pathname).toBe(AppRoute.LOGIN);
 
-    invoke(redirectToRoute(AppRoute.LOSE));
-    expect(fakeHistory.location.pathname).toBe(AppRoute.LOSE);
+    invoke(redirectToRoute(AppRoute.NOT_FOUND));
+    expect(fakeHistory.location.pathname).toBe(AppRoute.NOT_FOUND);
   });
 
   it('should not redirect because bad action', () => {
