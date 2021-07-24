@@ -149,22 +149,17 @@ describe('Async operation fetchFavourites()', () => {
 
     return favouriteOffersLoader(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(4);
+        expect(dispatch).toHaveBeenCalledTimes(3);
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOAD_FAVOURITES_PENDING,
         });
 
         expect(dispatch).toHaveBeenNthCalledWith(2, {
-          type: ActionType.REQUIRE_AUTH,
-          payload: 'NO_AUTH',
-        });
-
-        expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: '/login',
         });
 
-        expect(dispatch).toHaveBeenNthCalledWith(4, {
+        expect(dispatch).toHaveBeenNthCalledWith(3, {
           type: ActionType.LOAD_FAVOURITES_REJECTED,
           payload: '401. Unauthorized access: /favorite',
         });

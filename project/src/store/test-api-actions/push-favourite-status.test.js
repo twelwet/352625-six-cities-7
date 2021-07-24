@@ -74,9 +74,7 @@ describe('Async operation pushFavouriteStatus(offerId, status)', () => {
       });
   });
 
-  it(`should make a correct API call to POST '/comments/1' (statusCode: ${HttpCode.UNAUTHORIZED})`, () => {
-    const newComment = {id: 3, title: 'comment3'};
-
+  it(`should make a correct API call to POST '/favorite/1/1' (statusCode: ${HttpCode.UNAUTHORIZED})`, () => {
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
     const favStatusPusher = pushFavouriteStatus(1, 1);
@@ -86,15 +84,20 @@ describe('Async operation pushFavouriteStatus(offerId, status)', () => {
     });
 
     apiMock
-      .onPost(`${APIRoute.FAVORITE}/1/1`, newComment)
+      .onPost(`${APIRoute.FAVORITE}/1/1`)
       .reply(HttpCode.UNAUTHORIZED);
 
     return favStatusPusher(dispatch, getState, api)
       .then(() => {
-        expect(dispatch).toHaveBeenCalledTimes(1);
+        expect(dispatch).toHaveBeenCalledTimes(2);
 
         expect(dispatch).toHaveBeenNthCalledWith(1, {
+          type: ActionType.REDIRECT_TO_ROUTE,
+          payload: '/login'
+        });
+        expect(dispatch).toHaveBeenNthCalledWith(2, {
           type: ActionType.UPDATE_OFFER_REJECTED,
+          payload: '401. Unauthorized access: /favorite/1/1'
         });
       });
   });

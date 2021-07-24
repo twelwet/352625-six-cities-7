@@ -79,8 +79,9 @@ export const updateOfferFulfilled = (offer) => ({
   payload: offer,
 });
 
-export const updateOfferRejected = () => ({
+export const updateOfferRejected = (errorMessage) => ({
   type: ActionType.UPDATE_OFFER_REJECTED,
+  payload: errorMessage,
 });
 
 

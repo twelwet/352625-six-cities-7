@@ -39,7 +39,6 @@ FavouriteButton.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(offerId, status) {
-    // TODO сломалсь редирект на /login при NO_AUTH
     return dispatch(pushFavouriteStatus(offerId, status));
   },
 });
