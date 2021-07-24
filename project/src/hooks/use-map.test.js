@@ -3,7 +3,7 @@ import {renderHook} from '@testing-library/react-hooks';
 import useMap from './use-map.js';
 
 const fakeLeaflet = {
-  map: () => ({setView: () => {}, really: 'exist'}),
+  map: () => ({ setView: () => {}, really: 'exist' }),
   tileLayer: () => ({ addTo: () => {} }),
   LatLng: function (latitude, longitude) {
     this.latitude = latitude;
@@ -14,7 +14,7 @@ const fakeLeaflet = {
 jest.mock('leaflet', () => fakeLeaflet);
 
 describe('Hook: useMap', () => {
-  it.skip('should return null (mapRef.current === null)', () => {
+  it('should return null (mapRef.current === null)', () => {
     const mapRef = {current: null};
     const city = {
       name: 'Paris',
