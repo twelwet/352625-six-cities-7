@@ -8,7 +8,7 @@ import {AppRoute} from '../../../../constants.js';
 
 let history;
 
-describe('Component: Logo', () => {
+describe('Component: Login', () => {
   beforeAll(() => {
     history = createMemoryHistory();
   });

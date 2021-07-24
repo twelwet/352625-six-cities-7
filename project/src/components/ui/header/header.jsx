@@ -1,11 +1,12 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import PropTypes from 'prop-types';
-import {AuthorizationStatus, AppRoute} from '../../../constants.js';
+import {AuthorizationStatus} from '../../../constants.js';
 import {logout} from '../../../store/api-actions.js';
 import {getAuthInfo, getAuthStatus} from '../../../store/user/selectors.js';
 import Logo from './logo/logo.jsx';
 import Login from './login/login.jsx';
+import Logout from './logout/logout.jsx';
 
 function Header({authorizationStatus, authInfo, onSignOut}) {
   const isAuth = authorizationStatus === AuthorizationStatus.AUTH;
@@ -23,19 +24,7 @@ function Header({authorizationStatus, authInfo, onSignOut}) {
           <nav className="header__nav">
             <ul className="header__nav-list">
               <Login isAuth={isAuth} email={authInfo.email}/>
-              {
-                isAuth ? (
-                  <li className="header__nav-item">
-                    <a
-                      className="header__nav-link"
-                      href={AppRoute.MAIN}
-                      onClick={handleSignOut}
-                    >
-                      <span className="header__signout">Sign out</span>
-                    </a>
-                  </li>
-                ) : ''
-              }
+              <Logout isAuth={isAuth} handleSignOut={handleSignOut}/>
             </ul>
           </nav>
         </div>
