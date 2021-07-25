@@ -20,6 +20,7 @@ function CitiesList({cities, city, onCityClick}) {
                   onCityClick(cityName);
                 }}
                 href={AppRoute.MAIN}
+                data-testid={`test-${cityName}`}
               >
                 <span>{cityName}</span>
               </a>
