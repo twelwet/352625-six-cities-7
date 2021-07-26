@@ -2,13 +2,14 @@ import React from 'react';
 import { render, screen } from '@testing-library/react';
 import CardButton from './card-button.jsx';
 
-jest.mock('../favourite-button', () => () => (
-    <button
-      onClick={jest.fn()}
-      data-testid={'fake-favourite-button'}
-    />
-  )
+const getFakeFavouriteButton = () => (
+  <button
+    onClick={jest.fn()}
+    data-testid={'fake-favourite-button'}
+  />
 );
+
+jest.mock('../favourite-button', () => getFakeFavouriteButton);
 
 describe('Component: CardButton', () => {
   it('should render correctly', () => {
