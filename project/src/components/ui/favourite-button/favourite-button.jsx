@@ -44,4 +44,5 @@ const mapDispatchToProps = (dispatch) => ({
   },
 });
 
+export {FavouriteButton};
 export default connect(null, mapDispatchToProps)(FavouriteButton);
