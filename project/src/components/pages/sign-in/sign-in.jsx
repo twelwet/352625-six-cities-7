@@ -60,7 +60,13 @@ function SignIn({onSubmit, login}) {
                   disabled={login.status === Status.PENDING}
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit" disabled={login.status === Status.PENDING}>Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+                disabled={login.status === Status.PENDING}
+                data-testid="send-credentials"
+              >Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">

@@ -17,6 +17,7 @@ function FavouriteButton({onClick, offerId, status, viewData}) {
         ? `${viewData.name}__bookmark-button ${viewData.name}__bookmark-button--active button`
         : `${viewData.name}__bookmark-button button`}
       type="button"
+      data-testid={'favourite-button'}
     >
       <svg className={`${viewData.name}__bookmark-icon`} width={viewData.width} height={viewData.height}>
         <use xlinkHref="#icon-bookmark"/>
@@ -39,9 +40,9 @@ FavouriteButton.propTypes = {
 
 const mapDispatchToProps = (dispatch) => ({
   onClick(offerId, status) {
-    // TODO сломалсь редирект на /login при NO_AUTH
     return dispatch(pushFavouriteStatus(offerId, status));
   },
 });
 
+export {FavouriteButton};
 export default connect(null, mapDispatchToProps)(FavouriteButton);

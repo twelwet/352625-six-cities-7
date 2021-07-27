@@ -63,6 +63,7 @@ function CommentForm({saveReview, offer, userComment}) {
           className="reviews__submit form__submit button"
           type="submit"
           disabled={(rating === null || userComment.status === Status.PENDING)}
+          data-testid="send-comment"
         >
           Submit
         </button>

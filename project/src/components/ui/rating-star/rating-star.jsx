@@ -12,6 +12,7 @@ function RatingStar({weight, changeHandler, active}) {
         type="radio"
         onChange={changeHandler}
         checked={active}
+        data-testid={'rating-radio'}
       />
       <label htmlFor={`${weight}-stars`} className="reviews__rating-label form__rating-label" title="perfect">
         <svg className="form__star-image" width="37" height="33">

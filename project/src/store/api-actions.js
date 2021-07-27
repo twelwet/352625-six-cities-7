@@ -62,7 +62,6 @@ const handleError = (error, dispatch, action) => {
         dispatch(action(`${status}. ${ErrorInfoMessage.BAD_REQUEST}: ${config.url}`));
         break;
       case HttpCode.UNAUTHORIZED:
-        dispatch(requireAuth(AuthorizationStatus.NO_AUTH));
         dispatch(redirectToRoute(AppRoute.LOGIN));
         dispatch(action(`${status}. ${ErrorInfoMessage.UNAUTHORIZED}: ${config.url}`));
         break;
@@ -143,7 +142,7 @@ const pushFavouriteStatus = (offerId, status) => (dispatch, _getState, api) => {
       dispatch(updateOfferFulfilled(getOfferAdapter(response.data)));
       return response.status;
     })
-    .catch((error) => dispatch(updateOfferRejected()));
+    .catch((error) => handleError(error, dispatch, updateOfferRejected));
 };
 
 const checkAuth = () => (dispatch, _getState, api) => (
@@ -169,8 +168,10 @@ const login = ({email, password}) => (dispatch, _getState, api) => {
 const logout = () => (dispatch, _getState, api) => (
   api.delete(APIRoute.LOGOUT)
     .then(() => localStorage.removeItem('token'))
-    .then(() => dispatch(closeSession()))
-    // TODO сделать сброс в initialState
+    .then(() => {
+      dispatch(closeSession());
+      dispatch(redirectToRoute(AppRoute.LOGIN));
+    })
     .catch(() => {})
 );
 
