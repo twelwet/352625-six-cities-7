@@ -27,6 +27,7 @@ function SortMenu({activeSort, setActiveSort}) {
                     setIsSortMenuOpen(false);
                   }
                 }
+                data-testid={`test-${sortType}`}
               >
                 {sortType}
               </li>
