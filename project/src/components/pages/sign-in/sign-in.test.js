@@ -1,54 +1,58 @@
 import React from 'react';
-import {render} from '@testing-library/react';
+import {render, screen} from '@testing-library/react';
 import {Router} from 'react-router-dom';
-import configureStore from 'redux-mock-store';
-import { Provider } from 'react-redux';
-import thunk from 'redux-thunk';
 import {createMemoryHistory} from 'history';
-import SignIn from './sign-in.jsx';
+import {SignIn} from './sign-in.jsx';
 import {Status} from '../../../constants';
+import userEvent from '@testing-library/user-event';
 
-let history = null;
-let store = null;
+const getFakeHeader = () => (<div>Header</div>);
 
-const mockApi = {
-  get: jest.fn(() => Promise.resolve(42)),
-};
+jest.mock('../../ui/header/header', () => getFakeHeader);
 
 describe('Component: SignInScreen', () => {
   it('should render correctly', () => {
-    mockApi.get.mockImplementation(() => Promise.resolve(42));
+    const login = { status: Status.IDLE };
+    const history = createMemoryHistory();
 
-    history = createMemoryHistory();
-
-    const mockStore = configureStore([thunk.withExtraArgument(mockApi)]);
-
-    store = mockStore({
-      OFFERS: { status: Status.FULFILLED, data: [], error: { message: null } },
-      ROOM: {
-        offer: { status: Status.IDLE, data: {}, error: { message: null } },
-        reviews: { status: Status.IDLE, data: [], error: { message: null } },
-        neighborOffers: { status: Status.IDLE, data: [], error: { message: null } },
-      },
-      USER: {
-        userComment: { status: Status.IDLE },
-        authorizationStatus: 'NO_AUTH', authInfo: { token: '' },
-        favourites: { status: Status.IDLE, data: [], error: { message: null } },
-        login: { status: Status.IDLE },
-      },
-      CITY: {city: 'Paris'},
-    });
-
-    const {getByText, getAllByText} = render(
-      <Provider store={store}>
-        <Router history={history}>
-          <SignIn/>
-        </Router>
-      </Provider>,
+    const {getByText, getAllByText, queryByText} = render(
+      <Router history={history}>
+        <SignIn onSubmit={() => {}} login={login}/>
+      </Router>,
     );
 
-    expect(getAllByText('Sign in')).toHaveLength(3);
+    expect(getAllByText('Sign in')).toHaveLength(2);
     expect(getByText('E-mail')).toBeInTheDocument();
     expect(getByText('Password')).toBeInTheDocument();
+    expect(queryByText('Please check & retype credentials')).not.toBeInTheDocument();
+  });
+
+  it('should render special Message about failed credentials validation' , () => {
+    const login = { status: Status.REJECTED };
+    const history = createMemoryHistory();
+
+    const {getByText} = render(
+      <Router history={history}>
+        <SignIn onSubmit={() => {}} login={login}/>
+      </Router>,
+    );
+
+    expect(getByText('Please check & retype credentials')).toBeInTheDocument();
+  });
+
+  it('should invoke callback on button click' , () => {
+    const handleSubmit = jest.fn();
+    const login = { status: Status.IDLE };
+    const history = createMemoryHistory();
+
+    render(
+      <Router history={history}>
+        <SignIn onSubmit={handleSubmit} login={login}/>
+      </Router>,
+    );
+
+    expect(handleSubmit).not.toBeCalled();
+    userEvent.click(screen.getByTestId('send-credentials'));
+    expect(handleSubmit).toBeCalled();
   });
 });
