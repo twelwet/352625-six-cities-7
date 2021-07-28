@@ -1,4 +1,4 @@
-import React, {useState, useRef} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import RatingStarsList from '../rating-stars-list/rating-stars-list.jsx';
@@ -11,12 +11,12 @@ import {getOffer} from '../../../store/room/selectors.js';
 import {getUserComment} from '../../../store/user/selectors';
 
 function CommentForm({saveReview, offer, userComment}) {
-  const commentRef = useRef();
   const [rating, setRating] = useState(null);
+  const [text, setText] = useState('');
 
   const clearFormFields = () => {
     setRating(null);
-    commentRef.current.value = '';
+    setText('');
   };
 
   const handleRating = (evt) => {
@@ -24,12 +24,17 @@ function CommentForm({saveReview, offer, userComment}) {
     setRating(parseInt(value, 10));
   };
 
+  const handleText = (evt) => {
+    const {value} = evt.target;
+    setText(value);
+  };
+
   const handleSubmit = (evt) => {
     evt.preventDefault();
     saveReview({
       offerId: offer.data.id,
       rating,
-      comment: commentRef.current.value,
+      comment: text,
     }).then((status) => status === HttpCode.OK && clearFormFields());
   };
 
@@ -44,12 +49,12 @@ function CommentForm({saveReview, offer, userComment}) {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <RatingStarsList changeHandler={handleRating} activeStar={parseInt(rating, 10)}/>
       <textarea
-        ref={commentRef}
+        onChange={handleText}
         className="reviews__textarea form__textarea"
         id="review"
         name="comment"
+        value={text}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        minLength={MIN_COMMENT_LENGTH}
         maxLength={MAX_COMMENT_LENGTH}
         disabled={userComment.status === Status.PENDING}
         data-testid="comment"
@@ -62,7 +67,7 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={(rating === null || userComment.status === Status.PENDING)}
+          disabled={(rating === null || text.length < MIN_COMMENT_LENGTH || userComment.status === Status.PENDING)}
           data-testid="send-comment"
         >
           Submit

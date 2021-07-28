@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 
 function RatingStar({weight, changeHandler, active}) {
@@ -29,4 +29,4 @@ RatingStar.propTypes = {
   active: PropTypes.bool.isRequired,
 };
 
-export default RatingStar;
+export default memo(RatingStar);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import PropTypes from 'prop-types';
 import RatingStar from '../rating-star/rating-star.jsx';
 import starsList from '../../../utils/get-stars-list.js';
@@ -27,4 +27,4 @@ RatingStarsList.propTypes = {
   activeStar: PropTypes.number.isRequired,
 };
 
-export default RatingStarsList;
+export default memo(RatingStarsList);

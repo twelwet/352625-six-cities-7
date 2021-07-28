@@ -10,6 +10,7 @@ import ErrorInfo from '../error-info/error-info.jsx';
 import Spinner from '../../ui/spinner/spinner.jsx';
 import {getAuthStatus, getFavouritesOffers} from '../../../store/user/selectors.js';
 import offersPropTypes from '../../../prop-types/offers.prop.js';
+import {Link} from 'react-router-dom';
 
 function Favourites({favourites, getFavourites, authorizationStatus}) {
   const { status, data, error } = favourites;
@@ -63,9 +64,9 @@ function Favourites({favourites, getFavourites, authorizationStatus}) {
           )
       }
       <footer className="footer container">
-        <a className="footer__logo-link" href={AppRoute.MAIN}>
+        <Link className="footer__logo-link" to={AppRoute.MAIN}>
           <img className="footer__logo" src={'img/logo.svg'} alt="6 cities logo" width="64" height="33"/>
-        </a>
+        </Link>
       </footer>
     </div>
   );
