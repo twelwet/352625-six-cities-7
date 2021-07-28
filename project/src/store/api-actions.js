@@ -78,9 +78,7 @@ const handleError = (error, dispatch, action) => {
 
 const fetchOffersList = () => (dispatch, _getState, api) => {
   dispatch(loadOffersPending());
-  const token = _getState().USER.authInfo.token;
-  const config = { headers: { 'x-token': token } };
-  return api.get(APIRoute.HOTELS, config)
+  return api.get(APIRoute.HOTELS)
     .then(({data}) => dispatch(loadOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadOffersRejected));
 };
@@ -96,27 +94,21 @@ const fetchFavourites = () => (dispatch, _getState, api) => {
 
 const fetchOfferById = (id) => (dispatch, _getState, api) => {
   dispatch(loadOfferPending());
-  const token = _getState().USER.authInfo.token;
-  const config = { headers: { 'x-token': token } };
-  return api.get(`${APIRoute.HOTELS}/${id}`, config)
+  return api.get(`${APIRoute.HOTELS}/${id}`)
     .then(({data}) => dispatch(loadOfferFulfilled(getOfferAdapter(data))))
     .catch((error) => handleError(error, dispatch, loadOfferRejected));
 };
 
 const fetchNeighborOffers = (id) => (dispatch, _getState, api) => {
   dispatch(loadNeighborOffersPending());
-  const token = _getState().USER.authInfo.token;
-  const config = { headers: { 'x-token': token } };
-  return api.get(`${APIRoute.HOTELS}/${id}/nearby`, config)
+  return api.get(`${APIRoute.HOTELS}/${id}/nearby`)
     .then(({data}) => dispatch(loadNeighborOffersFulfilled(getAdaptedData(data, getOfferAdapter))))
     .catch((error) => handleError(error, dispatch, loadNeighborOffersRejected));
 };
 
 const fetchComments = (id) => (dispatch, _getState, api) => {
   dispatch(loadCommentsPending());
-  const token = _getState().USER.authInfo.token;
-  const config = { headers: { 'x-token': token } };
-  return api.get(`${APIRoute.COMMENTS}/${id}`, config)
+  return api.get(`${APIRoute.COMMENTS}/${id}`)
     .then(({data}) => dispatch(loadCommentsFulfilled(getAdaptedData(data, getCommentAdapter))))
     .catch((error) => handleError(error, dispatch, loadCommentsRejected));
 };
