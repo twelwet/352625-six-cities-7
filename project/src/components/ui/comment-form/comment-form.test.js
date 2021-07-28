@@ -62,9 +62,9 @@ describe('Component: CommentForm', () => {
     const reviewLabel = screen.getByText('Your review');
     expect(reviewLabel).toBeInTheDocument();
 
-    expect(screen.queryByDisplayValue(/Текст комментария/i)).not.toBeInTheDocument();
-    userEvent.type(screen.getByTestId('comment'), 'Текст комментария');
-    expect(screen.queryByDisplayValue(/Текст комментария/i)).toBeInTheDocument();
+    expect(screen.queryByDisplayValue(/Текст комментария должен содержать не мене 50 символов/i)).not.toBeInTheDocument();
+    userEvent.type(screen.getByTestId('comment'), 'Текст комментария должен содержать не мене 50 символов');
+    expect(screen.queryByDisplayValue(/Текст комментария должен содержать не мене 50 символов/i)).toBeInTheDocument();
 
     const ratingRadio = [...screen.getAllByTestId('rating-radio')][1];
     userEvent.click(ratingRadio);
