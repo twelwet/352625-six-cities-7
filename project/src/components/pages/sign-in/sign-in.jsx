@@ -28,7 +28,7 @@ function SignIn({onSubmit, login}) {
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
-            {login.status === Status.REJECTED ? <Notification message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/> : ''}
+            {login.status === Status.REJECTED ? <Notification key={Math.random()} message={'Please check & retype credentials'} position={{top: '-40px', marginRight: '90px'}}/> : ''}
             <h1 className="login__title">Sign in</h1>
             <form
               onSubmit={handleSubmit}

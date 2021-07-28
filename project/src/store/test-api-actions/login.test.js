@@ -50,7 +50,7 @@ describe('Async operation login({email, password})', () => {
   });
 
   it(`should make a correct API call to POST '/login' (statusCode: ${HttpCode.BAD_REQUEST})`, () => {
-    const wrongCredentials = {email: 'wrong_email', password: ''};
+    const wrongCredentials = {email: 'wrong_email', password: '123'};
 
     const apiMock = new MockAdapter(api);
     const dispatch = jest.fn();
@@ -71,5 +71,19 @@ describe('Async operation login({email, password})', () => {
           type: ActionType.LOGIN_REJECTED,
         });
       });
+  });
+
+  it(`should not make a API call if password consist of spaces`, () => {
+    const wrongCredentials = {email: 'name@example.com', password: '    '};
+
+    const dispatch = jest.fn();
+    const loginPusher = login(wrongCredentials);
+
+    loginPusher(dispatch, () => {}, api);
+    expect(dispatch).toHaveBeenCalledTimes(1);
+
+    expect(dispatch).toHaveBeenNthCalledWith(1, {
+      type: ActionType.LOGIN_REJECTED,
+    });
   });
 });

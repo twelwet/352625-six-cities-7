@@ -147,14 +147,18 @@ const checkAuth = () => (dispatch, _getState, api) => (
 );
 
 const login = ({email, password}) => (dispatch, _getState, api) => {
-  dispatch(loginPending());
-  return api.post(APIRoute.LOGIN, {email, password})
-    .then((response) => {
-      localStorage.setItem('token', response.data.token);
-      dispatch(loginFulfilled(getUserAdapter(response.data)));
-      dispatch(requireAuth(AuthorizationStatus.AUTH));
-    })
-    .catch((error) => dispatch(loginRejected()));
+  if (password.trim() === '') {
+    dispatch(loginRejected());
+  } else {
+    dispatch(loginPending());
+    return api.post(APIRoute.LOGIN, {email, password})
+      .then((response) => {
+        localStorage.setItem('token', response.data.token);
+        dispatch(loginFulfilled(getUserAdapter(response.data)));
+        dispatch(requireAuth(AuthorizationStatus.AUTH));
+      })
+      .catch((error) => dispatch(loginRejected()));
+  }
 };
 
 const logout = () => (dispatch, _getState, api) => (
