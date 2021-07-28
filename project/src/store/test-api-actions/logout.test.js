@@ -16,6 +16,8 @@ describe('Async operation logout()', () => {
     const dispatch = jest.fn();
     const logoutPusher = logout();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(`${APIRoute.LOGOUT}`)
       .reply(HttpCode.OK);
@@ -31,6 +33,9 @@ describe('Async operation logout()', () => {
           type: ActionType.REDIRECT_TO_ROUTE,
           payload: AppRoute.LOGIN,
         });
+
+        expect(Storage.prototype.removeItem).toBeCalledTimes(1);
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       });
   });
 });
