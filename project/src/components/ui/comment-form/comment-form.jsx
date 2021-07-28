@@ -62,6 +62,8 @@ function CommentForm({saveReview, offer, userComment}) {
         <button
           className="reviews__submit form__submit button"
           type="submit"
+          // TODO Блокировка кнопки при длине комментария меньше 50 символов
+          // TODO Сохранение комментариев сломалось :(
           disabled={(rating === null || userComment.status === Status.PENDING)}
           data-testid="send-comment"
         >
